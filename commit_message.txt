@@ -1,0 +1,1 @@
+改用git pull形式：調整gitlab deploy的架構，看能不能再快點。
