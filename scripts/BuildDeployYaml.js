@@ -99,7 +99,7 @@ module.exports = async function () {
 
   // -------------------------------
 
-  await ShellExec(`cp -r $BUILD_DIR/deploy/* /tmp/git-deploy/${REPO_NAME}`)
+  await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
   
   let replaceVariables = {
     PROJECT_NAME: process.env.CI_PROJECT_NAME,
