@@ -10,7 +10,7 @@ module.exports = function (cmd, stderrHandler, errorHandler) {
 
   if (typeof(errorHandler) !== 'function') {
     errorHandler = function (error, reject) {
-      console.log(`[ERROR]\n${error.message}`)
+      //console.log(`[ERROR]\n${error.message}`)
       reject(error)
       return
     }

@@ -15,7 +15,7 @@ const BuildDeployYaml = require('./BuildDeployYaml.js')
 async function main () {
   const config = await LoadYAMLConfig()
 
-  const enableDeploy = config.enable
+  const enableDeploy = config.deploy.enable
 
   if (enableDeploy === true) {
     
