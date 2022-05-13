@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "build-push": "./build-push.sh"
+    "build-push": "./build-push.sh",
+    "build": "docker-compose build",
+    "ssh": "docker-compose run app sh"
   },
   "dependencies": {
     "axios": "0.27.2",

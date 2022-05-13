@@ -7,7 +7,7 @@ RUN mkdir /app
 RUN git clone https://github.com/pulipulichen/docker-paas-gitlab-deploy.git
 
 WORKDIR /app/docker-paas-gitlab-deploy
-#COPY package.json /app/
+COPY package.json entrypoint.sh /app/docker-paas-gitlab-deploy/
 
 #WORKDIR /app
 RUN npm i
@@ -17,4 +17,7 @@ RUN npm i
 #COPY scripts /app/scripts/
 
 WORKDIR /app/docker-paas-gitlab-deploy/scripts/
-ENTRYPOINT [ "sh", "/app/docker-paas-gitlab-deploy/entrypoint.sh" ]
+#ENTRYPOINT [ "sh", "/app/docker-paas-gitlab-deploy/entrypoint.sh" ]w
+
+ENTRYPOINT []
+CMD []
