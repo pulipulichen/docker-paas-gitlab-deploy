@@ -1,6 +1,7 @@
 const fs = require('fs')
 const ShellExec = require('./ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
+const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 
 function touchFileIfNotExists(filename) {
   if (fs.existsSync(filename) === false) {
@@ -30,6 +31,8 @@ async function updateTagInYaml(tagName, tag) {
 }
 
 module.exports = async function () {
+  let config = await LoadYAMLConfig()
+
   const BUILD_DIR = process.cwd()
   console.log("BUILD_DIR: " + BUILD_DIR)
 
@@ -46,11 +49,11 @@ module.exports = async function () {
 
   // -----------------------------
 
-  if (!process.env.DEPLOY_GIT_URL) {
-    throw new Error('DEPLOY_GIT_URL is unknown.')
-  }
+  // if (!process.env.DEPLOY_GIT_URL) {
+  //   throw new Error('DEPLOY_GIT_URL is unknown.')
+  // }
   
-  const DEPLOY_GIT_URL = process.env.DEPLOY_GIT_URL
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
   await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
 
   const REPO_NAME = DEPLOY_GIT_URL.slice(DEPLOY_GIT_URL.lastIndexOf('/') + 1)

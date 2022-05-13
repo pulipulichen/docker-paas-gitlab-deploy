@@ -1,32 +1,38 @@
 const axios = require('axios')
-
-const { ARGOCD_AUTH_TOKEN } = {
-  ARGOCD_AUTH_TOKEN: process.env.ARGOCD_AUTH_TOKEN
-}
-
-let config
-try {
-    config = JSON.parse(Buffer.from(ARGOCD_AUTH_TOKEN, 'base64').toString())
-
-    if (!config.username || !config.password || !config.server) {
-        throw new Error('ARGOCD_AUTH_TOKEN is not well configured.')
-    }
-}
-catch (e) {
-    console.error(e)
-    throw new Error('ARGOCD_AUTH_TOKEN is not well configured.')
-}
-
+const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 
 const fs = require('fs')
 
 const tmpTokenPath = '/tmp/argocd.token.txt'
 
+let config
 module.exports = {
+    getConfig: async function () {
+        if (config) {
+            return config
+        }
+
+        let values = await LoadYAMLConfig()
+        const ARGOCD_AUTH_TOKEN = values.environment.build.argocd_auth_token
+
+        try {
+            config = JSON.parse(Buffer.from(ARGOCD_AUTH_TOKEN, 'base64').toString())
+
+            if (!config.username || !config.password || !config.server) {
+                throw new Error('ARGOCD_AUTH_TOKEN is not well configured.')
+            }
+        }
+        catch (e) {
+            console.error(e)
+            throw new Error('ARGOCD_AUTH_TOKEN is not well configured.')
+        }
+        return config
+    },
     getCookieToken: async function () {
         if (fs.existsSync(tmpTokenPath)) {
             return fs.readFileSync(tmpTokenPath, 'utf8')
         }
+        await getConfig()
 
         const result = await axios.post(config.server + '/api/v1/session', {
             "username": config.username,
@@ -86,6 +92,7 @@ module.exports = {
         return false
     },
     isAppExists: async function (appName, token) {
+        await getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName
         let result
         try {
@@ -101,6 +108,7 @@ module.exports = {
         return true
     },
     createApp: async function (appName, token) {
+        await getConfig()
         const url = config.server + '/api/v1/applications'
 
         //appName = 'test20220428-2220-pudding'
@@ -121,6 +129,7 @@ module.exports = {
     },
 
     refreshApp: async function (appName, token) {
+        await getConfig()
         //const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=normal'
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=hard'
         let result
@@ -137,6 +146,7 @@ module.exports = {
         return true
     },
     syncApp: async function (appName, token) {
+        await getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '/sync'
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/sync
         const data = {
@@ -144,19 +154,19 @@ module.exports = {
             "prune": true,
             "dryRun": false,
             "strategy": {
-              "hook": {
-                //"force": false
-                "force": true
-              }
+                "hook": {
+                    //"force": false
+                    "force": true
+                }
             },
             "resources": null,
             "syncOptions": {
-              "items": [
-                "PruneLast=true"
-              ]
+                "items": [
+                    "PruneLast=true"
+                ]
             }
-          }
-        
+        }
+
         let result
         try {
             result = await axios.post(url, data, {
@@ -173,11 +183,12 @@ module.exports = {
         return true
     },
     terminatedSync: async function (appName, token) {
+        await getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '/operation'
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/operation
         const data = {
-          }
-        
+        }
+
         let result
         try {
             result = await axios.delete(url, {
@@ -197,6 +208,7 @@ module.exports = {
         return new Promise(resolve => setTimeout(resolve, ms));
     },
     waitOperation: async function (appName, token, retry = 0) {
+        await getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName
         // https://argocd.nccu.syntixi.dev/api/v1/settings
         let result
@@ -219,7 +231,7 @@ module.exports = {
         return status
     },
     healthyCheck: async function (status) {
-        
+
         if (status.operationState.phase !== "Succeeded") {
             //console.log(result)
             let message
@@ -235,13 +247,13 @@ module.exports = {
             else if (status.operationState.message) {
                 message = status.operationState.message
             }
-                
+
             console.log('=============================')
             console.log('ERROR MESSAGES')
             console.log('=============================')
             console.log(message)
             console.log('=============================')
-            
+
             //throw new Error('APP HEALTH: ' + status.health.status)
             throw new Error('Operation State: ' + status.operationState.phase)
         }
@@ -249,14 +261,15 @@ module.exports = {
         return true
     },
     waitForImageSynced: async function (appName, token, tag, retry = 0) {
+        await getConfig()
         if (!tag) {
             let tagPath = `/tmp/git-deploy/argocd/tag.txt`
             tag = fs.readFileSync(tagPath, 'utf8')
             tag = tag.trim()
         }
-        
+
         let status = await this.waitOperation(appName, token)
-        
+
         let images = status.summary.images
         // console.log(retry, tag)
         // console.log(images)
@@ -282,7 +295,7 @@ module.exports = {
             await this.syncApp(appName, token)
 
             console.log(`Wait for image sync: ${tag} (${retry})`)
-            
+
             await this.sleep(10000)
             await this.waitForImageSynced(appName, token, tag, retry)
         }
@@ -290,6 +303,7 @@ module.exports = {
 
 
     restartResource: async function (appName, token, resourceName) {
+        await getConfig()
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=webapp-deployment-pudding-test20220428-2220&version=v1&kind=Deployment&group=apps
 
         const url = config.server + `/api/v1/applications/deploybot-${appName}/resource/actions?namespace=default&resourceName=${resourceName}-deployment-${appName}&version=v1&kind=Deployment&group=apps`

@@ -21,5 +21,5 @@ RUN npm i
 WORKDIR /app/docker-paas-gitlab-deploy/scripts/
 #ENTRYPOINT [ "sh", "/app/docker-paas-gitlab-deploy/entrypoint.sh" ]w
 
-ENTRYPOINT [ "sh", "/app/docker-paas-gitlab-deploy/entrypoint.sh" ]
+ENTRYPOINT []
 CMD []
