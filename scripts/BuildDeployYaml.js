@@ -111,7 +111,13 @@ module.exports = async function () {
   modules.forEach(module => {
     let tag = readTagFromArtifact(BUILD_DIR, `TAG_${module}.txt`)
     updateTagInYaml(module, tag)
+    console.log('TAG UPDATED', module, tag)
   })
+
+  let valuesContent = fs.readFileSync('./values.yaml', 'utf8')
+  if (valuesContent.indexOf('{{ DOCKER_IMAGE_TAG_') > -1) {
+    throw new Error('updateTagInYaml failed.')
+  }
 
   // -------------------------------
 
