@@ -1,5 +1,6 @@
 const fs = require('fs')
-const fg = require('fast-glob');
+const path = require('path')
+const fg = require('fast-glob')
 
 module.exports = async function () {
   if (fs.existsSync('./deploy/values.yaml') || 
@@ -8,8 +9,11 @@ module.exports = async function () {
     return true
   }
 
+  const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
+  
+
   let valuesContent = []
-  let files = await fg(['./deploy/values/**/*.yaml'], { dot: true });
+  let files = await fg([path.join(BUILD_DIR, '/deploy/values/**/*.yaml')], { dot: true });
   files.forEach(file => {
     console.log('Read: ' + file)
     let content = fs.readFileSync( file, 'utf8')
@@ -18,5 +22,9 @@ module.exports = async function () {
 
   valuesContent = valuesContent.join('\n')
 
-  fs.writeFileSync('./deploy/values.yaml', valuesContent, 'utf8')
+  fs.writeFileSync(path.join(BUILD_DIR, '/deploy/values.yaml'), valuesContent, 'utf8')
+
+  console.log('===[valuesContent]===============')
+  console.log(valuesContent)
+  console.log('=============================')
 }

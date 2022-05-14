@@ -94,7 +94,6 @@ module.exports = async function () {
   modules.forEach(module => {
     let tag = readTagFromArtifact(BUILD_DIR, `TAG_${module}.txt`)
     updateTagInYaml(module, tag)
-
   })
 
   // -------------------------------
