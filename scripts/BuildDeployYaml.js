@@ -30,6 +30,23 @@ async function updateTagInYaml(tagName, tag) {
   await ShellExec(`sed -i " s/{{ DOCKER_IMAGE_TAG_${tagName.toUpperCase()} }}/${tag}/g" ./Chart.yaml`)
 }
 
+function getTagPrefix(config) {
+  let prefix = config.deploy.docker_image_tag_prefix
+
+  if (!prefix) {
+    return
+  }
+
+  prefix = prefix.toLowerCase()
+  prefix = prefix.replace(/[^a-zA-Z0-9\-]/g, "")
+
+  if (prefix === '') {
+    return
+  }
+
+  return prefix
+}
+
 module.exports = async function () {
   let config = await LoadYAMLConfig()
 
@@ -118,7 +135,13 @@ module.exports = async function () {
 
   // -------------------------------
 
+  let tag = process.env.CI_COMMIT_SHORT_SHA
+  let prefix = getTagPrefix(config)
+  if (prefix) {
+    tag = prefix + '-' + tag
+  }
+
   await ShellExec(`git add .`)
-  await ShellExec(`git commit -m "CI TAG: ${process.env.CI_COMMIT_SHORT_SHA}"`)
+  await ShellExec(`git commit -m "CI TAG: ${tag}"`)
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
