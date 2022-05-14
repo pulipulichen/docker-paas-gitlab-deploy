@@ -32,7 +32,7 @@ module.exports = {
         if (fs.existsSync(tmpTokenPath)) {
             return fs.readFileSync(tmpTokenPath, 'utf8')
         }
-        await getConfig()
+        await this.getConfig()
 
         const result = await axios.post(config.server + '/api/v1/session', {
             "username": config.username,
@@ -92,7 +92,7 @@ module.exports = {
         return false
     },
     isAppExists: async function (appName, token) {
-        await getConfig()
+        await this.getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName
         let result
         try {
@@ -108,7 +108,7 @@ module.exports = {
         return true
     },
     createApp: async function (appName, token) {
-        await getConfig()
+        await this.getConfig()
         const url = config.server + '/api/v1/applications'
 
         //appName = 'test20220428-2220-pudding'
@@ -129,7 +129,7 @@ module.exports = {
     },
 
     refreshApp: async function (appName, token) {
-        await getConfig()
+        await this.getConfig()
         //const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=normal'
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=hard'
         let result
@@ -146,7 +146,7 @@ module.exports = {
         return true
     },
     syncApp: async function (appName, token) {
-        await getConfig()
+        await this.getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '/sync'
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/sync
         const data = {
@@ -183,7 +183,7 @@ module.exports = {
         return true
     },
     terminatedSync: async function (appName, token) {
-        await getConfig()
+        await this.getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '/operation'
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/operation
         const data = {
@@ -208,7 +208,7 @@ module.exports = {
         return new Promise(resolve => setTimeout(resolve, ms));
     },
     waitOperation: async function (appName, token, retry = 0) {
-        await getConfig()
+        await this.getConfig()
         const url = config.server + '/api/v1/applications/deploybot-' + appName
         // https://argocd.nccu.syntixi.dev/api/v1/settings
         let result
@@ -261,7 +261,7 @@ module.exports = {
         return true
     },
     waitForImageSynced: async function (appName, token, tag, retry = 0) {
-        await getConfig()
+        await this.getConfig()
         if (!tag) {
             let tagPath = `/tmp/git-deploy/argocd/tag.txt`
             tag = fs.readFileSync(tagPath, 'utf8')
@@ -303,7 +303,7 @@ module.exports = {
 
 
     restartResource: async function (appName, token, resourceName) {
-        await getConfig()
+        await this.getConfig()
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=webapp-deployment-pudding-test20220428-2220&version=v1&kind=Deployment&group=apps
 
         const url = config.server + `/api/v1/applications/deploybot-${appName}/resource/actions?namespace=default&resourceName=${resourceName}-deployment-${appName}&version=v1&kind=Deployment&group=apps`
