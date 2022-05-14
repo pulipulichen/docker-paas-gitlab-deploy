@@ -263,7 +263,7 @@ module.exports = {
     waitForImageSynced: async function (appName, token, tag, retry = 0) {
         await this.getConfig()
         if (!tag) {
-            let tagPath = `/tmp/git-deploy/argocd/tag.txt`
+            let tagPath = `/tmp/git-deploy/argocd/TAG_APP.txt`
             tag = fs.readFileSync(tagPath, 'utf8')
             tag = tag.trim()
         }
