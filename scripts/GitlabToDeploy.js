@@ -11,6 +11,7 @@ const createApp = require('./ArgocdCreateApplication.js')
 const refreshApp = require('./ArgocdRefreshApplication.js')
 //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYaml = require('./BuildDeployYaml.js')
+const RunCypress = require('./RunCypress.js')
 
 async function main () {
   const config = await LoadYAMLConfig()
@@ -28,20 +29,9 @@ async function main () {
     // node /app/scripts/argocd-create-application.js
     // node /app/scripts/argocd-refresh-application.js
 
-    console.log('=========================================')
-    console.log('Deploy to ArgoCD')
-    console.log('=========================================')
-
-    await createApp()
-    await refreshApp()
+    await RunCypress()
   }
 
-  console.log('=========================================')
-  console.log('Start cypress test')
-  console.log('=========================================')
-
-  await ShellExec('npm link js-yaml')
-  await ShellExec('cypress run --headed --project test')
 }
 
 main()
