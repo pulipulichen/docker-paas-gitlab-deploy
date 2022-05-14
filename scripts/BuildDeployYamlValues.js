@@ -23,7 +23,7 @@ module.exports = async function () {
 
   valuesContent = valuesContent.join('\n')
 
-  fs.writeFileSync(path.join(BUILD_DIR, '/deploy/values.yaml'), valuesContent, 'utf8')
+  fs.writeFileSync('./values.yaml', valuesContent, 'utf8')
 
   console.log('===[valuesContent]===============')
   console.log(valuesContent)
