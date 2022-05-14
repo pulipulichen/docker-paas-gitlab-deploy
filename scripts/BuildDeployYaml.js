@@ -11,7 +11,7 @@ function touchFileIfNotExists(filename) {
 
 function readTagFromArtifact(BUILD_DIR, filename) {
   let fromTagFile = `${BUILD_DIR}/ci.tmp/${filename}`
-  let tag
+  let tag = ''
   if (fs.existsSync(fromTagFile)) {
     tag = fs.readFileSync(fromTagFile, 'utf8')
     fs.writeFileSync(filename, tag, 'utf8')
@@ -20,6 +20,9 @@ function readTagFromArtifact(BUILD_DIR, filename) {
   else {
     tag = fs.readFileSync(filename, 'utf8')
     console.log(`[${filename}] ${tag}`)
+    if (tag === '') {
+      tag = ' '
+    }
   }
 
   return tag
@@ -116,6 +119,9 @@ module.exports = async function () {
 
   let valuesContent = fs.readFileSync('./values.yaml', 'utf8')
   if (valuesContent.indexOf('{{ DOCKER_IMAGE_TAG_') > -1) {
+    console.log('================================================')
+    console.log(valuesContent)
+    console.log('================================================')
     throw new Error('updateTagInYaml failed.')
   }
 
