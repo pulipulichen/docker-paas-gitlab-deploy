@@ -231,7 +231,7 @@ module.exports = {
         return status
     },
     healthyCheck: async function (status) {
-
+        let config = await LoadYAMLConfig()
         if (status.operationState.phase !== "Succeeded") {
             //console.log(result)
             let message
@@ -252,6 +252,15 @@ module.exports = {
             console.log('ERROR MESSAGES')
             console.log('=============================')
             console.log(message)
+            console.log('=============================')
+            console.log('Open ArgoCD')
+
+            let argoCDURL = config.environment.paas.paas_argocd
+            // {{ PROJECT_NAME }}-{{ PROJECT_NAMESPACE }}
+            argoCDURL = argoCDURL.replace(`{{ PROJECT_NAME }}`, process.env.CI_PROJECT_NAME)
+            argoCDURL = argoCDURL.replace(`{{ PROJECT_NAMESPACE }}`, process.env.CI_PROJECT_NAMESPACE)
+
+            console.log(argoCDURL)
             console.log('=============================')
 
             //throw new Error('APP HEALTH: ' + status.health.status)
