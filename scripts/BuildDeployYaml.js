@@ -2,6 +2,7 @@ const fs = require('fs')
 const ShellExec = require('./ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
+const sleep = require('./lib/sleep.js')
 
 function touchFileIfNotExists(filename) {
   if (fs.existsSync(filename) === false) {
@@ -111,11 +112,12 @@ module.exports = async function () {
   await ShellExec(`mv ../TAG_*.txt ./`)
   await BuildDeployYamlValues()
 
-  modules.forEach(module => {
+  modules.forEach(async function (module) {
     let tag = readTagFromArtifact(BUILD_DIR, `TAG_${module}.txt`)
-    updateTagInYaml(module, tag)
+    await updateTagInYaml(module, tag)
     console.log('TAG UPDATED', module, '[', tag, ']')
   })
+  await sleep(100)
 
   let valuesContent = fs.readFileSync('./values.yaml', 'utf8')
   if (valuesContent.indexOf('{{ DOCKER_IMAGE_TAG_') > -1) {
