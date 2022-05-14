@@ -21,9 +21,9 @@ function readTagFromArtifact(BUILD_DIR, filename) {
   else {
     tag = fs.readFileSync(filename, 'utf8')
     console.log(`[${filename}] "${tag}"`)
-    if (tag === '') {
-      tag = ' '
-    }
+    // if (tag === '') {
+    //   tag = ' '
+    // }
   }
 
   return tag
