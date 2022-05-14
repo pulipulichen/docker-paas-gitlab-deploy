@@ -109,6 +109,7 @@ module.exports = async function () {
 
   await ShellExec(`mv TAG_*.txt ../`)
   await ShellExec(`rm -rf /tmp/git-deploy/${REPO_NAME}/*`)
+  await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
   await ShellExec(`mv ../TAG_*.txt ./`)
   await BuildDeployYamlValues()
 
@@ -129,8 +130,6 @@ module.exports = async function () {
 
   // -------------------------------
 
-  await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
-  
   let replaceVariables = {
     PROJECT_NAME: process.env.CI_PROJECT_NAME,
     PROJECT_NAMESPACE: process.env.CI_PROJECT_NAMESPACE,
