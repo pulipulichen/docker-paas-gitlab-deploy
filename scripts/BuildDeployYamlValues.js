@@ -3,14 +3,15 @@ const path = require('path')
 const fg = require('fast-glob')
 
 module.exports = async function () {
-  if (fs.existsSync('./deploy/values.yaml') || 
-      fs.existsSync('./deploy/values') === false) {
+  const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
+  
+  if (fs.existsSync(path.join(BUILD_DIR, '/deploy/values.yaml')) || 
+      fs.existsSync(path.join(BUILD_DIR, '/deploy/values')) === false) {
     // 已經有檔案了，不重做
+    console.log('skip BuildDeployYamlValues')
     return true
   }
 
-  const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
-  
 
   let valuesContent = []
   let files = await fg([path.join(BUILD_DIR, '/deploy/values/**/*.yaml')], { dot: true });
