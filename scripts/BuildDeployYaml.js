@@ -15,11 +15,11 @@ function readTagFromArtifact(BUILD_DIR, filename) {
   if (fs.existsSync(fromTagFile)) {
     tag = fs.readFileSync(fromTagFile, 'utf8')
     fs.writeFileSync(filename, tag, 'utf8')
-    console.log(`[${filename} UPDATED] ${tag}`)
+    console.log(`[${filename} UPDATED] "${tag}"`)
   }
   else {
     tag = fs.readFileSync(filename, 'utf8')
-    console.log(`[${filename}] ${tag}`)
+    console.log(`[${filename}] "${tag}"`)
     if (tag === '') {
       tag = ' '
     }
@@ -114,7 +114,7 @@ module.exports = async function () {
   modules.forEach(module => {
     let tag = readTagFromArtifact(BUILD_DIR, `TAG_${module}.txt`)
     updateTagInYaml(module, tag)
-    console.log('TAG UPDATED', module, tag)
+    console.log('TAG UPDATED', module, '[', tag, ']')
   })
 
   let valuesContent = fs.readFileSync('./values.yaml', 'utf8')
