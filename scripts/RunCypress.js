@@ -13,7 +13,7 @@ async function main() {
 
   await ShellExec(`ls`)
   await ShellExec('npm link js-yaml')
-  await ShellExec('cypress run --headed --project test')
+  await ShellExec('cypress run --headless --project test')
 }
 
 module.exports = main
