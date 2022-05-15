@@ -12,7 +12,7 @@ async function main() {
   process.chdir(BUILD_DIR)
 
   await ShellExec(`ls`)
-  await ShellExec('npm link js-yaml')
+  await ShellExec('npm link js-yaml fast-glob')
   await ShellExec('cypress run --headless --project test')
 }
 
