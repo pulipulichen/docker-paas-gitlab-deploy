@@ -313,7 +313,7 @@ module.exports = {
     },
 
 
-    restartResource: async function (appName, token, resourceName) {
+    restartResource: async function (appName, token, resourceName = 'app') {
         await this.getConfig()
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=webapp-deployment-pudding-test20220428-2220&version=v1&kind=Deployment&group=apps
 
@@ -360,7 +360,7 @@ module.exports = {
 
             console.log(resultPost)
             */
-            await fetch("https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=app-deployment-test20220428-2220-pudding&version=v1&kind=Deployment&group=apps", {
+            await fetch(url, {
                 "headers": {
                   "accept": "*/*",
                   "accept-language": "en,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,zh-CN;q=0.6",
@@ -373,8 +373,7 @@ module.exports = {
                   "sec-fetch-dest": "empty",
                   "sec-fetch-mode": "cors",
                   "sec-fetch-site": "same-origin",
-                  "cookie": "argocd.token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJhcmdvY2QiLCJzdWIiOiJhZG1pbjpsb2dpbiIsImV4cCI6MTY1Mjc2OTI4MiwibmJmIjoxNjUyNjgyODgyLCJpYXQiOjE2NTI2ODI4ODIsImp0aSI6IjQyYTA1NWYzLTBhODMtNDRiMC05OGEyLWY1ZWU3NWYxNjExNyJ9.caiGggY91IGwV5_kTG3KZS_7F-iiCKrfJi3VvMiaYuc",
-                  "Referer": "https://argocd.nccu.syntixi.dev/applications/deploybot-test20220428-2220-pudding?view=tree&conditions=false&resource=&operation=false",
+                  "cookie": `argocd.token=${token}`,
                   "Referrer-Policy": "strict-origin-when-cross-origin"
                 },
                 "body": "\"restart\"",
