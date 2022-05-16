@@ -86,10 +86,10 @@ module.exports = async function () {
   
   let {username, host} = new URL(DEPLOY_GIT_URL)
 
-  ShellExec(`git config --global user.email "${username}@${host}"`)
-  ShellExec(`git config --global user.name "${username}"`)
+  await ShellExec(`git config --global user.email "${username}@${host}"`)
+  await ShellExec(`git config --global user.name "${username}"`)
 
-  ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
+  await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
 
   // -------------------------------
 
