@@ -24,7 +24,7 @@ async function main () {
     return false
   }
   
-  if (config.deploy.only_update_app !== true) {
+  //if (config.deploy.only_update_app !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
@@ -36,7 +36,7 @@ async function main () {
     //await shellExec('/app/scripts/build_deploy_yaml.sh')
     // node /app/scripts/argocd-create-application.js
     // node /app/scripts/argocd-refresh-application.js
-  }
+  //}
   // else {
   //   await restartResource()
   // }
