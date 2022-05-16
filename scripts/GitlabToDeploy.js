@@ -23,7 +23,7 @@ async function main () {
     console.log('Deploy is disabled.')
   }
   
-  if (config.deploy.git_mode !== true) {
+  if (true || config.deploy.git_mode !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
