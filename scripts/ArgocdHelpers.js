@@ -359,7 +359,7 @@ module.exports = {
 
             console.log(resultPost)
             */
-            fetch("https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=app-deployment-test20220428-2220-pudding&version=v1&kind=Deployment&group=apps", {
+            await fetch("https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=app-deployment-test20220428-2220-pudding&version=v1&kind=Deployment&group=apps", {
                 "headers": {
                   "accept": "*/*",
                   "accept-language": "en,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,zh-CN;q=0.6",
