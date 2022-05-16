@@ -350,7 +350,10 @@ module.exports = {
             let resultPost = await axios({
                 method: 'post',
                 url,
-                data: data.getHeaders(),
+                //data: data.getHeaders(),
+                data: [
+                    'restart'  
+                ],
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
