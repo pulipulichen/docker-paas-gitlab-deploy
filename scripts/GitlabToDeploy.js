@@ -9,6 +9,7 @@ const ShellExec = require('./ShellExec.js')
 
 const createApp = require('./ArgocdCreateApplication.js')
 const refreshApp = require('./ArgocdRefreshApplication.js')
+const restartResource = require('./ArgocdRestartApplication.js')
 //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYaml = require('./BuildDeployYaml.js')
 const RunCypress = require('./RunCypress.js')
@@ -18,8 +19,11 @@ async function main () {
 
   const enableDeploy = config.deploy.enable
 
-  if (enableDeploy === true) {
-    
+  if (enableDeploy === false) {
+    console.log('Deploy is disabled.')
+  }
+  
+  if (config.deploy.git_mode !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
@@ -31,9 +35,13 @@ async function main () {
     //await shellExec('/app/scripts/build_deploy_yaml.sh')
     // node /app/scripts/argocd-create-application.js
     // node /app/scripts/argocd-refresh-application.js
-
-    await RunCypress()
   }
+  else {
+    await restartResource()
+  }
+    
+
+  await RunCypress()
 
 }
 
