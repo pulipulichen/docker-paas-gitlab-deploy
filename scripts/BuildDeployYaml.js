@@ -51,6 +51,14 @@ function getTagPrefix(config) {
   return prefix
 }
 
+function getRepoName (config) {
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
+  let REPO_NAME = DEPLOY_GIT_URL.slice(DEPLOY_GIT_URL.lastIndexOf('/') + 1)
+  REPO_NAME = REPO_NAME.slice(0, REPO_NAME.lastIndexOf('.'))
+
+  return REPO_NAME
+}
+
 module.exports = async function () {
   let config = await LoadYAMLConfig()
 
@@ -77,8 +85,7 @@ module.exports = async function () {
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
   await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
 
-  let REPO_NAME = DEPLOY_GIT_URL.slice(DEPLOY_GIT_URL.lastIndexOf('/') + 1)
-  REPO_NAME = REPO_NAME.slice(0, REPO_NAME.lastIndexOf('.'))
+  const REPO_NAME = getRepoName(config)
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // -----------------------------
