@@ -323,14 +323,23 @@ module.exports = {
         const data = { "restart": "" }
 
         try {
-            let result = await axios.post(url, data, {
+            let resultGet = await axios.get(url, {
                 headers: {
                     Cookie: 'argocd.token=' + token,
-                    Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
+                    //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
                 }
             })
 
-            console.log(result)
+            console.log(resultGet)
+
+            let resultPost = await axios.post(url, data, {
+                headers: {
+                    Cookie: 'argocd.token=' + token,
+                    //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
+                }
+            })
+
+            console.log(resultPost)
 
             return true
         }
