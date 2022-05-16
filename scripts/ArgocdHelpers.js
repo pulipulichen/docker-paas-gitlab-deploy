@@ -1,6 +1,7 @@
 const axios = require('axios')
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const FormData = require('form-data')
+const fetch = require('node-fetch')
 
 const fs = require('fs')
 
