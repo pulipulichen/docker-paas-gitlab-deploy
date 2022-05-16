@@ -1,18 +1,18 @@
 const yaml = require('js-yaml')
 
 //const config = yaml.load(fs.readFileSync(path.join(__dirname, '../deploy/values.yaml'), 'utf8'))
-const LoadYAMLConfig = require('./LoadYAMLConfig.js')
+const LoadYAMLConfig = require('./scripts/LoadYAMLConfig.js')
 
 // -----------------------------------
 
-const ShellExec = require('./ShellExec.js')
+const ShellExec = require('./scripts/ShellExec.js')
 
-const createApp = require('./ArgocdCreateApplication.js')
-const refreshApp = require('./ArgocdRefreshApplication.js')
-const restartResource = require('./ArgocdRestartApplication.js')
+const createApp = require('./scripts/ArgocdCreateApplication.js')
+const refreshApp = require('./scripts/ArgocdRefreshApplication.js')
+const restartResource = require('./scripts/ArgocdRestartApplication.js')
 //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
-const BuildDeployYaml = require('./BuildDeployYaml.js')
-const RunCypress = require('./RunCypress.js')
+const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
+const RunCypress = require('./scripts/RunCypress.js')
 
 async function main () {
   const config = await LoadYAMLConfig()
