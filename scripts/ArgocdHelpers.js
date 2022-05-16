@@ -321,14 +321,20 @@ module.exports = {
         //appName = 'test20220428-2220-pudding'
         const data = { "restart": "" }
 
-        let result = await axios.post(url, data, {
-            headers: {
-                Cookie: 'argocd.token=' + token
-            }
-        })
+        try {
+            let result = await axios.post(url, data, {
+                headers: {
+                    Cookie: 'argocd.token=' + token
+                }
+            })
 
-        console.log(result)
+            console.log(result)
 
-        return true
+            return true
+        }
+        catch (e) {
+            console.error(e)
+            throw new Error(e)
+        }
     },
 }
