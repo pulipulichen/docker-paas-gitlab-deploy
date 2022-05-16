@@ -16,11 +16,11 @@ function readTagFromArtifact(BUILD_DIR, filename) {
   if (fs.existsSync(fromTagFile)) {
     tag = fs.readFileSync(fromTagFile, 'utf8')
     fs.writeFileSync(filename, tag, 'utf8')
-    console.log(`[${filename} UPDATED] "${tag}"`)
+    // console.log(`[${filename} UPDATED] "${tag}"`)
   }
   else {
     tag = fs.readFileSync(filename, 'utf8')
-    console.log(`[${filename}] "${tag}"`)
+    // console.log(`[${filename}] "${tag}"`)
     // if (tag === '') {
     //   tag = ' '
     // }
