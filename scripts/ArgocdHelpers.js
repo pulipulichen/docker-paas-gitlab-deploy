@@ -351,7 +351,7 @@ module.exports = {
                 method: 'post',
                 url,
                 //data: data.getHeaders(),
-                data: 'restart',
+                body: '"restart"',
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
