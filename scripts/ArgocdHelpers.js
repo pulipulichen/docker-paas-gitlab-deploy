@@ -344,10 +344,13 @@ module.exports = {
             var data = new FormData();
             data.append('restart', '')
             
+            console.log(data)
+            console.log(data.getHeaders())
+
             let resultPost = await axios({
                 method: 'post',
                 url,
-                data,
+                data: data.getHeaders(),
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
