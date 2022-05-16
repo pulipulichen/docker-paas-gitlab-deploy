@@ -333,15 +333,17 @@ module.exports = {
 
             // console.log(resultGet)
 
-            var data = new FormData();
-            data.append('restart', '')
-
+            // const data = { "restart": "" }
             // let resultPost = await axios.post(url, data, {
             //     headers: {
             //         Cookie: 'argocd.token=' + token,
             //         //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
             //     }
             // })
+
+            var data = new FormData();
+            data.append('restart', '')
+            
             let resultPost = await axios({
                 method: 'post',
                 url,
