@@ -278,7 +278,7 @@ module.exports = {
             tag = fs.readFileSync(tagPath, 'utf8')
             tag = tag.trim()
         }
-
+        let values = await LoadYAMLConfig()
         let status = await this.waitOperation(appName, token)
 
         let images = status.summary.images
@@ -290,7 +290,8 @@ module.exports = {
         // console.log(images[0].slice(images[0].lastIndexOf(":") + 1))
         // console.log(tag)
         // console.log(images[0].slice(images[0].lastIndexOf(":") + 1) + '' == tag.trim() + '')
-        if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0) {
+        if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
+            images.filter(u => u.trim().startswith(values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + ':')).length > 1) {
             retry++
             if (retry === 10) {
                 console.log('=============================')
