@@ -325,7 +325,8 @@ module.exports = {
         try {
             let result = await axios.post(url, data, {
                 headers: {
-                    Cookie: 'argocd.token=' + token
+                    Cookie: 'argocd.token=' + token,
+                    Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
                 }
             })
 
