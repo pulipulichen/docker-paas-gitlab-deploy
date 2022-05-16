@@ -162,7 +162,7 @@ module.exports = async function () {
   }
 
   await ShellExec(`git add .`)
-  //await ShellExec(`git commit -m "CI TAG: ${tag}"`)
-  await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
+  await ShellExec(`git commit -m "CI TAG: ${tag}"`)
+  //await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
