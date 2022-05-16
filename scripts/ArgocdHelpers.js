@@ -362,19 +362,8 @@ module.exports = {
             */
             await fetch(url, {
                 "headers": {
-                  "accept": "*/*",
-                  "accept-language": "en,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,zh-CN;q=0.6",
-                  "cache-control": "no-cache",
                   "content-type": "application/x-www-form-urlencoded",
-                  "pragma": "no-cache",
-                  "sec-ch-ua": "\" Not A;Brand\";v=\"99\", \"Chromium\";v=\"101\", \"Google Chrome\";v=\"101\"",
-                  "sec-ch-ua-mobile": "?0",
-                  "sec-ch-ua-platform": "\"Linux\"",
-                  "sec-fetch-dest": "empty",
-                  "sec-fetch-mode": "cors",
-                  "sec-fetch-site": "same-origin",
                   "cookie": `argocd.token=${token}`,
-                  "Referrer-Policy": "strict-origin-when-cross-origin"
                 },
                 "body": "\"restart\"",
                 "method": "POST"
