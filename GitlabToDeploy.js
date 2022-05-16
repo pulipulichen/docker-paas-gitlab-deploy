@@ -21,9 +21,10 @@ async function main () {
 
   if (enableDeploy === false) {
     console.log('Deploy is disabled.')
+    return false
   }
   
-  if (config.deploy.git_mode !== true) {
+  if (config.deploy.only_update_app !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
@@ -36,12 +37,12 @@ async function main () {
     // node /app/scripts/argocd-create-application.js
     // node /app/scripts/argocd-refresh-application.js
   }
-  else {
-    await restartResource()
-  }
+  // else {
+  //   await restartResource()
+  // }
     
 
-  await RunCypress()
+  // await RunCypress()
 
 }
 
