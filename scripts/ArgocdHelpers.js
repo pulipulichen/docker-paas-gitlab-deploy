@@ -320,22 +320,33 @@ module.exports = {
         console.log('token', token)
 
         //appName = 'test20220428-2220-pudding'
-        const data = { "restart": "" }
+        //const data = { "restart": "" }
 
         try {
-            let resultGet = await axios.get(url, {
-                headers: {
-                    Cookie: 'argocd.token=' + token,
-                    //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
-                }
-            })
+            // let resultGet = await axios.get(url, {
+            //     headers: {
+            //         Cookie: 'argocd.token=' + token,
+            //         //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
+            //     }
+            // })
 
-            console.log(resultGet)
+            // console.log(resultGet)
 
-            let resultPost = await axios.post(url, data, {
+            var data = new FormData();
+            data.append('restart', '')
+
+            // let resultPost = await axios.post(url, data, {
+            //     headers: {
+            //         Cookie: 'argocd.token=' + token,
+            //         //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
+            //     }
+            // })
+            let resultPost = await axios({
+                method: 'post',
+                url,
+                data,
                 headers: {
-                    Cookie: 'argocd.token=' + token,
-                    //Referer: `${config.server }/applications/deploybot-${appName}?view=tree&conditions=false&resource=&operation=false`
+                    Cookie: 'argocd.token=' + token
                 }
             })
 
