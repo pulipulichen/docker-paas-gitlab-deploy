@@ -148,6 +148,13 @@ module.exports = async function () {
 
   // -------------------------------
 
+  let valuesContent2 = fs.readFileSync('./values.yaml', 'utf8')
+  console.log('================================================')
+  console.log(valuesContent2)
+  console.log('================================================')
+  
+  // -------------------------------
+
   let tag = process.env.CI_COMMIT_SHORT_SHA
   let prefix = getTagPrefix(config)
   if (prefix) {
