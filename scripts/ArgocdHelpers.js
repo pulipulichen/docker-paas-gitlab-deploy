@@ -142,8 +142,8 @@ module.exports = {
                 }
             })
 
-            console.log('refreshApp')
-            console.log(result)
+            // console.log('refreshApp')
+            // console.log(result)
         }
         catch (e) {
             return false
