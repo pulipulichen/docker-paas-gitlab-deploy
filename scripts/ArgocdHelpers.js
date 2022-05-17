@@ -340,12 +340,29 @@ module.exports = {
 
         return true
     },
-    waitForImageSynced: async function (appName, token, tag, retry = 0) {
+    waitForImageSynced: async function (appName, token, tags, retry = 0) {
         await this.getConfig()
-        if (!tag) {
-            let tagPath = `/tmp/git-deploy/argocd/TAG_APP.txt`
-            tag = fs.readFileSync(tagPath, 'utf8')
-            tag = tag.trim()
+        if (!tags) {
+            let files = fs.readdirSync(`/tmp/git-deploy/argocd/`)
+            tags = files.filter(f => f.startsWith('TAG_') && f.endsWith('TAG_'))
+                .map(f => {
+                    let tagPath = `/tmp/git-deploy/argocd/${f}`
+                    let tag = fs.readFileSync(tagPath, 'utf8')
+                    tag = tag.trim()
+                    let suffix
+                    if (f === 'TAG_APP.txt') {
+                        suffix = 'app'
+                    }
+                    else (f.startsWith('TAG_DATABASE_')) {
+                        suffix = f.slice(f.lastIndexOf('_') + 1, f.lastIndexOf('.')).toLowerCase()
+                    }
+
+                    return {
+                        suffix,
+                        tag
+                    }
+                })
+                .filter(o => o.tag !== '')
         }
         let values = await LoadYAMLConfig()
         let status = await this.waitOperation(appName, token)
@@ -360,28 +377,48 @@ module.exports = {
         // console.log(tag)
         // console.log(images[0].slice(images[0].lastIndexOf(":") + 1) + '' == tag.trim() + '')
 
-        let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-app:'
-        if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
-            images.filter(u => u.trim().startsWith(imagePrefix)).length > 1) {
-            retry++
-            if (retry === 10) {
-                console.log('=============================')
-                console.log('PLEASE CHECK ARGOCD')
-                console.log(`${config.server}/applications/deploybot-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}`)
-                console.log('=============================')
+        for (let i = 0; i < tags.length; i++) {
+            let {suffix, tag} = tags[i]
+            let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-' + suffix + ':'
 
-                throw Error('Image sync failed ' + tag)
+            let passed = true
+            if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
+                images.filter(u => u.trim().startsWith(imagePrefix)).length > 1) {
+                passed = false
             }
 
-            await this.refreshApp(appName, token)
-            await this.sleep(2000)
-            await this.syncApp(appName, token)
+            if (suffix !== 'app') {
+                let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-' + suffix + '-init:'
 
-            console.log(`Wait for image sync: ${tag} (${retry})`)
+                if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
+                    images.filter(u => u.trim().startsWith(imagePrefix)).length > 1) {
+                    passed = false
+                }
+            }
 
-            await this.sleep(10000)
-            await this.waitForImageSynced(appName, token, tag, retry)
+            if (passed === false) {
+                retry++
+                if (retry === 10) {
+                    console.log('=============================')
+                    console.log('PLEASE CHECK ARGOCD')
+                    console.log(`${config.server}/applications/deploybot-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}`)
+                    console.log('=============================')
+
+                    throw Error('Image sync failed ' + tag)
+                }
+
+                await this.refreshApp(appName, token)
+                await this.sleep(2000)
+                await this.syncApp(appName, token)
+
+                console.log(`Wait for image sync: ${tag} (${retry})`)
+
+                await this.sleep(10000)
+                await this.waitForImageSynced(appName, token, tag, retry)
+            }
         }
+
+            
     },
 
 
