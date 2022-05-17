@@ -256,9 +256,10 @@ module.exports = {
     },
     healthyCheck: async function (status) {
         let config = await LoadYAMLConfig()
+        //console.log(result)
+        let message
+        let error 
         if (status.operationState.phase !== "Succeeded") {
-            //console.log(result)
-            let message
             if (Array.isArray(status.operationState.syncResult.resources)) {
                 message = status.operationState.syncResult.resources
                     //.filter(r => r.status !== 'Synced')
@@ -271,7 +272,13 @@ module.exports = {
             else if (status.operationState.message) {
                 message = status.operationState.message
             }
+            error = 'Operation State: ' + status.operationState.phase
+        }
+        else if (status.health.status !== 'Healthy') {
+            error = 'Health Statues: ' + status.health.status
+        }
 
+        if (message || error) {
             console.log('=============================')
             console.log('ERROR MESSAGES')
             console.log('=============================')
@@ -288,7 +295,7 @@ module.exports = {
             console.log('=============================')
 
             //throw new Error('APP HEALTH: ' + status.health.status)
-            throw new Error('Operation State: ' + status.operationState.phase)
+            throw new Error(error)
         }
 
         return true
