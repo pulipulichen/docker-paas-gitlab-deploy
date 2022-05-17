@@ -260,6 +260,11 @@ module.exports = {
         let message
         let resourcesHealth
         let error 
+
+        let quay_baseurl = config.environment.paas.pass_quay
+        quay_baseurl = quay_baseurl.slice(0, quay_baseurl.lastIndexOf('/') + 1)
+
+        //let quayMessage = []
         if (status.operationState.phase !== "Succeeded") {
             if (Array.isArray(status.operationState.syncResult.resources)) {
                 message = status.operationState.syncResult.resources
@@ -281,7 +286,14 @@ module.exports = {
                 resourcesHealth = status.resources
                     //.filter(r => r.status !== 'Synced')
                     .filter(r => r.health.status !== 'Healthy')
-                    .map(r => '[' + r.name + ']\n' + r.health.message)
+                    .map(r => {
+                      let m = r.health.message
+                      if (m.startsWith('Back-off pulling image ')) {
+                          let repo = m.slice(m.indexOf('"') + 1, -1)
+                          m += 'Please check Git image repositroy: ' + quay_baseurl + repo
+                      }
+                      return '[' + r.name + ']\n' + m
+                    })
                     .join('\n\n')
             }
 
