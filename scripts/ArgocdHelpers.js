@@ -231,6 +231,12 @@ module.exports = {
             return status
         }
 
+        if (status.operationState && 
+                status.operationState.phase === 'Running' && 
+                status.operationState.message.startsWith('one or more objects failed to apply, reason:')) {
+            return status
+        }
+
         if (status.operationState.phase === 'Running') {
             await this.sleep(3000)
             retry++
