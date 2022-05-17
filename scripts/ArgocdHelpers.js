@@ -400,7 +400,7 @@ module.exports = {
 
             if (passed === false) {
                 retry++
-                if (retry === 8) {
+                if (retry === 10) {
                     console.log('=============================')
                     console.log('PLEASE CHECK ARGOCD')
                     console.log(`${config.server}/applications/deploybot-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}`)
