@@ -258,6 +258,7 @@ module.exports = {
         let config = await LoadYAMLConfig()
         //console.log(result)
         let message
+        let resourcesHealth
         let error 
         if (status.operationState.phase !== "Succeeded") {
             if (Array.isArray(status.operationState.syncResult.resources)) {
@@ -274,15 +275,32 @@ module.exports = {
             }
             error = 'Operation State: ' + status.operationState.phase
         }
-        else if (status.health.status !== 'Healthy') {
-            error = 'Health Statues: ' + status.health.status
+
+        if (status.health.status !== 'Healthy') {
+            if (Array.isArray(status.resources)) {
+                resourcesHealth = status.resources
+                    //.filter(r => r.status !== 'Synced')
+                    .filter(r => r.health.status !== 'Healthy')
+                    .map(r => '[' + r.name + ']\n' + r.health.message)
+                    .join('\n\n')
+            }
+
+            if (!error) {
+                error = 'Health Statues: ' + status.health.status
+            }
+            
         }
 
-        if (message || error) {
+        if (message || error || resourcesHealth.length > 0) {
             console.log('=============================')
             console.log('ERROR MESSAGES')
             console.log('=============================')
-            console.log(message)
+            if (message) {
+                console.log(message)
+            }
+            if (resourcesHealth) {
+                console.log(resourcesHealth)
+            }
             console.log('=============================')
             console.log('Open ArgoCD')
 
