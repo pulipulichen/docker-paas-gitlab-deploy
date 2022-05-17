@@ -262,7 +262,7 @@ module.exports = {
         let resourcesHealth
         let error 
 
-        let quay_baseurl = config.environment.paas.pass_quay
+        let quay_baseurl = config.environment.paas.paas_quay
         quay_baseurl = quay_baseurl.slice(0, quay_baseurl.lastIndexOf('/') + 1)
 
         //let quayMessage = []
