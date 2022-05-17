@@ -228,7 +228,13 @@ module.exports = {
 
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
-        if (status.conditions && status.conditions[0].type === 'SyncError') {
+        if (status.conditions && 
+            status.conditions[0].type === 'SyncError') {
+            return status
+        }
+
+        if (status.health && 
+            status.health.status === 'Degraded') {
             return status
         }
 
@@ -238,7 +244,8 @@ module.exports = {
             return status
         }
 
-        if (status.operationState.phase === 'Running') {
+        if (status.operationState.phase === 'Running' || 
+            status.health.status === 'Progressing') {
             await this.sleep(3000)
             retry++
             return await this.waitOperation(appName, token, retry)
