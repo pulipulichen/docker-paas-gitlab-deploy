@@ -234,7 +234,8 @@ module.exports = {
         }
 
         if (status.health && 
-            status.health.status === 'Degraded') {
+            status.health.status === 'Degraded' && 
+            status.operationState.phase !== 'Running') {
             return status
         }
 
