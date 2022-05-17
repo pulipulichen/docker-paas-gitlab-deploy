@@ -393,7 +393,7 @@ module.exports = {
                 if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
                     images.filter(u => u.trim().startsWith(imagePrefix)).length > 1) {
                     passed = false
-                }
+                } 
             }
 
             if (passed === false) {
