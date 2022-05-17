@@ -40,11 +40,11 @@ async function main () {
 
         //await argocdHelpers.sleep(3000)
         status = await ArgocdHelpers.waitOperation(appName, token)
-        console.log('=============================')
-        console.log(status)
-        console.log('=============================')
-        console.log(status.resources)
-        console.log('=============================')
+        // console.log('=============================')
+        // console.log(status)
+        // console.log('=============================')
+        // console.log(status.resources)
+        // console.log('=============================')
         await ArgocdHelpers.healthyCheck(status)
     }
 }
