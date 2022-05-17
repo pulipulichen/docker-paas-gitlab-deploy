@@ -369,7 +369,7 @@ module.exports = {
 
         let images = status.summary.images
         // console.log(retry, tag)
-        // console.log(images)
+        console.log(images)
         // console.log(images.filter(u => u.trim().endsWith(tag)).length)
         // console.log(images[0].trim())
         // console.log(images[0].trim().endsWith(tag))
