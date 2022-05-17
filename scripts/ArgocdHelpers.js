@@ -227,7 +227,7 @@ module.exports = {
         console.log(status)
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
-        if (status.conditions[0].type === 'SyncError') {
+        if (status.conditions && status.conditions[0].type === 'SyncError') {
             return status
         }
 
