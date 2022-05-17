@@ -363,6 +363,7 @@ module.exports = {
                     }
                 })
                 .filter(o => o.tag !== '')
+            console.log(tags)
         }
         let values = await LoadYAMLConfig()
         let status = await this.waitOperation(appName, token)
@@ -414,7 +415,7 @@ module.exports = {
                 console.log(`Wait for image sync: ${tag} (${retry})`)
 
                 await this.sleep(10000)
-                await this.waitForImageSynced(appName, token, tag, retry)
+                await this.waitForImageSynced(appName, token, tags, retry)
             }
         }
 
