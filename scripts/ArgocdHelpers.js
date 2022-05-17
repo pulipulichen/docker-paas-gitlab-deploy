@@ -199,7 +199,7 @@ module.exports = {
                 }
             })
             console.log('terminatedSync')
-            console.log(result)
+            //console.log(result)
         }
         catch (e) {
             return false
