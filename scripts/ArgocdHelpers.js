@@ -308,6 +308,8 @@ module.exports = {
         }
 
         if (message || error || resourcesHealth.length > 0) {
+            console.log(status)
+
             console.log('=============================')
             console.log('ERROR MESSAGES')
             console.log('=============================')
