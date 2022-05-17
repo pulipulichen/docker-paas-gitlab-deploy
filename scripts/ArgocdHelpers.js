@@ -353,7 +353,7 @@ module.exports = {
                     if (f === 'TAG_APP.txt') {
                         suffix = 'app'
                     }
-                    else (f.startsWith('TAG_DATABASE_')) {
+                    else if (f.startsWith('TAG_DATABASE_')) {
                         suffix = f.slice(f.lastIndexOf('_') + 1, f.lastIndexOf('.')).toLowerCase()
                     }
 
