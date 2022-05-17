@@ -307,7 +307,7 @@ module.exports = {
             
         }
 
-        if (message || error || resourcesHealth.length > 0) {
+        if (message || error || resourcesHealth) {
             console.log('=============================')
             console.log(status)
             console.log('=============================')
