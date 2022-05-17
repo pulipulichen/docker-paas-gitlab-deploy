@@ -344,7 +344,8 @@ module.exports = {
         await this.getConfig()
         if (!tags) {
             let files = fs.readdirSync(`/tmp/git-deploy/argocd/`)
-            tags = files.filter(f => f.startsWith('TAG_') && f.endsWith('TAG_'))
+            console.log({files})
+            tags = files.filter(f => f.startsWith('TAG_') && f.endsWith('.txt'))
                 .map(f => {
                     let tagPath = `/tmp/git-deploy/argocd/${f}`
                     let tag = fs.readFileSync(tagPath, 'utf8')
@@ -363,7 +364,7 @@ module.exports = {
                     }
                 })
                 .filter(o => o.tag !== '')
-            console.log(tags)
+            console.log({tags})
         }
         let values = await LoadYAMLConfig()
         let status = await this.waitOperation(appName, token)
