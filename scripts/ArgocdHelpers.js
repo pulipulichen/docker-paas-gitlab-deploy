@@ -201,7 +201,7 @@ module.exports = {
                     Cookie: 'argocd.token=' + token
                 }
             })
-            console.log('terminatedSync')
+            //console.log('terminatedSync')
             //console.log(result)
         }
         catch (e) {
