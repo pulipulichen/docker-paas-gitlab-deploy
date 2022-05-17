@@ -141,6 +141,9 @@ module.exports = {
                     Cookie: 'argocd.token=' + token
                 }
             })
+
+            console.log('refreshApp')
+            console.log(result)
         }
         catch (e) {
             return false
@@ -221,9 +224,13 @@ module.exports = {
         })
 
         let status = result.data.status
-        //console.log(status)
+        console.log(status)
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
+        if (status.conditions[0].type === 'SyncError') {
+            return status
+        }
+
         if (status.operationState.phase === 'Running') {
             await this.sleep(3000)
             retry++
