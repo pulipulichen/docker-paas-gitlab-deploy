@@ -290,7 +290,7 @@ module.exports = {
                     .map(r => {
                       let m = r.health.message
                       if (m.startsWith('Back-off pulling image ')) {
-                          let repo = m.slice(m.indexOf('"') + 1, -1)
+                          let repo = m.slice(m.indexOf('"') + 1, m.lastIndexOf(':'))
                           m += '\nPlease check Git image repositroy: ' + quay_baseurl + repo
                       }
                       return '[' + r.name + ']\n' + m
