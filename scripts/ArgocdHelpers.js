@@ -136,7 +136,7 @@ module.exports = {
         const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=hard'
         let result
         try {
-            result = await axios.post(url, {
+            result = await axios.get(url, {
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
