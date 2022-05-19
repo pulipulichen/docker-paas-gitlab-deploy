@@ -118,7 +118,7 @@ async function main (config) {
   // ----------------------------------------------------------------
 
   await ShellExec(`git add .`)
-  await ShellExec(`git commit -m "CI TAG: ${getTag(config)}" --allow-empty`)
+  await ShellExec(`git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`)
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
 
