@@ -30,7 +30,7 @@ async function main () {
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
 
-    await UpdateCustomDomain(content)
+    await UpdateCustomDomain(config)
     await BuildDeployYaml()
 
     await createApp()
