@@ -72,7 +72,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   }
 
   content[customDomain] = REPO
-  fs.writeFileSync(customDomainFilePath, JSON.stringify(content), 'utf8')
+  fs.writeFileSync(customDomainFilePath, JSON.stringify(content, null, 2), 'utf8')
   return true
 }
 
