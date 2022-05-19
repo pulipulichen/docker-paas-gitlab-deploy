@@ -115,7 +115,8 @@ async function main (config) {
 
   if (fs.existsSync(customDomainFilePath)) {
     await ShellExec(`mv ${customDomainFilePath} ${path.join(tmpGitPath, REPO_NAME)}`)
-    await ShellExec(`rm -rf ${path.join(tmpGitPath, REPO_NAME, '*')}`)
+    await ShellExec(`rm -rf ${path.join(tmpGitPath, REPO_NAME)}/*`)
+    await ShellExec(`ls ${path.join(tmpGitPath, REPO_NAME)}`)
     await ShellExec(`mv ${path.join(tmpGitPath, `/custom_domain.txt`)} ${path.join(tmpGitPath, REPO_NAME)}`)
   }
 
