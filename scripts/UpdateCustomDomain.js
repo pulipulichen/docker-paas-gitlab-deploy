@@ -118,6 +118,9 @@ async function main (config) {
     await ShellExec(`rm -rf ${path.join(tmpGitPath, REPO_NAME)}/*`)
     await ShellExec(`mv ${path.join(tmpGitPath, `/custom_domain.txt`)} ${path.join(tmpGitPath, REPO_NAME)}`)
   }
+  else {
+    await ShellExec(`rm -rf ${path.join(tmpGitPath, REPO_NAME)}/*`)
+  }
 
   await ShellExec(`ls ${path.join(tmpGitPath, REPO_NAME)}`)
 
