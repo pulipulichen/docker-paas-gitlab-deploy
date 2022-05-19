@@ -61,7 +61,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   return true
 }
 
-async function main (config, tag) {
+async function main (config) {
 
   if (!config || !config.deploy || !config.deploy.custom_domain) {
     return false
@@ -103,12 +103,8 @@ async function main (config, tag) {
 
   // ----------------------------------------------------------------
 
-  //fs.writeFileSync('TAG_APP.txt', tag, 'utf8')
-
-  // ----------------------------------------------------------------
-
   await ShellExec(`git add .`)
-  await ShellExec(`git commit -m "CI TAG: ${tag}" --allow-empty`)
+  await ShellExec(`git commit -m "CI TAG: ${getTag(config)}" --allow-empty`)
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
 

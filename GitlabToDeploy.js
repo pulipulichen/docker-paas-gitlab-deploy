@@ -13,6 +13,7 @@ const restartResource = require('./scripts/ArgocdRestartApplication.js')
 //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const RunCypress = require('./scripts/RunCypress.js')
+const UpdateCustomDomain = require('./scripts/UpdateCustomDomain.js')
 
 async function main () {
   const config = await LoadYAMLConfig()
@@ -29,6 +30,7 @@ async function main () {
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
 
+    await UpdateCustomDomain(content)
     await BuildDeployYaml()
 
     await createApp()
