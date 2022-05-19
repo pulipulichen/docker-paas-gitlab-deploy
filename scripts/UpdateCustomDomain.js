@@ -99,14 +99,15 @@ async function main (config) {
   console.log("REPO: " + REPO)
 
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
-  await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
+
+  let customDomainBranch = 'custom-domain'
+  await ShellExec(`git clone  --branch ${customDomainBranch} ${DEPLOY_GIT_URL}`)
 
   const REPO_NAME = getRepoName(config)
 
   process.chdir(path.join(tmpGitPath, REPO_NAME))
 
   await setUserNameEmail(config)
-  let customDomainBranch = 'custom-domain'
   await ShellExec(`git checkout -b ${customDomainBranch} || git checkout ${customDomainBranch}`)
 
   // ----------------------------------------------------------------
