@@ -19,6 +19,19 @@ async function setUserNameEmail(config) {
   await ShellExec(`git config --global user.name "${username}"`)
 }
 
+function getTagPrefix(config) {
+  let prefix = config.deploy.docker_image_tag_prefix
+
+  if (!prefix) {
+    return
+  }
+
+  prefix = prefix.toLowerCase()
+  prefix = prefix.replace(/[^a-zA-Z0-9\-]/g, "")
+
+  return prefix
+}
+
 async function getTag(config) {
   let tag = process.env.CI_COMMIT_SHORT_SHA
   let prefix = getTagPrefix(config)
