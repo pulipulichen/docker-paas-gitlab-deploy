@@ -1,5 +1,5 @@
 
-const ShellExec = require('./lib/ShellExec.js')
+const ShellExec = require('./ShellExec.js')
 const fs = require('fs')
 
 function getRepoName (config) {
