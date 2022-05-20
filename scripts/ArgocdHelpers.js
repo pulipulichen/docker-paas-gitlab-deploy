@@ -275,7 +275,7 @@ module.exports = {
               let pos = m.lastIndexOf(needle)
               let errorMessage = m.slice(pos + needle.length)
 
-              m += '\n' + errorMessage
+              m += '\n-----------------------------------\n' + errorMessage + '\n---------------------------------------\n1'
           }
           return m
     },
