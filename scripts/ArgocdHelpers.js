@@ -224,7 +224,10 @@ module.exports = {
         })
 
         let status = result.data.status
+        
+        console.log('=============================')
         console.log(status)
+        console.log('=============================')
 
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
