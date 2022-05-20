@@ -246,7 +246,7 @@ module.exports = {
             return status
         }
 
-        if (status.operationState.phase === 'Running' || 
+        if ((status.operationState && status.operationState.phase === 'Running') || 
             status.health.status === 'Progressing') {
             await this.sleep(3000)
             retry++
