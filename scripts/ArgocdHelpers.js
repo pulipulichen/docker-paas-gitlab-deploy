@@ -229,7 +229,7 @@ module.exports = {
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
         if (status.conditions && 
-            status.conditions[0].type === 'SyncError') {
+            (status.conditions[0].type.indexOf('Error') > -1 )) {
             return status
         }
 
