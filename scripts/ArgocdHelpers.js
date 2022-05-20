@@ -260,6 +260,25 @@ module.exports = {
 
         return status
     },
+    healthyCheckMessageFilter: function (message) {
+        let m = message
+        if (!m) {
+            m = ''
+          }
+          if (m.startsWith('Back-off pulling image ')) {
+              let repo = m.slice(m.indexOf('"') + 1, m.lastIndexOf(':'))
+              m += '\nPlease check Git image repositroy: ' + quay_baseurl + repo + '?tab=history'
+          }
+
+          if (m.indexOf('` failed exit status 1: Error: ') > -1) {
+              let needle = '` failed exit status 1: Error: '
+              let pos = m.lastIndexOf(needle)
+              let errorMessage = m.slice(pos + needle.length)
+
+              m += '\n' + errorMessage
+          }
+          return '[' + r.name + ']\n' + m
+    },
     healthyCheck: async function (status) {
         let config = await LoadYAMLConfig()
         //console.log(result)
@@ -282,7 +301,7 @@ module.exports = {
                     .join('\n\n')
             }
             else if (status.operationState.message) {
-                message = status.operationState.message
+                message = this.healthyCheckMessageFilter(status.operationState.message)
             }
             error = 'Operation State: ' + status.operationState.phase
         }
@@ -294,22 +313,7 @@ module.exports = {
                     .filter(r => r.health.status !== 'Healthy')
                     .map(r => {
                       let m = r.health.message
-                      if (!m) {
-                        m = ''
-                      }
-                      if (m.startsWith('Back-off pulling image ')) {
-                          let repo = m.slice(m.indexOf('"') + 1, m.lastIndexOf(':'))
-                          m += '\nPlease check Git image repositroy: ' + quay_baseurl + repo + '?tab=history'
-                      }
-
-                      if (m.indexOf('` failed exit status 1: Error: ') > -1) {
-                          let needle = '` failed exit status 1: Error: '
-                          let pos = m.lastIndexOf(needle)
-                          let errorMessage = m.slice(pos + needle.length)
-
-                          m += '\n' + errorMessage
-                      }
-                      return '[' + r.name + ']\n' + m
+                      return this.healthyCheckMessageFilter(m)
                     })
                     .join('\n\n')
             }
