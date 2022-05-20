@@ -277,7 +277,7 @@ module.exports = {
 
               m += '\n' + errorMessage
           }
-          return '[' + r.name + ']\n' + m
+          return m
     },
     healthyCheck: async function (status) {
         let config = await LoadYAMLConfig()
@@ -312,8 +312,8 @@ module.exports = {
                     //.filter(r => r.status !== 'Synced')
                     .filter(r => r.health.status !== 'Healthy')
                     .map(r => {
-                      let m = r.health.message
-                      return this.healthyCheckMessageFilter(m)
+                      let m = this.healthyCheckMessageFilter(r.health.message)
+                      return '[' + r.name + ']\n' + m
                     })
                     .join('\n\n')
             }
