@@ -296,6 +296,14 @@ module.exports = {
                           let repo = m.slice(m.indexOf('"') + 1, m.lastIndexOf(':'))
                           m += '\nPlease check Git image repositroy: ' + quay_baseurl + repo + '?tab=history'
                       }
+
+                      if (m.indexOf('` failed exit status 1: Error: ') > -1) {
+                          let needle = '` failed exit status 1: Error: '
+                          let pos = m.lastIndexOf(needle)
+                          let errorMessage = m.slice(pos + needle.length)
+
+                          m += '\n' + errorMessage
+                      }
                       return '[' + r.name + ']\n' + m
                     })
                     .join('\n\n')
