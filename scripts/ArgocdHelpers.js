@@ -362,6 +362,7 @@ module.exports = {
     },
     waitForImageSynced: async function (appName, token, tags, retry = 0) {
         await this.getConfig()
+        let values = await LoadYAMLConfig()
         if (!tags) {
             let files = fs.readdirSync(`/tmp/git-deploy/argocd/`)
             // console.log({files})
@@ -383,10 +384,20 @@ module.exports = {
                         tag
                     }
                 })
-                .filter(o => o.tag !== '')
+                .filter(o => {
+                    if (o.tag !== '') {
+                        return false
+                    }
+                    if (o.suffix === 'app') {
+                        return true
+                    }
+
+                    if (values.database.enabled_drivers.indexOf(o.suffix) === -1) {
+                        return false
+                    }
+                })
             // console.log({tags})
         }
-        let values = await LoadYAMLConfig()
         let status = await this.waitOperation(appName, token)
 
         let images = status.summary.images
