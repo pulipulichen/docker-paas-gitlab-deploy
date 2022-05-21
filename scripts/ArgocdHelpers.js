@@ -430,7 +430,7 @@ module.exports = {
 
             if (passed === false) {
                 retry++
-                if (retry === 2) {
+                if (retry === 10) {
                     console.log('=============================')
                     console.log('[Tags should be existed]')
                     console.log(tags)
