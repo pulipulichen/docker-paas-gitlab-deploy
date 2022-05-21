@@ -224,9 +224,15 @@ module.exports = {
         })
 
         let status = result.data.status
+
+        if (retry === 10) {
+            return status
+        }
         
         console.log('=============================')
         console.log(status)
+        console.log('=============================')
+        console.log(status.resources)
         console.log('=============================')
 
         //if (status.health.status !== 'Healthy') {
