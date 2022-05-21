@@ -4,6 +4,7 @@ const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const fetch = require('node-fetch')
 
 const fs = require('fs')
+const { stat } = require('fs/promises')
 
 const tmpTokenPath = '/tmp/argocd.token.txt'
 
@@ -257,8 +258,14 @@ module.exports = {
 
         if (status.operationState && 
             status.operationState.phase === 'Error') {
-        return status
-    }
+            return status
+        }
+
+        if ((status.operationState && status.operationState.phase === 'Succeeded') && 
+            status.health.status === 'Progressing' && 
+            status.resources.filter(r => r.health.status !== 'Healthy').length > 0) {
+            return status
+        }
 
         if ((status.operationState && status.operationState.phase === 'Running') || 
             status.health.status === 'Progressing') {
