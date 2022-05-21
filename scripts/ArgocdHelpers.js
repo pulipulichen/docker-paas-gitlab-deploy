@@ -390,8 +390,8 @@ module.exports = {
         let status = await this.waitOperation(appName, token)
 
         let images = status.summary.images
-        // console.log(retry, tag)
-        // console.log(images)
+        console.log(retry, tag)
+        console.log(images)
         // console.log(images.filter(u => u.trim().endsWith(tag)).length)
         // console.log(images[0].trim())
         // console.log(images[0].trim().endsWith(tag))
@@ -420,7 +420,7 @@ module.exports = {
 
             if (passed === false) {
                 retry++
-                if (retry === 10) {
+                if (retry === 2) {
                     console.log('=============================')
                     console.log('PLEASE CHECK ARGOCD')
                     console.log(`${config.server}/applications/deploybot-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}`)
