@@ -390,7 +390,7 @@ module.exports = {
         let status = await this.waitOperation(appName, token)
 
         let images = status.summary.images
-        console.log(retry, tag)
+        console.log(retry, tags)
         console.log(images)
         // console.log(images.filter(u => u.trim().endsWith(tag)).length)
         // console.log(images[0].trim())
