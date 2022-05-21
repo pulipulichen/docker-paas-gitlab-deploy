@@ -230,7 +230,7 @@ module.exports = {
             return status
         }
         
-        console.log('=============================')
+        console.log('==Retry: ' + retry + '===========================')
         console.log(status)
         console.log('=============================')
         console.log(status.resources)
