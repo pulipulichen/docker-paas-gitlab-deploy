@@ -1,16 +1,13 @@
 const ShellExec = require('./ShellExec.js')
 const path = require('path')
 const LoadYAMLConfig = require('./LoadYAMLConfig')
-const concurrently = require('concurrently')
-const fg = require('fast-glob')
- 
-async function main() {
-  let config = await LoadYAMLConfig()
 
+async function main() {
+  
   console.log('=========================================')
   console.log('Start cypress test')
   console.log('=========================================')
-
+ 
   // 切回去原本的路徑
   const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
   process.chdir(BUILD_DIR)
@@ -23,32 +20,11 @@ async function main() {
   await ShellExec('npm link js-yaml fast-glob')
   try {
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/index.spec.js"')
-    // await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
-    // await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
-
-    let specs = await fg([path.join(BUILD_DIR, 'test/cypress/integration/**/[!app.spec.js][!index.spec.js]*.js')], { dot: true })
-
-    let jobs = []
-    specs.forEach(file => {
-      jobs.push({
-        name: file,
-        command: 'cypress run --headless --project test --spec "' + file + '"'
-      })
-    })
-
-    for (let i = 0; i < config.app.test_repeats; i++) {
-      jobs.push({
-        name: 'app-' + i,
-        command: 'cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"'
-      })
-    }
-    console.log(jobs)
-    await concurrently(jobs, {
-      killOthers: ['failure']
-    })
+    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
+    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
   }
   catch (e) {
-    
+    let config = await LoadYAMLConfig()
 
     console.log(`===================================
 Test is failed. Please check your main domain:
