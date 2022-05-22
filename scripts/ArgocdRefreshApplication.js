@@ -20,6 +20,9 @@ async function main () {
         await ArgocdHelpers.sleep(1000)
         await ArgocdHelpers.refreshApp(appName, token)
 
+        await ArgocdHelpers.sleep(1000)
+        await ArgocdHelpers.syncApp(appName, token)
+
         let status = await ArgocdHelpers.waitOperation(appName, token)
         if (status.operationState && 
             status.operationState.phase === "Error") {
@@ -28,7 +31,6 @@ async function main () {
         }
 
         await ArgocdHelpers.sleep(1000)
-
         await ArgocdHelpers.syncApp(appName, token)
 
         await ArgocdHelpers.sleep(5000)
