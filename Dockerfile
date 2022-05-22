@@ -13,6 +13,7 @@ COPY package.json entrypoint.sh /app/docker-paas-gitlab-deploy/
 
 #WORKDIR /app
 RUN npm i
+RUN npm i -g concurrently
 
 #RUN mkdir -p /app/scripts
 #WORKDIR /app/scripts
