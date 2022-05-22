@@ -3,7 +3,7 @@ const path = require('path')
 const LoadYAMLConfig = require('./LoadYAMLConfig')
 const concurrently = require('concurrently')
 const fg = require('fast-glob')
-
+ 
 async function main() {
   let config = await LoadYAMLConfig()
 
