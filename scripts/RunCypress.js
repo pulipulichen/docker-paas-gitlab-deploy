@@ -36,14 +36,16 @@ async function main() {
       })
     })
 
-    for (let i = 0; i < config.app.test_count; i++) {
+    for (let i = 0; i < config.app.test_repeats; i++) {
       jobs.push({
         name: 'app-' + i,
         command: 'cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"'
       })
     }
     console.log(jobs)
-    await concurrently(jobs)
+    await concurrently(jobs, {
+      killOthers: ['failure']
+    })
   }
   catch (e) {
     
