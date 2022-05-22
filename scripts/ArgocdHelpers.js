@@ -302,7 +302,7 @@ module.exports = {
             status.resources.filter(r => r.health.status !== 'Healthy').length > 0) {
             await this.sleep(3000)
             retry++
-            return status
+            return await this.waitOperation(appName, token, retry)
         }
 
         if ((status.operationState && status.operationState.phase === 'Running') || 
