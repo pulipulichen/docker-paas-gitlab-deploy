@@ -306,7 +306,7 @@ module.exports = {
         quay_baseurl = quay_baseurl.slice(0, quay_baseurl.lastIndexOf('/') + 1)
 
         //let quayMessage = []
-        if (status.operationState.phase !== "Succeeded") {
+        if (status.operationState && status.operationState.phase !== "Succeeded") {
             if (Array.isArray(status.operationState.syncResult.resources)) {
                 message = status.operationState.syncResult.resources
                     //.filter(r => r.status !== 'Synced')

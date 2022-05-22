@@ -21,7 +21,8 @@ async function main () {
         await ArgocdHelpers.refreshApp(appName, token)
 
         let status = await ArgocdHelpers.waitOperation(appName, token)
-        if (status.operationState.phase === "Error") {
+        if (status.operationState && 
+            status.operationState.phase === "Error") {
           console.log(status)
           await ArgocdHelpers.healthyCheck(status)
         }
