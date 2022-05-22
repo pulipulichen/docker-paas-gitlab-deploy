@@ -20,8 +20,8 @@ async function main() {
   await ShellExec('npm link js-yaml fast-glob')
   try {
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/index.spec.js"')
-    await ShellExec('cypress run --headless --parallel --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
-    await ShellExec('cypress run --headless --parallel --project test --spec "test/cypress/integration/app.spec.js"')
+    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
+    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
   }
   catch (e) {
     let config = await LoadYAMLConfig()
