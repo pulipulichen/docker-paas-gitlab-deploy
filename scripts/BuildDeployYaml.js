@@ -62,7 +62,7 @@ function getRepoName (config) {
 let main = async function (retry = 0) {
   let config = await LoadYAMLConfig()
 
-  const BUILD_DIR = process.cwd()
+  const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
   console.log("BUILD_DIR: " + BUILD_DIR)
 
   let tmpGitPath = '/tmp/git-deploy'
