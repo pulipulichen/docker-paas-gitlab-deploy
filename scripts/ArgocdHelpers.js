@@ -288,6 +288,9 @@ module.exports = {
             return await this.waitOperation(appName, token, retry)
         }
 
+        console.log('============================')
+        console.log('Healthy')
+        console.log('============================')
         return status
     },
     healthyCheckMessageFilter: function (message) {
