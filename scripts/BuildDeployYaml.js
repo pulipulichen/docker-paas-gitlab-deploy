@@ -59,7 +59,7 @@ function getRepoName (config) {
   return REPO_NAME
 }
 
-module.exports = async function () {
+let main = async function (retry = 0) {
   let config = await LoadYAMLConfig()
 
   const BUILD_DIR = process.cwd()
@@ -132,7 +132,14 @@ module.exports = async function () {
     console.log('================================================')
     console.log(valuesContent)
     console.log('================================================')
-    throw new Error('updateTagInYaml failed.')
+    if (retry === 10) {
+      throw new Error('updateTagInYaml failed.')
+    }
+    
+    console.error('updateTagInYaml failed.')
+
+    retry++
+    return await main(retry)
   }
 
   // -------------------------------
@@ -173,3 +180,5 @@ module.exports = async function () {
   //await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
+
+module.exports = main
