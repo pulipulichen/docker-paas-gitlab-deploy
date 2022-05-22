@@ -34,7 +34,7 @@ http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.
     throw e
   }
   
-
+ 
   // await ShellExec('/app/docker-paas-gitlab-deploy/scripts/RunCypress.sh')
 }
 
