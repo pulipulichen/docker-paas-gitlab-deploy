@@ -230,16 +230,22 @@ module.exports = {
             return status
         }
         
-        console.log('==Retry: ' + retry + '===========================')
-        console.log(status)
-        console.log('=============================')
-        console.log(status.resources)
-        console.log('=============================')
+        // console.log('==Retry: ' + retry + '===========================')
+        // console.log(status)
+        // console.log('=============================')
+        // console.log(status.resources)
+        // console.log('=============================')
 
         //if (status.health.status !== 'Healthy') {
         //if (status.operationState.phase !== 'Running') {
         if (status.conditions && 
             (status.conditions[0].type.indexOf('Error') > -1 )) {
+            console.log('==Retry: ' + retry + '===========================')
+            console.log(status)
+            console.log('=============================')
+            console.log(status.resources)
+            console.log('=============================')
+
             console.log('============================')
             console.log('Condition have errors')
             console.log('============================')
@@ -249,6 +255,12 @@ module.exports = {
         if (status.health && 
             status.health.status === 'Degraded' && 
             status.operationState.phase !== 'Running') {
+            console.log('==Retry: ' + retry + '===========================')
+            console.log(status)
+            console.log('=============================')
+            console.log(status.resources)
+            console.log('=============================')
+
             console.log('============================')
             console.log('Health degraded')
             console.log('============================')
@@ -259,6 +271,12 @@ module.exports = {
                 status.operationState.phase === 'Running' && 
                 status.operationState.message && 
                 status.operationState.message.startsWith('one or more objects failed to apply, reason:')) {
+            console.log('==Retry: ' + retry + '===========================')
+            console.log(status)
+            console.log('=============================')
+            console.log(status.resources)
+            console.log('=============================')
+            
             console.log('============================')
             console.log('Failed to apply')
             console.log('============================')
@@ -267,6 +285,12 @@ module.exports = {
 
         if (status.operationState && 
             status.operationState.phase === 'Error') {
+            console.log('==Retry: ' + retry + '===========================')
+            console.log(status)
+            console.log('=============================')
+            console.log(status.resources)
+            console.log('=============================')
+            
             console.log('============================')
             console.log('Operation error')
             console.log('============================')
@@ -289,7 +313,7 @@ module.exports = {
         }
 
         console.log('============================')
-        console.log('Healthy')
+        console.log('Status: Healthy')
         console.log('============================')
         return status
     },
