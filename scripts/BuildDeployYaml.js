@@ -66,7 +66,10 @@ let main = async function (retry = 0) {
   console.log("BUILD_DIR: " + BUILD_DIR)
 
   let tmpGitPath = '/tmp/git-deploy'
-  fs.mkdirSync(tmpGitPath)
+  if (fs.existsSync(tmpGitPath) === false) {
+    fs.mkdirSync(tmpGitPath)
+  }
+  
   process.chdir(tmpGitPath)
 
   const REPO = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
