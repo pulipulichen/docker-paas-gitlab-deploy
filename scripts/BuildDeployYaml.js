@@ -93,7 +93,6 @@ let main = async function (retry = 0) {
     await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
   }
   
-
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // -----------------------------
@@ -140,7 +139,7 @@ let main = async function (retry = 0) {
     console.log('================================================')
     console.log(valuesContent)
     console.log('================================================')
-    if (retry === 10) {
+    if (retry === 1) {
       throw new Error('updateTagInYaml failed.')
     }
     
