@@ -123,6 +123,8 @@ let main = async function (retry = 0) {
 
   // -------------------------------
 
+  await ShellExec(`cat TAG_*.txt`)
+
   await ShellExec(`mv TAG_*.txt ../`)
   await ShellExec(`rm -rf /tmp/git-deploy/${REPO_NAME}/*`)
   await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
