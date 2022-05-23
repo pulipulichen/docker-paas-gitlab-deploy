@@ -87,9 +87,13 @@ let main = async function (retry = 0) {
   // }
   
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
-  await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
 
   const REPO_NAME = getRepoName(config)
+  if (fs.existsSync(tmpGitPath + '/' + REPO_NAME) === false) {
+    await ShellExec(`git clone ${DEPLOY_GIT_URL}`)
+  }
+  
+
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // -----------------------------
