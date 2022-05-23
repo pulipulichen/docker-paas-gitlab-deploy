@@ -254,6 +254,7 @@ module.exports = {
 
         if (status.health && 
             status.health.status === 'Degraded' && 
+            status.operationState && 
             status.operationState.phase !== 'Running') {
             console.log('==Retry: ' + retry + '===========================')
             console.log(status)
