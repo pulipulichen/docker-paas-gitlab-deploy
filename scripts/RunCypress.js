@@ -24,6 +24,7 @@ async function main() {
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
 
+    // https://patorjk.com/software/taag/#p=display&h=0&v=0&f=ANSI%20Shadow&t=FINISH
 console.log(`===================================
 ███████╗██╗███╗   ██╗██╗███████╗██╗  ██╗
 ██╔════╝██║████╗  ██║██║██╔════╝██║  ██║
