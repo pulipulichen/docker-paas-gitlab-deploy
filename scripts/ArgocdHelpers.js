@@ -466,7 +466,7 @@ module.exports = {
 
         for (let i = 0; i < tags.length; i++) {
             let {suffix, tag} = tags[i]
-            let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-' + suffix + ':'
+            let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + ':' + suffix + '-'
 
             let passed = true
             if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
