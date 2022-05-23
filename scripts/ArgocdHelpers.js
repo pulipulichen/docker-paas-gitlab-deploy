@@ -475,7 +475,7 @@ module.exports = {
             }
 
             if (suffix !== 'app') {
-                let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-' + suffix + '-init:'
+                let imagePrefix = values.environment.build.quay_prefix + '/' + process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE + '-init:' + suffix + '-'
 
                 if (images.filter(u => u.trim().endsWith(':' + tag)).length == 0 || 
                     images.filter(u => u.trim().startsWith(imagePrefix)).length > 1) {
