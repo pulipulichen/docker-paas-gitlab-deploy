@@ -92,7 +92,7 @@ let main = async function (retry = 0) {
 
   const REPO_NAME = getRepoName(config)
   if (fs.existsSync(tmpGitPath + '/' + REPO_NAME) === false) {
-    await ShellExec(`git clone -b ${REPO} ${DEPLOY_GIT_URL}`)
+    await ShellExec(`git clone -b ${REPO} ${DEPLOY_GIT_URL} || git clone ${DEPLOY_GIT_URL}`)
   }
   
   process.chdir(tmpGitPath + '/' + REPO_NAME)
