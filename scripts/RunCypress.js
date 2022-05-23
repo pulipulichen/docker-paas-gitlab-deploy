@@ -22,6 +22,18 @@ async function main() {
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/index.spec.js"')
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
+
+console.log(`===================================
+██████  ██████  ███    ██  ██████  ██████   █████  ████████ ██    ██ ██       █████  ████████ ██  ██████  ███    ██ 
+██      ██    ██ ████   ██ ██       ██   ██ ██   ██    ██    ██    ██ ██      ██   ██    ██    ██ ██    ██ ████   ██ 
+██      ██    ██ ██ ██  ██ ██   ███ ██████  ███████    ██    ██    ██ ██      ███████    ██    ██ ██    ██ ██ ██  ██ 
+██      ██    ██ ██  ██ ██ ██    ██ ██   ██ ██   ██    ██    ██    ██ ██      ██   ██    ██    ██ ██    ██ ██  ██ ██ 
+ ██████  ██████  ██   ████  ██████  ██   ██ ██   ██    ██     ██████  ███████ ██   ██    ██    ██  ██████  ██   ████ 
+
+Checkout your awesome application:
+http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+    `)
   }
   catch (e) {
     let config = await LoadYAMLConfig()
