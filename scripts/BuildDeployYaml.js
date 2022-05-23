@@ -14,6 +14,7 @@ function touchFileIfNotExists(filename) {
 function readTagFromArtifact(BUILD_DIR, filename) {
   let fromTagFile = `${BUILD_DIR}/ci.tmp/${filename}`
   let tag = ''
+  /*
   if (fs.existsSync(fromTagFile)) {
     tag = fs.readFileSync(fromTagFile, 'utf8')
     fs.writeFileSync(filename, tag, 'utf8')
@@ -26,7 +27,8 @@ function readTagFromArtifact(BUILD_DIR, filename) {
     //   tag = ' '
     // }
   }
-
+  */
+  tag = fs.readFileSync(filename, 'utf8')
   return tag
 }
 
