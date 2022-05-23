@@ -1,4 +1,5 @@
 const ShellExec = require('./ShellExec.js')
+const ShellSpawn = require('./lib/ShellSpawn.js')
 const path = require('path')
 const LoadYAMLConfig = require('./LoadYAMLConfig')
 
@@ -20,9 +21,11 @@ async function main() {
   let config = await LoadYAMLConfig()
   await ShellExec('npm link js-yaml fast-glob')
   try {
-    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/index.spec.js"')
-    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/**/[!app.spec.js][!index.spec.js]*"')
-    await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/app.spec.js"')
+
+    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/admin.spec.js`])
+    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
+    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/app/**/*`])
+
 
     // https://patorjk.com/software/taag/#p=display&h=0&v=0&f=ANSI%20Shadow&t=FINISH
 console.log(`===================================
