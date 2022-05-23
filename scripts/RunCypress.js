@@ -17,6 +17,7 @@ async function main() {
   // await ShellExec(`echo 256 > /proc/sys/fs/inotify/max_user_instances`)
 
 
+  let config = await LoadYAMLConfig()
   await ShellExec('npm link js-yaml fast-glob')
   try {
     await ShellExec('cypress run --headless --project test --spec "test/cypress/integration/index.spec.js"')
@@ -36,7 +37,6 @@ http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.
     `)
   }
   catch (e) {
-    let config = await LoadYAMLConfig()
 
     console.log(`===================================
 Test is failed. Please check your main domain:

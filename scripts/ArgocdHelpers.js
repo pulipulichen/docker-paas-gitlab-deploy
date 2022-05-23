@@ -502,7 +502,7 @@ module.exports = {
                 await this.sleep(2000)
                 await this.syncApp(appName, token)
 
-                console.log(`Wait for image sync: ${tag} (${retry})`)
+                console.log(`Wait for image sync: ${suffix}-${tag} (${retry})`)
 
                 await this.sleep(10000)
                 await this.waitForImageSynced(appName, token, tags, retry)
