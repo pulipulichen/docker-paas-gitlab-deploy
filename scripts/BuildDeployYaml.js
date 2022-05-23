@@ -3,6 +3,7 @@ const ShellExec = require('./ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const sleep = require('./lib/sleep.js')
+const path = require('path')
 
 function touchFileIfNotExists(filename) {
   if (fs.existsSync(filename) === false) {
