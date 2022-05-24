@@ -136,6 +136,7 @@ push
 ==============================`)
 
   let config = await LoadYAMLConfig()
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
 
   const REPO_NAME = getRepoName(config)
   process.chdir(tmpGitPath + '/' + REPO_NAME)
