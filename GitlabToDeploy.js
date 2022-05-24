@@ -24,6 +24,11 @@ async function main () {
     console.log('Deploy is disabled.')
     return false
   }
+
+  if (config.deploy.only_update_app === false) {
+    console.log('only_update_app')
+    return false
+  }
   
   //if (config.deploy.only_update_app !== true) {
     console.log('=========================================')
