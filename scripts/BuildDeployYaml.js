@@ -115,36 +115,21 @@ let clone = async function () {
   await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
 
   // ----------------------------------------------------------------
+  //let result = true
   if (fs.existsSync('FORCE_DEPLOY.txt')) {
     console.log('FORCE_DEPLOY', fs.readFileSync('FORCE_DEPLOY.txt', 'utf8'))
     fs.unlinkSync('FORCE_DEPLOY.txt')
-    return true
+    //result = true
+    console.log(`
+================================================
+FORCE_DEPLOY.txt is deleted.
+================================================
+`)
   }
-  // ----------------------------------------------------------------
-
-  if (config.deploy.only_update_app === true) {
+  else if (config.deploy.only_update_app === true) {
     console.log('only_update_app')
     return false
   }
-
-  return true
-}
-
-let push = async function (retry = 0) {
-  console.log(`==============================
-push
-==============================`)
-
-  let config = await LoadYAMLConfig()
-  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
-
-  const REPO_NAME = getRepoName(config)
-  process.chdir(tmpGitPath + '/' + REPO_NAME)
-
-  // console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
-  // await ShellExec(`pwd`)
-  
-  // -------------------------------
 
   let modules = [
     'APP',
@@ -218,16 +203,42 @@ push
   
   // -------------------------------
 
+  return true
+}
+
+let push = async function (retry = 0) {
+  console.log(`==============================
+push
+==============================`)
+
+  let config = await LoadYAMLConfig()
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
+
+  const REPO_NAME = getRepoName(config)
+  process.chdir(tmpGitPath + '/' + REPO_NAME)
+
+  // console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
+  // await ShellExec(`pwd`)
+  
+  // -------------------------------
+
   let tag = process.env.CI_COMMIT_SHORT_SHA
   let prefix = getTagPrefix(config)
   if (prefix) {
     tag = prefix + '-' + tag
   }
 
-  await ShellExec(`git add .`)
-  await ShellExec(`git commit -m "CI TAG: ${tag}" --allow-empty`)
-  //await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
-  await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
+  // await ShellExec(`git add .`)
+  // await ShellExec(`git commit -m "CI TAG: ${tag}" --allow-empty`)
+  // //await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
+  // await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
+  await ShellExec([
+    `cd ${tmpGitPath + '/' + REPO_NAME}`, 
+    `pwd`,
+    `git add .`,
+    `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    `git push -f ${DEPLOY_GIT_URL}`
+  ])
 }
 
 module.exports = {
