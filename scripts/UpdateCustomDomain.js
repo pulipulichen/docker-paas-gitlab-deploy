@@ -66,8 +66,8 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   for (let i = 0; i < domains.length; i++) {
     let domain = domains[i]
     if (domain !== customDomain && content[domain] === REPO) {
+      console.log('delete ' + content[domain])
       delete content[domain]
-      console.log(domain)
       break
     }
   }
@@ -76,7 +76,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
     content[customDomain] = REPO
   }
   
-  console.log({content})
+  // console.log({content})
   fs.writeFileSync(customDomainFilePath, JSON.stringify(content, null, 2), 'utf8')
   return true
 }
