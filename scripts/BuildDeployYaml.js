@@ -128,11 +128,18 @@ let clone = async function () {
 }
 
 let push = async function (retry = 0) {
+  console.log(`==============================
+push
+==============================`)
+
   let config = await LoadYAMLConfig()
 
   const REPO_NAME = getRepoName(config)
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
+  console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
+  await ShellExec(`pwd`)
+  
   // -------------------------------
 
   let modules = [
