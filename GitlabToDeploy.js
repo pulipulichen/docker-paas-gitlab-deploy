@@ -35,11 +35,13 @@ async function main () {
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
 
-    await UpdateCustomDomain(config)
-    await BuildDeployYaml()
+    if (await BuildDeployYaml.clone()) {
+      await UpdateCustomDomain(config)
+      await BuildDeployYaml.push()
 
-    await createApp()
-    await refreshApp()
+      await createApp()
+      await refreshApp()
+    }
     //await shellExec('/app/scripts/build_deploy_yaml.sh')
     // node /app/scripts/argocd-create-application.js
     // node /app/scripts/argocd-refresh-application.js

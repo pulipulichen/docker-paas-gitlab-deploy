@@ -63,20 +63,23 @@ function getRepoName (config) {
   return REPO_NAME
 }
 
-let main = async function (retry = 0) {
+let tmpGitPath = '/tmp/git-deploy'
+const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
+const REPO = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
+
+let clone = async function () {
   let config = await LoadYAMLConfig()
 
-  const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
+  
   console.log("BUILD_DIR: " + BUILD_DIR)
 
-  let tmpGitPath = '/tmp/git-deploy'
   if (fs.existsSync(tmpGitPath) === false) {
     fs.mkdirSync(tmpGitPath)
   }
   
   process.chdir(tmpGitPath)
 
-  const REPO = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
+  
   console.log("REPO: " + REPO)
 
   if (REPO === '-') {
@@ -107,6 +110,15 @@ let main = async function (retry = 0) {
   await ShellExec(`git config --global user.name "${username}"`)
 
   await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
+
+  return true
+}
+
+let push = async function (retry = 0) {
+  let config = await LoadYAMLConfig()
+
+  const REPO_NAME = getRepoName(config)
+  process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // -------------------------------
 
@@ -151,7 +163,7 @@ let main = async function (retry = 0) {
     console.error('updateTagInYaml failed.')
 
     retry++
-    return await main(retry)
+    return await push(retry)
   }
 
   // -------------------------------
@@ -194,4 +206,7 @@ let main = async function (retry = 0) {
   await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
 }
 
-module.exports = main
+module.exports = {
+  clone,
+  push
+}
