@@ -111,6 +111,19 @@ let clone = async function () {
 
   await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
 
+  // ----------------------------------------------------------------
+  if (fs.existsSync('FORCE_DEPLOY.txt')) {
+    console.log('FORCE_DEPLOY', fs.readFileSync('FORCE_DEPLOY.txt', 'utf8'))
+    fs.unlinkSync('FORCE_DEPLOY.txt')
+    return true
+  }
+  // ----------------------------------------------------------------
+
+  if (config.deploy.only_update_app === true) {
+    console.log('only_update_app')
+    return false
+  }
+
   return true
 }
 
