@@ -29,6 +29,9 @@ function readTagFromArtifact(BUILD_DIR, filename) {
   }
   */
   tag = fs.readFileSync(filename, 'utf8')
+  if (typeof(tag) === 'string') {
+    tag = tag.trim()
+  }
   return tag
 }
 
