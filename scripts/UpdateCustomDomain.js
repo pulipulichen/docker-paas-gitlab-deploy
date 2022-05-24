@@ -51,7 +51,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
     }
   }
   
-  if (customDomain !== '' && content[customDomain]) {
+  if (customDomain && customDomain !== '' && content[customDomain]) {
     if (content[customDomain] !== REPO) {
       throw new Error('Custom domain is occupied. ' + customDomain + ': ' + content[customDomain])
     }
@@ -65,13 +65,14 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   let domains = Object.keys(content)
   for (let i = 0; i < domains.length; i++) {
     let domain = domains[i]
-    if (content[domain] === REPO) {
+    if (domain !== customDomain && content[domain] === REPO) {
       delete content[domain]
+      console.log(domain)
       break
     }
   }
 
-  if (customDomain !== '') {
+  if (customDomain && customDomain !== '') {
     content[customDomain] = REPO
   }
   
@@ -135,7 +136,7 @@ UPDATE CUSTOM DOMAIN
   await ShellExec(`ls ${path.join(tmpGitPath, REPO_NAME)}`)
 
   if (await setCustomDomain({customDomain, REPO, customDomainFilePath}) === false) {
-    console.log('custom domain not changed.')
+    console.log('custom domain not changed.', customDomain)
     return false
   }
 
