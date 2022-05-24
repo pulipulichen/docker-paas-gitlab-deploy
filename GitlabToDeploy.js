@@ -25,7 +25,7 @@ async function main () {
     return false
   }
 
-  if (config.deploy.only_update_app === false) {
+  if (config.deploy.only_update_app === true) {
     console.log('only_update_app')
     return false
   }
