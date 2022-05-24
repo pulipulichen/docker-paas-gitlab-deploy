@@ -51,7 +51,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
     }
   }
   
-  if (content[customDomain]) {
+  if (customDomain !== '' && content[customDomain]) {
     if (content[customDomain] !== REPO) {
       throw new Error('Custom domain is occupied. ' + customDomain + ': ' + content[customDomain])
     }
@@ -132,6 +132,7 @@ UPDATE CUSTOM DOMAIN
   await ShellExec(`ls ${path.join(tmpGitPath, REPO_NAME)}`)
 
   if (await setCustomDomain({customDomain, REPO, customDomainFilePath}) === false) {
+    console.log('custom domain not changed.')
     return false
   }
 
