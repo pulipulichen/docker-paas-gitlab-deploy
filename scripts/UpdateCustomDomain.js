@@ -78,7 +78,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
 
 async function main (config) {
 
-  if (!config || !config.deploy || !config.deploy.custom_domain) {
+  if (!config || !config.deploy) {
     return false
   }
 
