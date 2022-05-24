@@ -137,8 +137,8 @@ push
   const REPO_NAME = getRepoName(config)
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
-  console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
-  await ShellExec(`pwd`)
+  // console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
+  // await ShellExec(`pwd`)
   
   // -------------------------------
 
