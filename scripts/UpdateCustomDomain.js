@@ -82,6 +82,12 @@ async function main (config) {
     return false
   }
 
+  console.log(`
+============================================================
+UPDATE CUSTOM DOMAIN
+============================================================
+`)
+
   let customDomain = config.deploy.custom_domain
 
   if (!customDomain) {
@@ -131,9 +137,17 @@ async function main (config) {
 
   // ----------------------------------------------------------------
 
-  await ShellExec(`git add .`)
-  await ShellExec(`git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`)
-  await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
+  // await ShellExec(`git add .`)
+  // await ShellExec(`git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`)
+  // await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
+  await ShellExec([
+    `cd ${path.join(tmpGitPath, REPO_NAME)}`, 
+    `pwd`,
+    `ls -l`,
+    `git add .`,
+    `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    `git push -f ${DEPLOY_GIT_URL}`
+  ])
 }
 
 module.exports = main
