@@ -113,6 +113,8 @@ let clone = async function () {
   await ShellExec(`git config --global user.name "${username}"`)
 
   await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
+  
+  await ShellExec(`ls -l`)
 
   // ----------------------------------------------------------------
   //let result = true
