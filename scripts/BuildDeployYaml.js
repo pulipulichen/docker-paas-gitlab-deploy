@@ -35,6 +35,7 @@ function readTagFromArtifact(BUILD_DIR, filename) {
 async function updateTagInYaml(tagName, tag) {
   await ShellExec(`sed -i " s/{{ DOCKER_IMAGE_TAG_${tagName.toUpperCase()} }}/${tag}/g" ./values.yaml`)
   await ShellExec(`sed -i " s/{{ DOCKER_IMAGE_TAG_${tagName.toUpperCase()} }}/${tag}/g" ./Chart.yaml`)
+  
 }
 
 function getTagPrefix(config) {
@@ -158,6 +159,7 @@ let main = async function (retry = 0) {
   let replaceVariables = {
     PROJECT_NAME: process.env.CI_PROJECT_NAME,
     PROJECT_NAMESPACE: process.env.CI_PROJECT_NAMESPACE,
+    PROJECT_ID: process.env.CI_PROJECT_ID,
   }
 
   let replaceFiles = [
