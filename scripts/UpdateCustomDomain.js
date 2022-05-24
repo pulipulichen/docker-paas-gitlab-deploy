@@ -76,6 +76,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
     content[customDomain] = REPO
   }
   
+  console.log({content})
   fs.writeFileSync(customDomainFilePath, JSON.stringify(content, null, 2), 'utf8')
   return true
 }
@@ -150,7 +151,7 @@ UPDATE CUSTOM DOMAIN
     `pwd`,
     `ls -l`,
     `git add .`,
-    `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    `git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`,
     `git push -f ${DEPLOY_GIT_URL}`
   ])
 }
