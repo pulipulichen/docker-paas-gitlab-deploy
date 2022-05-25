@@ -118,47 +118,76 @@ module.exports = {
         
         //const data = { "apiVersion": "argoproj.io/v1alpha1", "kind": "Application", "metadata": { "name": 'deploybot-' + appName }, "spec": { "destination": { "name": "", "namespace": "default", "server": "https://kubernetes.default.svc" }, "source": { "path": ".", "repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git", "targetRevision": appName }, "project": "default", "syncPolicy": { "automated": { "prune": true, "selfHeal": false }, "syncOptions": ["PruneLast=true"] } } }
 
+        // const data = {
+        //     "apiVersion":"argoproj.io/v1alpha1",
+        //     "kind":"Application",
+        //     "metadata":{
+        //        "name":"deploybot-" + appName
+        //     },
+        //     "spec":{
+        //        "destination":{
+        //           "name":"deploybot-" + appName,
+        //           "namespace": appName,
+        //           "server":"https://kubernetes.default.svc"
+        //        },
+        //        "source":{
+        //           "path":".",
+        //           "repoURL":"https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
+        //           "targetRevision": appName
+        //        },
+        //        "project": "default",
+        //        "syncPolicy":{
+        //           "automated":{
+        //              "prune":true,
+        //              "selfHeal":false
+        //           },
+        //           "syncOptions":[
+        //              "PruneLast=true"
+        //           ]
+        //        }
+        //     }
+        //  }
         const data = {
-            "apiVersion":"argoproj.io/v1alpha1",
-            "kind":"Application",
-            "metadata":{
-               "name":"deploybot-" + appName
+            "apiVersion": "argoproj.io/v1alpha1",
+            "kind": "Application",
+            "metadata": {
+              "name": "deploybot-" + appName
             },
-            "spec":{
-               "destination":{
-                  "name":"deploybot-" + appName,
-                  "namespace": appName,
-                  "server":"https://kubernetes.default.svc"
-               },
-               "source":{
-                  "path":".",
-                  "repoURL":"https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
-                  "targetRevision": appName
-               },
-               "project": "default",
-               "syncPolicy":{
-                  "automated":{
-                     "prune":true,
-                     "selfHeal":false
-                  },
-                  "syncOptions":[
-                     "PruneLast=true"
-                  ]
-               }
+            "spec": {
+              "destination": {
+                "name": "",
+                "namespace": appName,
+                "server": "https://kubernetes.default.svc"
+              },
+              "source": {
+                "path": ".",
+                "repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
+                "targetRevision": appName
+              },
+              "project": "default",
+              "syncPolicy": {
+                "automated": {
+                  "prune": true,
+                  "selfHeal": true
+                },
+                "syncOptions": [
+                  "CreateNamespace=true"
+                ]
+              }
             }
-         }
+          }
 
         let result
-        try {
+        // try {
             result = await axios.post(url, data, {
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
             })
-        }
-        catch (e) {
-            console.error(e)
-        }
+        // }
+        // catch (e) {
+        //     //console.error(e)
+        // }
         return true
     },
 
