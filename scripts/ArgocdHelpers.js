@@ -234,7 +234,7 @@ module.exports = {
         }
 
         let result
-        try {
+        // try {
             result = await axios.post(url, data, {
                 headers: {
                     Cookie: 'argocd.token=' + token
@@ -242,10 +242,10 @@ module.exports = {
             })
             //console.log('SYNC RESULT')
             //console.log(result)
-        }
-        catch (e) {
-            return false
-        }
+        // }
+        // catch (e) {
+        //     return false
+        // }
         return true
     },
     terminatedSync: async function (appName, token) {
@@ -256,7 +256,7 @@ module.exports = {
         }
 
         let result
-        try {
+        // try {
             result = await axios.delete(url, {
                 headers: {
                     Cookie: 'argocd.token=' + token
@@ -264,10 +264,10 @@ module.exports = {
             })
             //console.log('terminatedSync')
             //console.log(result)
-        }
-        catch (e) {
-            return false
-        }
+        // }
+        // catch (e) {
+        //     return false
+        // }
         return true
     },
     sleep: function (ms = 500) {
