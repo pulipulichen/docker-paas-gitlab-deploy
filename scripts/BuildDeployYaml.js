@@ -246,6 +246,7 @@ push
     `git commit -m "CI TAG: ${tag}" --allow-empty`,
     `echo "OK5"`,
     `git push -f ${DEPLOY_GIT_URL}`
+    `echo "OK6"`,
   ])
 }
 
