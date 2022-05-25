@@ -115,7 +115,38 @@ module.exports = {
         const url = config.server + '/api/v1/applications'
 
         //appName = 'test20220428-2220-pudding'
-        const data = { "apiVersion": "argoproj.io/v1alpha1", "kind": "Application", "metadata": { "name": 'deploybot-' + appName }, "spec": { "destination": { "name": "", "namespace": "default", "server": "https://kubernetes.default.svc" }, "source": { "path": ".", "repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git", "targetRevision": appName }, "project": "default", "syncPolicy": { "automated": { "prune": true, "selfHeal": false }, "syncOptions": ["PruneLast=true"] } } }
+        
+        //const data = { "apiVersion": "argoproj.io/v1alpha1", "kind": "Application", "metadata": { "name": 'deploybot-' + appName }, "spec": { "destination": { "name": "", "namespace": "default", "server": "https://kubernetes.default.svc" }, "source": { "path": ".", "repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git", "targetRevision": appName }, "project": "default", "syncPolicy": { "automated": { "prune": true, "selfHeal": false }, "syncOptions": ["PruneLast=true"] } } }
+
+        const data = {
+            "apiVersion":"argoproj.io/v1alpha1",
+            "kind":"Application",
+            "metadata":{
+               "name":"deploybot-" + appName
+            },
+            "spec":{
+               "destination":{
+                  "name":"deploybot-" + appName,
+                  "namespace": appName,
+                  "server":"https://kubernetes.default.svc"
+               },
+               "source":{
+                  "path":".",
+                  "repoURL":"https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
+                  "targetRevision":"appName"
+               },
+               "project": "default",
+               "syncPolicy":{
+                  "automated":{
+                     "prune":true,
+                     "selfHeal":false
+                  },
+                  "syncOptions":[
+                     "PruneLast=true"
+                  ]
+               }
+            }
+         }
 
         let result
         try {
@@ -517,7 +548,7 @@ module.exports = {
         await this.getConfig()
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=webapp-deployment-pudding-test20220428-2220&version=v1&kind=Deployment&group=apps
 
-        const url = config.server + `/api/v1/applications/deploybot-${appName}/resource/actions?namespace=default&resourceName=${resourceName}-deployment-${appName}&version=v1&kind=Deployment&group=apps`
+        const url = config.server + `/api/v1/applications/deploybot-${appName}/resource/actions?namespace=${appName}&resourceName=${resourceName}-deployment-${appName}&version=v1&kind=Deployment&group=apps`
         //console.log('restartResource', url)
         //console.log('token', token)
 
