@@ -70,7 +70,7 @@ let tmpGitPath = '/tmp/git-deploy'
 const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
 const REPO = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 
-let clone = async function () {
+let clone = async function (retry = 0) {
   let config = await LoadYAMLConfig()
 
   
@@ -174,7 +174,7 @@ FORCE_DEPLOY.txt is deleted.
     console.error('updateTagInYaml failed.')
 
     retry++
-    return await push(retry)
+    return await clone(retry)
   }
 
   // -------------------------------

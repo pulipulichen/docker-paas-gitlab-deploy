@@ -20,7 +20,7 @@ module.exports = function (cmdArray, stderrHandler, errorHandler) {
     const job = spawn(cmdArray[0], cmdArray.splice(1));
 
     job.stdout.on("data", data => {
-        console.log(`${data}`);
+      console.log(`${data}`);
     });
     
     job.stderr.on("data", data => {
