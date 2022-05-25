@@ -236,9 +236,15 @@ push
   // await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
   await ShellExec([
     `cd ${tmpGitPath + '/' + REPO_NAME}`, 
+    `echo "OK1"`,
     `pwd`,
+    `echo "OK2"`,
     `git add .`,
+    `echo "OK3"`,
+    `ls -l`,
+    `echo "OK4"`,
     `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    `echo "OK5"`,
     `git push -f ${DEPLOY_GIT_URL}`
   ])
 }
