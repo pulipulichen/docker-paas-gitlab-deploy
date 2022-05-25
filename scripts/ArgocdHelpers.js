@@ -410,7 +410,9 @@ module.exports = {
 
         //let quayMessage = []
         if (status.operationState && status.operationState.phase !== "Succeeded") {
-            if (Array.isArray(status.operationState.syncResult.resources)) {
+            if (status.operationState &&
+                status.operationState.syncResult && 
+                Array.isArray(status.operationState.syncResult.resources)) {
                 message = status.operationState.syncResult.resources
                     //.filter(r => r.status !== 'Synced')
                     .filter(r => r.hookPhase !== 'Succeeded')
