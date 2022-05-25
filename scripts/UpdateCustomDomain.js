@@ -99,7 +99,7 @@ UPDATE CUSTOM DOMAIN
     customDomain = ''
   }
   else {
-    customDomain = customDomain + config.environment.project.domain_suffix
+    customDomain = customDomain + '.' + config.environment.project.domain_suffix
   }
 
   // -----------------------
