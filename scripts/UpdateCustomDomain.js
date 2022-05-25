@@ -98,8 +98,9 @@ UPDATE CUSTOM DOMAIN
   if (!customDomain) {
     customDomain = ''
   }
-
-  customDomain = customDomain + config.environment.project.domain_suffix
+  else {
+    customDomain = customDomain + config.environment.project.domain_suffix
+  }
 
   // -----------------------
 
