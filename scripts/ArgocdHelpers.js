@@ -133,7 +133,7 @@ module.exports = {
                "source":{
                   "path":".",
                   "repoURL":"https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
-                  "targetRevision":"appName"
+                  "targetRevision": appName
                },
                "project": "default",
                "syncPolicy":{
