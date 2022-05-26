@@ -287,7 +287,7 @@ module.exports = {
 
         let status = result.data.status
 
-        if (retry === 10) {
+        if (retry === 20) {
             return status
         }
         
