@@ -251,6 +251,15 @@ push
 }
 
 let deployed = async function (retry = 0) {
+  
+  let config = await LoadYAMLConfig()
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
+
+  const REPO_NAME = getRepoName(config)
+  process.chdir(tmpGitPath + '/' + REPO_NAME)
+
+  // --------------------------
+
   if (fs.existsSync(tmpGitPath + '/' + REPO_NAME + '/FORCE_DEPLOY.txt') === false) {
     console.log('FORCE_DEPLOY.txt is not existed.')
     return false
@@ -259,12 +268,6 @@ let deployed = async function (retry = 0) {
   console.log(`==============================
 deployed
 ==============================`)
-
-  let config = await LoadYAMLConfig()
-  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
-
-  const REPO_NAME = getRepoName(config)
-  process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
   // await ShellExec(`pwd`)
