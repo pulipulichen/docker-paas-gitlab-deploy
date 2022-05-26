@@ -4,6 +4,7 @@ const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const sleep = require('./lib/sleep.js')
 const path = require('path')
+const BuildTag = require('./BuildTag.js')
 
 function touchFileIfNotExists(filename) {
   if (fs.existsSync(filename) === false) {
@@ -232,11 +233,7 @@ push
   
   // -------------------------------
 
-  let tag = process.env.CI_COMMIT_SHORT_SHA
-  let prefix = getTagPrefix(config)
-  if (prefix) {
-    tag = prefix + '-' + tag
-  }
+  let tag = await BuildTag()
 
   // await ShellExec(`git add .`)
   // await ShellExec(`git commit -m "CI TAG: ${tag}" --allow-empty`)
@@ -282,12 +279,7 @@ deployed
   
   // -------------------------------
 
-  let tag = process.env.CI_COMMIT_SHORT_SHA
-  let prefix = getTagPrefix(config)
-  if (prefix) {
-    tag = prefix + '-' + tag
-  }
-
+  let tag = await BuildTag()
   fs.unlinkSync(tmpGitPath + '/' + REPO_NAME + '/FORCE_DEPLOY.txt')
 
   // await ShellExec(`git add .`)
