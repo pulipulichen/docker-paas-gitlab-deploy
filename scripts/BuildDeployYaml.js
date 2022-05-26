@@ -291,7 +291,7 @@ deployed
     // `echo "OK3"`,
     // `ls -l`,
     // `echo "OK4"`,
-    `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    `git commit -m "CI TAG: ${tag} delete FORCE_DEPLOY.txt" --allow-empty`,
     // `echo "OK5"`,
     `git push -f ${DEPLOY_GIT_URL}`,
     // `echo "OK6"`,
