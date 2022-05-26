@@ -9,7 +9,7 @@ WORKDIR /app
 RUN git clone https://github.com/pulipulichen/docker-paas-gitlab-deploy.git
 
 WORKDIR /app/docker-paas-gitlab-deploy
-COPY package.json entrypoint.sh /app/docker-paas-gitlab-deploy/
+COPY package.json GitlabToDeploy.sh RunCypress.sh update.sh /app/docker-paas-gitlab-deploy/
 
 #WORKDIR /app
 RUN npm i

@@ -2,6 +2,7 @@
 const ShellExec = require('./ShellExec.js')
 const fs = require('fs')
 const path = require('path')
+const sleep = require('./lib/sleep.js')
 
 function getRepoName (config) {
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
@@ -81,7 +82,7 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   return true
 }
 
-async function main (config) {
+async function main (config, retry = 0) {
   // return true
 
   if (!config || !config.deploy) {
@@ -149,14 +150,35 @@ UPDATE CUSTOM DOMAIN
   // await ShellExec(`git add .`)
   // await ShellExec(`git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`)
   // await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
-  await ShellExec([
-    `cd ${path.join(tmpGitPath, REPO_NAME)}`, 
-    `pwd`,
-    `ls -l`,
-    `git add .`,
-    `git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`,
-    `git push -f ${DEPLOY_GIT_URL}`
-  ])
+  try {
+    await ShellExec([
+      `cd ${path.join(tmpGitPath, REPO_NAME)}`, 
+      `pwd`,
+      `ls -l`,
+      `git add .`,
+      `git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`,
+      `git push -f ${DEPLOY_GIT_URL}`
+    ])
+  }
+  catch (e) {
+    if (retry === 10) {
+      throw e
+    }
+    console.error(e)
+
+    await ShellExec("rm -rf " + $tmpGitPath)
+
+    retry++
+    console.log('retry ' + retry)
+    await sleep(10000)
+    return await main(config, retry)
+  }
+
+  console.log(`
+  ============================================================
+  UPDATE CUSTOM DOMAIN FINISH
+  ============================================================
+  `)
 }
 
 module.exports = main
