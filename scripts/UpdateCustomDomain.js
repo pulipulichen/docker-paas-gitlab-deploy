@@ -63,23 +63,29 @@ async function setCustomDomain({customDomain, REPO, customDomainFilePath}) {
   }
   
   // 刪除過去的資料
+  let changed = false
   let domains = Object.keys(content)
   for (let i = 0; i < domains.length; i++) {
     let domain = domains[i]
     if (domain !== customDomain && content[domain] === REPO) {
       console.log('delete ' + content[domain])
       delete content[domain]
+      changed = true
       break
     }
   }
 
   if (customDomain && customDomain !== '') {
     content[customDomain] = REPO
+    changed = true
   }
   
   // console.log({content})
-  fs.writeFileSync(customDomainFilePath, JSON.stringify(content, null, 2), 'utf8')
-  return true
+  if (changed) {
+    fs.writeFileSync(customDomainFilePath, JSON.stringify(content, null, 2), 'utf8')
+  }
+  
+  return changed
 }
 
 async function main (config, retry = 0) {

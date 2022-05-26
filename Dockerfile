@@ -6,6 +6,8 @@ RUN apt-get install -y git
 
 RUN mkdir /app
 WORKDIR /app
+
+RUN echo "20220526-2038 "
 RUN git clone https://github.com/pulipulichen/docker-paas-gitlab-deploy.git
 
 WORKDIR /app/docker-paas-gitlab-deploy
