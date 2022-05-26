@@ -150,9 +150,17 @@ FORCE_DEPLOY.txt need to delete.
   await ShellExec(`cat TAG_*.txt`)
 
   await ShellExec(`mv TAG_*.txt ../`)
+  let isForceDeployExisted = fs.existsSync(tmpGitPath + '/' + REPO_NAME + '/FORCE_DEPLOY.txt')
+  if (isForceDeployExisted) {
+    await ShellExec(`mv FORCE_DEPLOY.txt ../`)
+  }
+
   await ShellExec(`rm -rf /tmp/git-deploy/${REPO_NAME}/*`)
   await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
   await ShellExec(`mv ../TAG_*.txt ./`)
+  if (isForceDeployExisted) {
+    await ShellExec(`mv ../FORCE_DEPLOY.txt ./`)
+  }
   await BuildDeployYamlValues()
 
   modules.forEach(async function (module) {
