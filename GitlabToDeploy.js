@@ -41,6 +41,8 @@ async function main () {
 
       await createApp()
       await refreshApp()
+
+      await BuildDeployYaml.deployed()
     }
     //await shellExec('/app/scripts/build_deploy_yaml.sh')
     // node /app/scripts/argocd-create-application.js

@@ -120,11 +120,11 @@ let clone = async function (retry = 0) {
   //let result = true
   if (fs.existsSync('FORCE_DEPLOY.txt')) {
     console.log('FORCE_DEPLOY', fs.readFileSync('FORCE_DEPLOY.txt', 'utf8'))
-    fs.unlinkSync('FORCE_DEPLOY.txt')
+    //fs.unlinkSync('FORCE_DEPLOY.txt')
     //result = true
     console.log(`
 ================================================
-FORCE_DEPLOY.txt is deleted.
+FORCE_DEPLOY.txt need to delete.
 ================================================
 `)
   }
@@ -250,7 +250,56 @@ push
   ])
 }
 
+let deployed = async function (retry = 0) {
+  if (fs.existsSync('FORCE_DEPLOY.txt') === false) {
+    return false
+  }
+
+  console.log(`==============================
+deployed
+==============================`)
+
+  let config = await LoadYAMLConfig()
+  const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
+
+  const REPO_NAME = getRepoName(config)
+  process.chdir(tmpGitPath + '/' + REPO_NAME)
+
+  // console.log(`Target: `, tmpGitPath + '/' + REPO_NAME)
+  // await ShellExec(`pwd`)
+  
+  // -------------------------------
+
+  let tag = process.env.CI_COMMIT_SHORT_SHA
+  let prefix = getTagPrefix(config)
+  if (prefix) {
+    tag = prefix + '-' + tag
+  }
+
+  fs.unlinkSync(tmpGitPath + '/' + REPO_NAME + '/FORCE_DEPLOY.txt')
+
+  // await ShellExec(`git add .`)
+  // await ShellExec(`git commit -m "CI TAG: ${tag}" --allow-empty`)
+  // //await ShellExec(`git commit -m "${process.env.CI_COMMIT_SHORT_SHA}"`)
+  // await ShellExec(`git push -f ${DEPLOY_GIT_URL}`)
+  await ShellExec([
+    `cd ${tmpGitPath + '/' + REPO_NAME}`, 
+    // `echo "OK1"`,
+    // `pwd`,
+    // `echo "OK2"`,
+    `git add .`,
+    // `echo "OK3"`,
+    // `ls -l`,
+    // `echo "OK4"`,
+    `git commit -m "CI TAG: ${tag}" --allow-empty`,
+    // `echo "OK5"`,
+    `git push -f ${DEPLOY_GIT_URL}`,
+    // `echo "OK6"`,
+  ])
+}
+
 module.exports = {
   clone,
-  push
+  push,
+  deployed
 }

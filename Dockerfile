@@ -28,4 +28,4 @@ CMD []
 
 RUN apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
 
-COPY GitlabToDeploy.sh RunCypress.sh update.sh /app/docker-paas-gitlab-deploy/
+COPY GitlabToDeploy.* RunCypress.* update.sh /app/docker-paas-gitlab-deploy/
