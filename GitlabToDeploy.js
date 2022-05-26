@@ -21,7 +21,7 @@ async function main () {
   const enableDeploy = config.deploy.enable
 
   if (enableDeploy === false) {
-    console.log('Deploy is disabled.')
+    console.log('Deploy is disabled.') 
     return false
   }
 
