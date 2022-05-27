@@ -14,6 +14,7 @@ const refreshApp = require('./scripts/ArgocdRefreshApplication.js')
 const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 // const RunCypress = require('./scripts/RunCypress.js')
 const UpdateCustomDomain = require('./scripts/UpdateCustomDomain.js')
+const WaitForLock = require('./scripts/lib/WaitForLock.js')
 
 async function main () {
   const config = await LoadYAMLConfig()
@@ -30,6 +31,8 @@ async function main () {
   //   return false
   // }
   
+  await WaitForLock.lock('GitlabToDeploy')
+
   //if (config.deploy.only_update_app !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
@@ -51,7 +54,7 @@ async function main () {
   // else {
   //   await restartResource()
   // }
-    
+  await WaitForLock.unlock('GitlabToDeploy')
 
   // await RunCypress()
 

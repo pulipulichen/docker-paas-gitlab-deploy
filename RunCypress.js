@@ -13,11 +13,14 @@
 // //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 // const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const RunCypress = require('./scripts/RunCypress.js')
+const WaitForLock = require('./scripts/lib/WaitForLock.js')
 
 async function main () {
   // const config = await LoadYAMLConfig()
 
+  await WaitForLock.lock('GitlabToDeploy')
   await RunCypress()
+  await WaitForLock.unlock('GitlabToDeploy')
 }
 
 main()
