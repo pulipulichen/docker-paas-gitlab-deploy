@@ -162,7 +162,7 @@ module.exports = {
             "spec": {
               "destination": {
                 "name": "",
-                "namespace": appName,
+                "namespace": "default",
                 "server": "https://kubernetes.default.svc"
               },
               "source": {
