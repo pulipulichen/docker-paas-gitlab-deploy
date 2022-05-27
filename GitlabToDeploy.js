@@ -33,6 +33,7 @@ async function main () {
   
   await WaitForLock.lock('GitlabToDeploy')
 
+  try {
   //if (config.deploy.only_update_app !== true) {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
@@ -54,7 +55,13 @@ async function main () {
   // else {
   //   await restartResource()
   // }
+  }
+  catch (e) {
+    await WaitForLock.unlock('GitlabToDeploy')
+    throw e
+  }
   await WaitForLock.unlock('GitlabToDeploy')
+  
 
   // await RunCypress()
 

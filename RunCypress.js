@@ -19,7 +19,13 @@ async function main () {
   // const config = await LoadYAMLConfig()
 
   await WaitForLock.lock('RunCypress')
-  await RunCypress()
+  try {
+    await RunCypress()
+  }
+  catch (e) {
+    await WaitForLock.unlock('RunCypress')
+    throw e  
+  }
   await WaitForLock.unlock('RunCypress')
 }
 
