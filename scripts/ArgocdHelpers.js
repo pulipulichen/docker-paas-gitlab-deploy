@@ -323,6 +323,8 @@ module.exports = {
             status.health.status === 'Degraded' && 
             status.operationState && 
             status.operationState.phase !== 'Running') {
+            
+
             console.log('==Retry: ' + retry + '===========================')
             console.log(status)
             console.log('=============================')
@@ -332,6 +334,9 @@ module.exports = {
             console.log('============================')
             console.log('Health degraded')
             console.log('============================')
+            await this.sleep(10000)
+            await this.syncApp(appName, token)
+            retry++
             return status
         }
 
