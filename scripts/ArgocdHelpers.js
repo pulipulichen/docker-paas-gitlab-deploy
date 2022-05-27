@@ -293,8 +293,8 @@ module.exports = {
 
         let status = result.data.status
 
-        if (retry === 20) {
-            return status
+        if (retry === 30) {
+          return status
         }
         
         // console.log('==Retry: ' + retry + '===========================')
@@ -368,15 +368,21 @@ module.exports = {
         if ((status.operationState && status.operationState.phase === 'Succeeded') && 
             status.health.status === 'Progressing' && 
             status.resources.filter(r => r.health.status !== 'Healthy').length > 0) {
-            await this.sleep(3000)
+            await this.sleep(10000)
             retry++
+            console.log('============================')
+            console.log('Wait for resource not healthy: ' + retry)
+            console.log('============================')
             return await this.waitOperation(appName, token, retry)
         }
 
         if ((status.operationState && status.operationState.phase === 'Running') || 
             status.health.status === 'Progressing') {
-            await this.sleep(3000)
+            await this.sleep(10000)
             retry++
+            console.log('============================')
+            console.log('Wait for Progressing: ' + retry)
+            console.log('============================')
             return await this.waitOperation(appName, token, retry)
         }
 
