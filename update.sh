@@ -4,4 +4,4 @@ git reset --hard
 git pull --rebase
 
 #cd /app/docker-paas-gitlab-deploy/scripts
-cd $CURRENT_DIR
+cd $CURRENT_DIR 
