@@ -164,11 +164,12 @@ FORCE_DEPLOY.txt need to delete.
   }
   await BuildDeployYamlValues()
 
-  modules.forEach(async function (module) {
+  for (let i = 0; i < modules.length; i++) {
+    let module = modules[i]
     let tag = readTagFromArtifact(BUILD_DIR, `TAG_${module}.txt`)
     await updateTagInYaml(module, tag)
     console.log('TAG UPDATED', module, '[', tag, ']')
-  })
+  }
   await sleep(100)
 
   let valuesContent = fs.readFileSync('./values.yaml', 'utf8')
