@@ -1,11 +1,11 @@
 // const yaml = require('js-yaml')
 
 //const config = yaml.load(fs.readFileSync(path.join(__dirname, '../deploy/values.yaml'), 'utf8'))
-const LoadYAMLConfig = require('./scripts/LoadYAMLConfig.js')
+// const LoadYAMLConfig = require('./scripts/LoadYAMLConfig.js')
 
 // -----------------------------------
 
-const ShellExec = require('./scripts/ShellExec.js')
+// const ShellExec = require('./scripts/lib/ShellExec.js')
 
 // const createApp = require('./scripts/ArgocdCreateApplication.js')
 // const refreshApp = require('./scripts/ArgocdRefreshApplication.js')

@@ -1,4 +1,4 @@
-const ShellExec = require('./ShellExec.js')
+const ShellExec = require('./lib/ShellExec.js')
 const ShellSpawn = require('./lib/ShellSpawn.js')
 const path = require('path')
 const LoadYAMLConfig = require('./LoadYAMLConfig')

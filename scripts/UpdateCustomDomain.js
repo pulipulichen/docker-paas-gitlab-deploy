@@ -1,5 +1,5 @@
 
-const ShellExec = require('./ShellExec.js')
+const ShellExec = require('./lib/ShellExec.js')
 const fs = require('fs')
 const path = require('path')
 const sleep = require('./lib/sleep.js')
