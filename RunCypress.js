@@ -18,9 +18,9 @@ const WaitForLock = require('./scripts/lib/WaitForLock.js')
 async function main () {
   // const config = await LoadYAMLConfig()
 
-  await WaitForLock.lock('GitlabToDeploy')
+  await WaitForLock.lock('RunCypress')
   await RunCypress()
-  await WaitForLock.unlock('GitlabToDeploy')
+  await WaitForLock.unlock('RunCypress')
 }
 
 main()
