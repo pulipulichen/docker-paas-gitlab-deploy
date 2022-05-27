@@ -176,7 +176,7 @@ FORCE_DEPLOY.txt need to delete.
     console.log('================================================')
     console.log(valuesContent)
     console.log('================================================')
-    if (retry === 1) {
+    if (retry === 10) {
       throw new Error('updateTagInYaml failed.')
     }
     
