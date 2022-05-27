@@ -122,7 +122,7 @@ UPDATE CUSTOM DOMAIN
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
 
   let customDomainBranch = 'custom-domain'
-  await ShellExec(`git clone  --branch ${customDomainBranch} ${DEPLOY_GIT_URL}`)
+  await ShellExec(`git clone  --branch ${customDomainBranch} ${DEPLOY_GIT_URL}`, {retry: 10})
 
   const REPO_NAME = getRepoName(config)
 
@@ -162,9 +162,13 @@ UPDATE CUSTOM DOMAIN
       `pwd`,
       `ls -l`,
       `git add .`,
-      `git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`,
-      `git push -f ${DEPLOY_GIT_URL}`
+      `git commit -m "CI TAG: ${await getTag(config)}" --allow-empty`
     ])
+
+    await ShellExec([
+      `cd ${path.join(tmpGitPath, REPO_NAME)}`, 
+      `git push -f ${DEPLOY_GIT_URL}`
+    ], {retry: 10})
   }
   catch (e) {
     if (retry === 10) {

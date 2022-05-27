@@ -1,5 +1,5 @@
 const fs = require('fs')
-const ShellExec = require('./ShellExec.js')
+const ShellExec = require('./lib/ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const sleep = require('./lib/sleep.js')
@@ -100,7 +100,7 @@ let clone = async function (retry = 0) {
 
   const REPO_NAME = getRepoName(config)
   if (fs.existsSync(tmpGitPath + '/' + REPO_NAME) === false) {
-    await ShellExec(`git clone -b ${REPO} ${DEPLOY_GIT_URL} || git clone ${DEPLOY_GIT_URL}`)
+    await ShellExec(`git clone -b ${REPO} ${DEPLOY_GIT_URL} || git clone ${DEPLOY_GIT_URL}`, {retry: 3})
   }
   
   process.chdir(tmpGitPath + '/' + REPO_NAME)
@@ -249,10 +249,13 @@ push
     // `ls -l`,
     // `echo "OK4"`,
     `git commit -m "CI TAG: ${tag}" --allow-empty`,
-    // `echo "OK5"`,
-    `git push -f ${DEPLOY_GIT_URL}`,
-    // `echo "OK6"`,
   ])
+
+  await ShellExec([
+    `cd ${tmpGitPath + '/' + REPO_NAME}`, 
+    
+    `git push -f ${DEPLOY_GIT_URL}`,
+  ], { retry: 10 })
 }
 
 let deployed = async function (retry = 0) {
@@ -296,10 +299,14 @@ deployed
     // `ls -l`,
     // `echo "OK4"`,
     `git commit -m "CI TAG: ${tag} delete FORCE_DEPLOY.txt" --allow-empty`,
-    // `echo "OK5"`,
+  ])
+
+  await ShellExec([
+    `cd ${tmpGitPath + '/' + REPO_NAME}`, 
+    
     `git push -f ${DEPLOY_GIT_URL}`,
     // `echo "OK6"`,
-  ])
+  ], {retry: 10})
 }
 
 module.exports = {

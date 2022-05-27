@@ -6,6 +6,12 @@ const fetch = require('node-fetch')
 const fs = require('fs')
 const { stat } = require('fs/promises')
 
+const axiosRetry = require('axios-retry')
+axiosRetry(axios, { retries: 10 })
+axiosRetry(axios, { retryDelay: (retryCount) => {
+    return retryCount * 1000;
+}})
+
 const tmpTokenPath = '/tmp/argocd.token.txt'
 
 let config
@@ -576,7 +582,7 @@ module.exports = {
     },
 
 
-    restartResource: async function (appName, token, resourceName = 'app') {
+    restartResource: async function (appName, token, resourceName = 'app', retry = 0) {
         await this.getConfig()
         // https://argocd.nccu.syntixi.dev/api/v1/applications/deploybot-test20220428-2220-pudding/resource/actions?namespace=default&resourceName=webapp-deployment-pudding-test20220428-2220&version=v1&kind=Deployment&group=apps
 
@@ -635,8 +641,13 @@ module.exports = {
             return true
         }
         catch (e) {
-            console.error(e)
-            throw new Error(e)
+            if (retry === 10) {
+                console.error(e)
+                throw new Error(e)
+            }
+
+            retry++
+            return await this.restartResource(appName, token, resourceName, retry)
         }
     },
 }
