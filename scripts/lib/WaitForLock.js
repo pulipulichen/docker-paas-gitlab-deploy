@@ -11,7 +11,7 @@ axiosRetry(axios, { retryDelay: (retryCount) => {
 let api = `https://script.google.com/macros/s/AKfycbwjjDjwVN1tyW85by9I4ag9gcI_qy0jNb4M7E4VP_dTUs-7HpSCGoFINUSdygcxGQrm/exec`
 let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9Q70j5M1COzndKZA/edit?usp=sharing`
 
-let queryPassed = ['added', 'reset', 'timeout']
+let queryPassed = ['added', 'reset', 'timeout', 'existed']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
 let concurrent = 1
