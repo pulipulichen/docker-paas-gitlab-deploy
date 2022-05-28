@@ -22,9 +22,26 @@ async function main() {
   await ShellExec('npm link js-yaml fast-glob')
   try {
 
-    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/admin.spec.js`])
-    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
-    await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/app/**/*`])
+    let jobs = config.environment.tests.specs
+    if (!jobs) {
+      jobs = [
+        `test/cypress/integration/gadget/admin.spec.js`,
+        `test/cypress/integration/gadget/**/[!admin.spec.js]*`,
+        `test/cypress/integration/app/**/*`
+      ]
+    }
+
+    let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
+    if (config.app.test_repeats > 10) {
+      args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
+    }
+
+    for (let i = 0; i < jobs.length; i++) {
+      await ShellSpawn(args.concat([`--spec`, jobs[i]]))
+    }
+
+    // await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
+    // await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/app/**/*`])
 
 
     // https://patorjk.com/software/taag/#p=display&h=0&v=0&f=ANSI%20Shadow&t=FINISH
