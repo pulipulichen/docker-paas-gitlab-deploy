@@ -52,13 +52,15 @@ async function main() {
       // }
 
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
-      console.log(currentArgs.join(' '))
+      // console.log(currentArgs.join(' '))
 
       if (i === jobs.length - 1) {
+        currentArgs.push('--quiet')
+        currentArgs = currentArgs.join(' ')
         for (let j = 0; j < config.app.test_repeats; j++) {
-          await ShellExec(currentArgs.join(' '))  
+          console.log('Test App # ' + j)
+          await ShellExec(currentArgs, {verbose: false})  
         }
-        
       }
       else {
         await ShellSpawn(currentArgs, {verbose})  
