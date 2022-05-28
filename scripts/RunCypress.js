@@ -35,8 +35,11 @@ async function main() {
 
     let verbose = true
     let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
+    let repeatArgs = [`cypress-repeat`, `run`, '-n', config.app.test_repeats, `--headless`, `--project`, `test`]
+
     if (config.app.test_repeats > 10 && config.environment.test.force_record === false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
+      repeatArgs = repeatArgs.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // verbose = false
     }
 
@@ -45,16 +48,13 @@ async function main() {
 
       let repeat = 1
       if (i === jobs.length - 1) {
-        //currentArgs.push('--quiet')
-        repeat = config.app.test_repeats
+        currentArgs = [].concat(repeatArgs)
       }
 
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
       console.log({currentArgs})
 
-      for (let j = 0; j < repeat; j++) {
-        await ShellSpawn(currentArgs, {verbose})
-      }
+      await ShellSpawn(currentArgs, {verbose})
     }
 
     // await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
