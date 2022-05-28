@@ -28,7 +28,7 @@ async function getKey (keySuffix) {
 async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
   
-  let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${cocurrent}&action=query`)
+  let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=query`)
   let data = result.data.result
   
   if (queryPassed.indexOf(data) === -1) {
