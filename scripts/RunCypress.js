@@ -94,6 +94,7 @@ async function main() {
           lastTime = jobInterval
           console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
+
         for (let j = 0; j < test_repeats; j++) {
           runJob(j)
 
@@ -105,7 +106,6 @@ async function main() {
           }
         }
             
-
         let endInterval = (new Date()).getTime() - startTime
         let endMinutes = Math.floor(endInterval / 1000 / 60)
 
