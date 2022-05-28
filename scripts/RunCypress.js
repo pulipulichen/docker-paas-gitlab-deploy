@@ -6,7 +6,7 @@ const sleep = require('./lib/sleep.js')
 
 async function main() {
 
-  conosle.log('wait for 10 seconds.')
+  console.log('wait for 10 seconds.')
   await sleep(10000)
   
   console.log('=========================================')
