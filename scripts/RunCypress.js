@@ -83,16 +83,17 @@ async function main() {
           let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
           
           await ShellExec(currentArgs, {verbose: false})  
-          finishedCount++
-
+          
           let jobInterval = (new Date()).getTime() - jobStartTime
 
           let diffInterval = lastInterval
-          if (diffInterval !== 0) {
+          if (lastInterval !== 0) {
             diffInterval = lastTime - jobInterval
           }
           lastTime = jobInterval
           console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
+
+          finishedCount++
         }
 
         for (let j = 0; j < test_repeats; j++) {
