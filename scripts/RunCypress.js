@@ -55,8 +55,10 @@ async function main() {
       if (i === jobs.length - 1) {
         currentArgs.push('--quiet')
         currentArgs = currentArgs.join(' ')
-        for (let j = 0; j < config.app.test_repeats; j++) {
-          console.log('Test App # ' + j)
+        let {test_repeats} = config.app
+        for (let j = 0; j < test_repeats; j++) {
+          let percent = (Math.floor((j+1)/test_repeats)*100)
+          console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%)`)
           await ShellExec(currentArgs, {verbose: false})  
         }
       }
