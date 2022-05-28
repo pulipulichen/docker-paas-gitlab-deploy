@@ -29,8 +29,9 @@ async function main() {
     let jobs = config.environment.test.specs
     if (!jobs) {
       jobs = [
-        `test/cypress/integration/gadget/admin.spec.js`,
-        `test/cypress/integration/gadget/**/[!admin.spec.js]*`,
+        // `test/cypress/integration/gadget/admin.spec.js`,
+        // `test/cypress/integration/gadget/**/[!admin.spec.js]*`,
+        `test/cypress/integration/gadget/**/*`,
         `test/cypress/integration/app/**/*`
       ]
     }
