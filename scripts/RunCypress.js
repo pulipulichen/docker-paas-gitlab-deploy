@@ -22,7 +22,7 @@ async function main() {
   await ShellExec('npm link js-yaml fast-glob')
   try {
 
-    let jobs = config.environment.tests.specs
+    let jobs = config.environment.test.specs
     if (!jobs) {
       jobs = [
         `test/cypress/integration/gadget/admin.spec.js`,
