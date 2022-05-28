@@ -8,13 +8,13 @@ axiosRetry(axios, { retryDelay: (retryCount) => {
     return retryCount * 1000;
 }})
 
-let api = `https://script.google.com/macros/s/AKfycbzzs3DdKOlXB1d75kj7JTpTc0P9apy0GY0rtDFYHEqJ-XUKnK2h-hK_0olHtpUfkTaX/exec`
+let api = `https://script.google.com/macros/s/AKfycbxCT6Nj3RPjAc3R6bYRw1_NieYd_AUmXldsobIUVvt_EyaFxklCyprPT_jjc5NjFdRR/exec`
 let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9Q70j5M1COzndKZA/edit?usp=sharing`
 
 let queryPassed = ['added', 'reset', 'timeout']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
-let concurrent = 1
+let concurrent = 3
 
 async function getKey (keySuffix) {
   let config = await LoadYAMLConfig()
@@ -28,8 +28,8 @@ async function getKey (keySuffix) {
 async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
 
-  if (keySuffix === 'GitlabToDeploy') {
-    concurrent = 3
+  if (keySuffix === 'RunCypress') {
+    concurrent = 1
   }
   
   let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=query`)
