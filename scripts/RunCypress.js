@@ -32,7 +32,7 @@ async function main() {
     }
 
     let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
-    if (config.app.test_repeats > 10) {
+    if (config.app.test_repeats > 10 && config.environment.test.force_record !== false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
     }
 
