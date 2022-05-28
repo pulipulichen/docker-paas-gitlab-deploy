@@ -35,7 +35,7 @@ async function main() {
 
     let verbose = true
     let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
-    let repeatArgs = [`cypress-repeat`, `run`, '-n', '' + config.app.test_repeats, `--headless`, `--project`, `test`]
+    // let repeatArgs = [`cypress-repeat`, `run`, '-n', '' + config.app.test_repeats, `--headless`, `--project`, `test`]
 
     if (config.app.test_repeats > 10 && config.environment.test.force_record === false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
@@ -47,15 +47,18 @@ async function main() {
       let currentArgs = [].concat(args)
 
       let repeat = 1
-      if (i === jobs.length - 1) {
-        currentArgs = [].concat(repeatArgs)
-      }
+      // if (i === jobs.length - 1) {
+      //   currentArgs = [].concat(repeatArgs)
+      // }
 
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
-      console.log({currentArgs})
+      console.log(currentArgs.join(' '))
 
       if (i === jobs.length - 1) {
-        await ShellExec(currentArgs.joing(' '))
+        for (let j = 0; j < config.app.test_repeats; j++) {
+          await ShellExec(currentArgs.joing(' '))  
+        }
+        
       }
       else {
         await ShellSpawn(currentArgs, {verbose})  
