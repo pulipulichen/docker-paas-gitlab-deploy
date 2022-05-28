@@ -10,15 +10,16 @@ module.exports = async function (cmd, options = {}) {
   
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr) {
-      // if (verbose) {
+      if (verbose) {
         console.log(`[STDERR] ${stderr}`);
-      // }
+      }
         
     }
   }
 
   if (typeof(errorHandler) !== 'function') {
     errorHandler = function (error, reject) {
+      
       console.error(`[ERROR]\n${error.message}`)
       reject(error)
       return
