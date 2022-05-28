@@ -39,7 +39,7 @@ async function main() {
 
     if (config.app.test_repeats > 10 && config.environment.test.force_record === false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
-      repeatArgs = repeatArgs.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
+      // repeatArgs = repeatArgs.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // verbose = false
     }
 
