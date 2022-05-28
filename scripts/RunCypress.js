@@ -43,13 +43,17 @@ async function main() {
     for (let i = 0; i < jobs.length; i++) {
       let currentArgs = [].concat(args)
 
+      let repeat = 1
       if (i === jobs.length - 1) {
         currentArgs.push('--quiet')
+        repeat = config.app.test_repeats
       }
 
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
 
-      await ShellSpawn(currentArgs, {verbose})
+      for (let j = 0; j < repeat; j++) {
+        await ShellSpawn(currentArgs, {verbose})
+      }
     }
 
     // await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
