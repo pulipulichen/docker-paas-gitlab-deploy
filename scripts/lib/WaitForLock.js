@@ -58,6 +58,10 @@ wait for ${10*(retry + 1)} seconds ... ` + retry + `
 }
 
 async function unlock (keySuffix = '') {
+  if (keySuffix === 'RunCypress') {
+    concurrent = 1
+  }
+
   let key = await getKey(keySuffix)
   await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=remove`)
 }
