@@ -1,6 +1,8 @@
 const { spawn } = require("child_process");
 
-module.exports = function (cmdArray, stderrHandler, errorHandler) {
+module.exports = function (cmdArray, options = {}) {
+
+  let {stderrHandler, errorHandler, verbose = true} = options
 
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr) {
@@ -20,7 +22,9 @@ module.exports = function (cmdArray, stderrHandler, errorHandler) {
     const job = spawn(cmdArray[0], cmdArray.splice(1));
 
     job.stdout.on("data", data => {
-      console.log(`${data}`);
+      if (verbose) {
+        console.log(`${data}`);
+      }
     });
     
     job.stderr.on("data", data => {
@@ -32,7 +36,9 @@ module.exports = function (cmdArray, stderrHandler, errorHandler) {
     });
     
     job.on("close", code => {
-        console.log(`child process exited with code ${code}`);
+        if (verbose) {
+          console.log(`child process exited with code ${code}`);
+        }
         if (code !== 0) {
           return reject(code)
         }
