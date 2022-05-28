@@ -45,11 +45,12 @@ async function main() {
 
       let repeat = 1
       if (i === jobs.length - 1) {
-        currentArgs.push('--quiet')
+        //currentArgs.push('--quiet')
         repeat = config.app.test_repeats
       }
 
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
+      console.log({currentArgs})
 
       for (let j = 0; j < repeat; j++) {
         await ShellSpawn(currentArgs, {verbose})
