@@ -35,7 +35,7 @@ async function main() {
 
     let verbose = true
     let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
-    let repeatArgs = [`cypress-repeat`, `run`, '-n', config.app.test_repeats, `--headless`, `--project`, `test`]
+    let repeatArgs = [`cypress-repeat`, `run`, '-n', '' + config.app.test_repeats, `--headless`, `--project`, `test`]
 
     if (config.app.test_repeats > 10 && config.environment.test.force_record === false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
