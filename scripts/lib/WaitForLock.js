@@ -14,7 +14,7 @@ let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9
 let queryPassed = ['added', 'reset', 'timeout']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
-let cocurrent = 4
+let concurrent = 4
 
 async function getKey (keySuffix) {
   let config = await LoadYAMLConfig()
@@ -28,7 +28,7 @@ async function getKey (keySuffix) {
 async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
   
-  let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&cocurrent=${cocurrent}&action=query`)
+  let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${cocurrent}&action=query`)
   let data = result.data.result
   
   if (queryPassed.indexOf(data) === -1) {
@@ -55,7 +55,7 @@ wait for ${10*(retry + 1)} seconds ... ` + retry + `
 
 async function unlock (keySuffix = '') {
   let key = await getKey(keySuffix)
-  await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&cocurrent=${cocurrent}&action=remove`)
+  await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=remove`)
 }
 
 module.exports = {
