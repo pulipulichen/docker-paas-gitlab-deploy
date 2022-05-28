@@ -56,7 +56,7 @@ async function main() {
         currentArgs.push('--quiet')
         currentArgs = currentArgs.join(' ')
         let {test_repeats} = config.app
-        test_repeats = 3
+        // test_repeats = 3
         let startTime = (new Date()).getTime()
 
         let lastInterval = 0
@@ -76,17 +76,35 @@ async function main() {
           console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
         */
+        let concurrent = 3
         let finishedCount = 0
-        let runJob = async function () {
-          await ShellExec(currentArgs, {verbose: true})  
+        let runJob = async function (j) {
+          let jobStartTime = (new Date()).getTime()
+          let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
+          
+          await ShellExec(currentArgs, {verbose: false})  
           finishedCount++
+
+          let jobInterval = (new Date()).getTime() - jobStartTime
+
+          let diffInterval = lastInterval
+          if (diffInterval !== 0) {
+            diffInterval = lastTime - jobInterval
+          }
+          lastTime = jobInterval
+          console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
         for (let j = 0; j < test_repeats; j++) {
-          runJob()
+          runJob(j)
+
+          if (j % concurrent === (concurrent - 1)) {
+            while (finishedCount < concurrent - 1) {
+              await sleep(5000)
+            }
+            finishedCount = 0
+          }
         }
-        while (finishedCount < test_repeats) {
-          await sleep(5000)
-        }
+            
 
         let endInterval = (new Date()).getTime() - startTime
         let endMinutes = Math.floor(endInterval / 1000 / 60)
