@@ -54,7 +54,13 @@ async function main() {
       currentArgs = currentArgs.concat([`--spec`, jobs[i]])
       console.log({currentArgs})
 
-      await ShellSpawn(currentArgs, {verbose})
+      if (i === jobs.length - 1) {
+        await ShellExec(currentArgs.joing(' '))
+      }
+      else {
+        await ShellSpawn(currentArgs, {verbose})  
+      }
+      
     }
 
     // await ShellSpawn([`cypress`, `run`, `--headless`, `--project`, `test`, `--spec`, `test/cypress/integration/gadget/**/[!admin.spec.js]*`])
