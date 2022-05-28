@@ -56,7 +56,7 @@ async function main() {
 
       if (i === jobs.length - 1) {
         for (let j = 0; j < config.app.test_repeats; j++) {
-          await ShellExec(currentArgs.joing(' '))  
+          await ShellExec(currentArgs.join(' '))  
         }
         
       }
