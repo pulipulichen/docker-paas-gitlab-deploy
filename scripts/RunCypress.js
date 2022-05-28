@@ -59,7 +59,7 @@ async function main() {
         // test_repeats = 3
         let startTime = (new Date()).getTime()
 
-        let lastInterval = 0
+        
         /*
         for (let j = 0; j < test_repeats; j++) {
           let jobStartTime = (new Date()).getTime()
@@ -78,6 +78,7 @@ async function main() {
         */
         let concurrent = 3
         let finishedCount = 0
+        let lastInterval = 0
         let runJob = async function (j) {
           let jobStartTime = (new Date()).getTime()
           let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
@@ -87,12 +88,8 @@ async function main() {
           
           let jobInterval = (new Date()).getTime() - jobStartTime
 
-          let diffInterval = lastInterval
-          if (lastInterval !== 0) {
-            diffInterval = lastTime - jobInterval
-          }
-          lastTime = jobInterval
-          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
+          let lastInterval = Math.ceil((lastInterval + jobInterval)/2)
+          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${lastInterval}) ${new Date()}`)
 
           finishedCount++
         }
