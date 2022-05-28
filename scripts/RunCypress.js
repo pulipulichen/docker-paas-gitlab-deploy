@@ -2,8 +2,12 @@ const ShellExec = require('./lib/ShellExec.js')
 const ShellSpawn = require('./lib/ShellSpawn.js')
 const path = require('path')
 const LoadYAMLConfig = require('./LoadYAMLConfig')
+const sleep = require('./lib/sleep.js')
 
 async function main() {
+
+  conosle.log('wait for 10 seconds.')
+  await sleep(10000)
   
   console.log('=========================================')
   console.log('Start cypress test')
