@@ -56,11 +56,17 @@ async function main() {
         currentArgs.push('--quiet')
         currentArgs = currentArgs.join(' ')
         let {test_repeats} = config.app
+
+        let startTime = (new Date()).getTime()
         for (let j = 0; j < test_repeats; j++) {
           let percent = (Math.floor((j+1)/test_repeats)*100)
-          console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%)`)
+          console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${new Date()}`)
           await ShellExec(currentArgs, {verbose: false})  
         }
+        let endInterval = (new Date()).getTime() - startTime
+        let endMinutes = Math.floor(endInterval / 1000 / 60)
+
+        console.log(`Total time ${endMinutes} minutes`)
       }
       else {
         await ShellSpawn(currentArgs, {verbose})  
