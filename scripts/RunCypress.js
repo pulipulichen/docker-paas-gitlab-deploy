@@ -105,6 +105,7 @@ async function main() {
               await sleep(5000)
             }
             finishedCount = 0
+            await sleep(1000)
           }
         }
             
