@@ -8,13 +8,13 @@ axiosRetry(axios, { retryDelay: (retryCount) => {
     return retryCount * 1000;
 }})
 
-let api = `https://script.google.com/macros/s/AKfycbxCT6Nj3RPjAc3R6bYRw1_NieYd_AUmXldsobIUVvt_EyaFxklCyprPT_jjc5NjFdRR/exec`
+let api = `https://script.google.com/macros/s/AKfycbyhRgPrBP2aj3cjJoYvfW_UAJgHscFoC59TVEYghmjLdVEYz8cvFJeX1IqpGgslk2Jk/exec`
 let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9Q70j5M1COzndKZA/edit?usp=sharing`
 
 let queryPassed = ['added', 'reset', 'timeout']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
-let concurrent = 3
+let concurrent = 1
 
 async function getKey (keySuffix) {
   let config = await LoadYAMLConfig()
