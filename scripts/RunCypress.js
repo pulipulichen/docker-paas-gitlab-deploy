@@ -6,9 +6,6 @@ const sleep = require('./lib/sleep.js')
 
 async function main() {
 
-  console.log('wait for 10 seconds.')
-  await sleep(10000)
-  
   console.log('=========================================')
   console.log('Start cypress test')
   console.log('=========================================')
