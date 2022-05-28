@@ -72,13 +72,13 @@ async function main() {
           if (diffInterval !== 0) {
             diffInterval = lastTime - jobInterval
           }
-          lastTime = jobInterval
+          lastTime = jobInterval/pudding/dlll-paas-starter/-/jobs/7153/retry
           console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
         */
         let finishedCount = 0
         let runJob = async function () {
-          await ShellExec(currentArgs, {verbose: false})  
+          await ShellExec(currentArgs, {verbose: true})  
           finishedCount++
         }
         for (let j = 0; j < test_repeats; j++) {
