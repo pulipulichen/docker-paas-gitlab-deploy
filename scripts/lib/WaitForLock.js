@@ -29,7 +29,7 @@ async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
 
   if (keySuffix === 'RunCypress') {
-    concurrent = 1
+    concurrent = 3
   }
   
   let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=query`)
@@ -59,7 +59,7 @@ wait for ${10*(retry + 1)} seconds ... ` + retry + ` ${new Date() + ''}
 
 async function unlock (keySuffix = '') {
   if (keySuffix === 'RunCypress') {
-    concurrent = 1
+    concurrent = 3
   }
 
   let key = await getKey(keySuffix)
