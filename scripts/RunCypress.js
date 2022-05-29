@@ -10,6 +10,10 @@ async function main() {
   console.log('Start cypress test')
   console.log('=========================================')
  
+  console.log(`=========================================
+${showLinkMessage(config)}
+=========================================`)
+
   // 切回去原本的路徑
   const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
   process.chdir(BUILD_DIR)
@@ -132,9 +136,7 @@ console.log(`===================================
 ██║     ██║██║ ╚████║██║███████║██║  ██║
 ╚═╝     ╚═╝╚═╝  ╚═══╝╚═╝╚══════╝╚═╝  ╚═╝
 
-Checkout your awesome application:
-APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
-ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+${showLinkMessage(config)}
     `)
   }
   catch (e) {
@@ -149,6 +151,13 @@ http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.
   
  
   // await ShellExec('/app/docker-paas-gitlab-deploy/scripts/RunCypress.sh')
+}
+
+function showLinkMessage(config) {
+  return `
+Checkout your awesome application:
+APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}`
 }
 
 module.exports = main
