@@ -6,6 +6,8 @@ const sleep = require('./lib/sleep.js')
 
 async function main() {
 
+  let config = await LoadYAMLConfig()
+  
   console.log('=========================================')
   console.log('Start cypress test')
   console.log('=========================================')
@@ -23,7 +25,6 @@ ${showLinkMessage(config)}
   // await ShellExec(`echo 256 > /proc/sys/fs/inotify/max_user_instances`)
 
 
-  let config = await LoadYAMLConfig()
   await ShellExec('npm link js-yaml fast-glob')
   try {
 
