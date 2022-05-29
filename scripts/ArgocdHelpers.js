@@ -373,7 +373,7 @@ module.exports = {
         if ((status.operationState && status.operationState.phase === 'Succeeded') && 
             status.health.status === 'Progressing' && 
             status.resources.filter(r => {
-                if (r.health && r.health.status !== 'Healthy').length > 0)
+                return (r.health && r.health.status !== 'Healthy').length > 0)
             }) {
             await this.sleep(10000)
             retry++
