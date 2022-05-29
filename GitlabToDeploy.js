@@ -16,6 +16,8 @@ const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const UpdateCustomDomain = require('./scripts/UpdateCustomDomain.js')
 const WaitForLock = require('./scripts/lib/WaitForLock.js')
 
+const RenderHelmChartTemplates = require('./scripts/RenderHelmChartTemplates.js')
+
 async function main () {
   const config = await LoadYAMLConfig()
 
@@ -38,6 +40,8 @@ async function main () {
     console.log('=========================================')
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
+
+    await RenderHelmChartTemplates()
 
     if (await BuildDeployYaml.clone()) {
       await UpdateCustomDomain(config)
