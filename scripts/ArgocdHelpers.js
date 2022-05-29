@@ -448,7 +448,9 @@ module.exports = {
             if (Array.isArray(status.resources)) {
                 resourcesHealth = status.resources
                     //.filter(r => r.status !== 'Synced')
-                    .filter(r => r.health.status !== 'Healthy')
+                    .filter(r => {
+                        return (r.health && r.health.status !== 'Healthy')
+                    })
                     .map(r => {
                       let m = this.healthyCheckMessageFilter(r.health.message)
                       return '[' + r.name + ']\n' + m
