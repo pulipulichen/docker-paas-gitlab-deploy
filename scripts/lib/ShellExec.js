@@ -6,10 +6,10 @@ module.exports = async function (cmd, options = {}) {
     cmd = cmd.join(' && ')
   }
 
-  let {stderrHandler, errorHandler, retry, verbose = true} = options
+  let {stderrHandler, errorHandler, retry = -1, verbose = true} = options
   
   if (typeof(stderrHandler) !== 'function') {
-    stderrHandler = function (stderr) {
+    stderrHandler = function (stderr, reject) {
       if (verbose) {
         console.log(`[STDERR] ${stderr}`);
       }

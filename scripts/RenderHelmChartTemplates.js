@@ -42,10 +42,15 @@ RenderHelmChartTemplates
   await BuildDeployYamlReplace()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
-  console.log(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
+  // console.log(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
   // await ShellExec(`whereis helm`)
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`, {verbose: true})
-  const result = await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug`, {verbose: true})
+  const result = await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug`, {verbose: true, stderrHandler = function (stderr, reject) {
+    if (verbose) {
+      console.log(`[STDERR] ${stderr}`);
+    }
+    reject()
+  }})
   // const result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`], {verbose: false})
   
 
