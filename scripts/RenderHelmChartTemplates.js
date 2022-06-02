@@ -66,7 +66,7 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result.stdout)
 
   if (result.stderr) {
-    let errorFilePath = extractErrorFilePath(result.stderr.message)
+    let errorFilePath = extractErrorFilePath(result.stderr.toString())
     if (errorFilePath) {
       let errorFileContent = getContentFromErrorFile(errorFilePath)
       console.log(`=============================================`)
