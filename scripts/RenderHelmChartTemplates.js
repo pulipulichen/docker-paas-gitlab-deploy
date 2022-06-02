@@ -57,11 +57,12 @@ RenderHelmChartTemplates
     result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true, })
   }
   catch (e) {
-    console.log('============================')
-    console.error(e.stdeer)
+    console.log('**============================')
+    //console.error(e.stdeer)
     result = e.stdout
-    hasError = true
-    console.log('============================')
+    console.log(result)
+    hasError = e.stdeer
+    console.log('**============================')
   }
   
 
@@ -75,6 +76,11 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result)
 
   throw new Error('Please check helm')
+
+  if (hasError) {
+    throw hasError
+  }
+
   // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
 
   // 6. 結束
