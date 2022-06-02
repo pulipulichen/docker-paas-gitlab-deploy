@@ -48,11 +48,11 @@ module.exports = function (cmdArray, options = {}) {
     });
     
     job.stderr.on("data", data => {
-      stderrHandler(`${data}`, resolve, dataArray);
+      // stderrHandler(`${data}`, resolve, dataArray);
     });
     
     job.on('error', (error) => {
-      stderrHandler(`error: ${error.message}`, resolve, dataArray);
+      // stderrHandler(`error: ${error.message}`, resolve, dataArray);
     });
     
     job.on("close", code => {
