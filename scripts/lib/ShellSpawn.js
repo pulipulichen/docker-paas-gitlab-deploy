@@ -2,7 +2,7 @@ const { spawn } = require("child_process");
 
 module.exports = function (cmdArray, options = {}) {
 
-  let {stderrHandler, errorHandler, verbose = true} = options
+  let {stderrHandler, errorHandler, verbose = true, getResult = false} = options
 
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr) {
@@ -21,9 +21,16 @@ module.exports = function (cmdArray, options = {}) {
   return new Promise(function (resolve, reject) {
     const job = spawn(cmdArray[0], cmdArray.splice(1));
 
+    let dataArray = []
+
+
     job.stdout.on("data", data => {
       if (verbose) {
         console.log(`${data}`);
+      }
+
+      if (getResult) {
+        dataArray.push(data)
       }
     });
     
@@ -42,7 +49,14 @@ module.exports = function (cmdArray, options = {}) {
         if (code !== 0) {
           return reject(code)
         }
-        resolve()
+
+        if (getResult) {
+          resolve(dataArray.join('\n'))
+        }
+        else {
+          resolve()
+        }
+        
     });
   })
 }
