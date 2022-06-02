@@ -51,17 +51,25 @@ RenderHelmChartTemplates
   //   }
   //   reject()
   // }})
-  const result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`], {verbose: false, getResult: true})
+  let result
+  try {
+    result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`], {verbose: true, getResult: true})
+  }
+  catch (e) {
+    console.error(e)
+  }
   
 
   // console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 
 
-  // throw new Error('Please check helm')
+  
   // 4. 如果有錯誤，則這裡停止
 
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
   writeSplitedHelmResult(result)
+
+  throw new Error('Please check helm')
   // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
 
   // 6. 結束
