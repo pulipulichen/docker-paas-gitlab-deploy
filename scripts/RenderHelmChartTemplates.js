@@ -24,6 +24,9 @@ RenderHelmChartTemplates
   if (fs.existsSync(tempDir) === false) {
     fs.mkdirSync(tempDir, {recursive: true})
   }
+  if (fs.existsSync(tempOutputDir) === false) {
+    fs.mkdirSync(tempOutputDir, {recursive: true})
+  }
   process.chdir(tempDir)
  
   // console.log(BUILD_DIR)
