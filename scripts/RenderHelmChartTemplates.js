@@ -24,12 +24,11 @@ RenderHelmChartTemplates
 
   await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
 
-
   // 2. 建立 values
   await BuildDeployYamlValues()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
-  await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${tempOutputDir}/output.txt`)
+  // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${tempOutputDir}/output.txt`)
 
   throw new Error('Please check helm')
   // 4. 如果有錯誤，則這裡停止
