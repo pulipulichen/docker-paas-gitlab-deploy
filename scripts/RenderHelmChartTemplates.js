@@ -1,19 +1,37 @@
 const fs = require('fs')
 const path = require('path')
 
-const tempDir = '/tmp/render_templates'
+const ShellExec = require('./lib/ShellExec.js')
+const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 
+const tempDir = '/tmp/render_templates'
+const tempOutputDir = '/tmp/render_templates/render'
+const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
 
 async function RenderHelmChartTemplates () {
-  // throw new Error('todo')
-  console.error('@TODO RenderHelmChartTemplates')
+  console.log(`
+================================================
+RenderHelmChartTemplates
+================================================
+`)
 
   // 1. 複製到指定資料夾
 
+  if (fs.existsSync(tempOutputDir) === false) {
+    fs.mkdirSync(tempOutputDir, {recursive: true})
+  }
+  process.chdir(tempDir)
+
+  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
+
+
   // 2. 建立 values
+  await BuildDeployYamlValues()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
+  await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${tempOutputDir}/output.txt`)
 
+  throw new Error('Please check helm')
   // 4. 如果有錯誤，則這裡停止
 
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
