@@ -22,6 +22,8 @@ RenderHelmChartTemplates
   }
   process.chdir(tempDir)
 
+  console.log(BUILD_DIR)
+  console.log(fs.readFileSync(BUILD_DIR))
   // await ShellExec(`tree ${BUILD_DIR}/deploy/*`)
   // await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
 
