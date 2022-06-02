@@ -75,7 +75,11 @@ RenderHelmChartTemplates
       console.log(`=============================================`)
       console.log(`Source: ${errorFilePath}`)
       console.log(errorFileContent)
-      console.log(`=============================================`)
+      console.log(`=============================================     
+You can use HELM-PLAYGROUND.COM to verfity the code:
+https://helm-playground.com/#
+=============================================`)
+      
     }
 
     throw result.stderr
