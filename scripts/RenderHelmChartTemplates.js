@@ -27,6 +27,8 @@ RenderHelmChartTemplates
   // await ShellExec(`tree ${BUILD_DIR}/deploy/*`)
   await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
 
+  console.log(fs.readdirSync(tempDir)) 
+
   // 2. 建立 values
   // await BuildDeployYamlValues()
 
