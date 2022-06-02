@@ -156,7 +156,7 @@ UPDATE CUSTOM DOMAIN
   }
   else if (Array.isArray(domain_suffix)) {
     let changed = false
-    for (let i = 0; i < domains_suffix.length; i++) {
+    for (let i = 0; i < domain_suffix.length; i++) {
       let domain = domains_suffix[i]
 
       let eachCustomDomain = customDomain
