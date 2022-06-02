@@ -36,7 +36,7 @@ module.exports = function (cmdArray, options = {}) {
 
     job.stdout.on("data", data => {
       if (verbose) {
-        console.log(`[OKOK] ${data}`);
+        console.log(`${data}`);
       }
 
       if (getResult) {
@@ -57,7 +57,8 @@ module.exports = function (cmdArray, options = {}) {
           console.log(`child process exited with code ${code}`);
         }
         if (code !== 0) {
-          return reject(code)
+          // return reject(code)
+          return stderrHandler(code, reject)
         }
 
         if (getResult) {
