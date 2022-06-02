@@ -5,8 +5,8 @@ const ShellExec = require('./lib/ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 
 const tempDir = '/tmp/render_templates'
-const tempOutputDir = '/tmp/render_templates/render'
 const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
+const tempOutputDir = path.join(BUILD_DIR, '/deploy/render/')
 
 async function RenderHelmChartTemplates () {
   console.log(`
@@ -17,16 +17,16 @@ RenderHelmChartTemplates
 
   // 1. 複製到指定資料夾
 
-  if (fs.existsSync(tempOutputDir) === false) {
-    fs.mkdirSync(tempOutputDir, {recursive: true})
+  if (fs.existsSync(tempDir) === false) {
+    fs.mkdirSync(tempDir, {recursive: true})
   }
   process.chdir(tempDir)
 
   // console.log(BUILD_DIR)
   // console.log(fs.readdirSync(BUILD_DIR + '/deploy')) 
   // await ShellExec(`tree ${BUILD_DIR}/deploy/*`)
-  console.log(`cp -rf ${BUILD_DIR}/deploy/* ${BUILD_DIR}/deploy/render`)
-  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/templates ${BUILD_DIR}/deploy/render`)
+  // console.log(`cp -rf ${BUILD_DIR}/deploy/* ${BUILD_DIR}/deploy/render`)
+  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/ ${tempDir}`)
 
   console.log(fs.readdirSync(tempDir)) 
 
