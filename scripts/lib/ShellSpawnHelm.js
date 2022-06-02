@@ -61,7 +61,11 @@ module.exports = function (cmdArray, options = {}) {
         }
         if (code !== 0) {
           // return reject(code)
-          return stderrHandler(code, resolve, dataArray)
+          // return stderrHandler(code, resolve, dataArray)
+          setTimeout(() => {
+            stderrHandler(code, resolve, dataArray)
+          }, 1000)
+          return false
         }
 
         if (getResult) {
