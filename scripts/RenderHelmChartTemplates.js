@@ -84,7 +84,7 @@ https://helm-playground.com/#
 
     throw result.stderr
   }
-  throw new Error('Please check helm')
+  // throw new Error('Please check helm')
 
 
   // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
