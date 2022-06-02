@@ -38,7 +38,7 @@ RenderHelmChartTemplates
   console.log(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
   // await ShellExec(`whereis helm`)
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`, {verbose: true})
-  await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`,`>>`,`${path.join(tempOutputDir, '/output.txt')}`])
+  await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`])
 
   console.log(fs.readdirSync(tempDir)) 
   console.log(fs.readdirSync(tempOutputDir)) 
