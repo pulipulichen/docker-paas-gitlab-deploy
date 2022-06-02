@@ -66,7 +66,7 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result.stdout)
 
   if (result.stderr) {
-    throw result.stderr
+    throw new Error(result.stderr)
   }
   throw new Error('Please check helm')
 
@@ -81,7 +81,7 @@ function writeSplitedHelmResult (result) {
   let parts = result.split(`---
 # Source:`)
 
-  console.log(`part length`, parts.length)
+  // console.log(`part length`, parts.length)
   // process.chdir(tempOutputDir)
 
   let needleTemplate = '/templates/'

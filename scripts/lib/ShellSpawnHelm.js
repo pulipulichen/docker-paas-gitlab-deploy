@@ -5,6 +5,7 @@ module.exports = function (cmdArray, options = {}) {
   let {stderrHandler, errorHandler, verbose = true, getResult = false} = options
 
   let dataArray = []
+  let errorMessage
 
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, resolve, dataArray) {
@@ -48,6 +49,7 @@ module.exports = function (cmdArray, options = {}) {
     });
     
     job.stderr.on("data", data => {
+      errorMessage = data
       // stderrHandler(`${data}`, resolve, dataArray);
     });
     
@@ -63,7 +65,7 @@ module.exports = function (cmdArray, options = {}) {
           // return reject(code)
           // return stderrHandler(code, resolve, dataArray)
           setTimeout(() => {
-            stderrHandler(code, resolve, dataArray)
+            stderrHandler(errorMessage, resolve, dataArray)
           }, 1000)
           return false
         }
