@@ -66,6 +66,7 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result.stdout)
 
   if (result.stderr) {
+    console.log(JSON.stringify(result.stderr, null, 2))
     let errorFilePath = extractErrorFilePath(result.stderr + '')
     if (errorFilePath) {
       let errorFileContent = getContentFromErrorFile(errorFilePath)
@@ -75,7 +76,7 @@ RenderHelmChartTemplates
       console.log(`=============================================`)
     }
 
-    throw new Error(result.stderr)
+    throw result.stderr
   }
   throw new Error('Please check helm')
 
