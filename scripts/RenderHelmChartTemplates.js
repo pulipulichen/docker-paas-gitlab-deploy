@@ -76,11 +76,11 @@ function writeSplitedHelmResult (result) {
 
     let part = parts[i].trim()
 
-    let newLinePos = path.indexOf('\n')
-    let yamlPath = path.slice(path.indexOf(needleTemplate) + needleTemplate.length, newLinePos).trim()
+    let newLinePos = part.indexOf('\n')
+    let yamlPath = part.slice(part.indexOf(needleTemplate) + needleTemplate.length, newLinePos).trim()
     let yamlName = yamlPath.slice(yamlPath.indexOf('/') + 1).trim()
     let yamlDir = yamlPath.slice(0, yamlPath.indexOf('/')).trim()
-    let yamlContent = path.slice(newLinePos + 1).trim()
+    let yamlContent = part.slice(newLinePos + 1).trim()
 
     fs.mkdirSync(path.join(tempOutputDir, yamlDir), {recursive: true})
     fs.writeFileSync(path.join(tempOutputDir, yamlPath), yamlContent, 'utf8')
