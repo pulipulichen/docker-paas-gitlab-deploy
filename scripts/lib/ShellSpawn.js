@@ -36,7 +36,7 @@ module.exports = function (cmdArray, options = {}) {
 
     job.stdout.on("data", data => {
       if (verbose) {
-        console.log(`${data}`);
+        console.log(`[OKOK] ${data}`);
       }
 
       if (getResult) {
