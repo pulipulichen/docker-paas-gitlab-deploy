@@ -7,7 +7,7 @@ module.exports = function (cmdArray, options = {}) {
   let dataArray = []
 
   if (typeof(stderrHandler) !== 'function') {
-    stderrHandler = function (stderr, reject) {
+    stderrHandler = function (stderr, reject, dataArray) {
       console.log(`[STDERR] ${stderr}`);
 
       if (getResult) {
@@ -45,11 +45,11 @@ module.exports = function (cmdArray, options = {}) {
     });
     
     job.stderr.on("data", data => {
-      stderrHandler(`${data}`, reject);
+      stderrHandler(`${data}`, reject, dataArray);
     });
     
     job.on('error', (error) => {
-      stderrHandler(`error: ${error.message}`, reject);
+      stderrHandler(`error: ${error.message}`, reject, dataArray);
     });
     
     job.on("close", code => {
@@ -58,7 +58,7 @@ module.exports = function (cmdArray, options = {}) {
         }
         if (code !== 0) {
           // return reject(code)
-          return stderrHandler(code, reject)
+          return stderrHandler(code, reject, dataArray)
         }
 
         if (getResult) {
