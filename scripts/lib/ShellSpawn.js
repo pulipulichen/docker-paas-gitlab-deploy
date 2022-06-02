@@ -4,9 +4,18 @@ module.exports = function (cmdArray, options = {}) {
 
   let {stderrHandler, errorHandler, verbose = true, getResult = false} = options
 
+  let dataArray = []
+
   if (typeof(stderrHandler) !== 'function') {
-    stderrHandler = function (stderr) {
+    stderrHandler = function (stderr, reject) {
       console.log(`[STDERR] ${stderr}`);
+    }
+
+    if (getResult) {
+      resolve(dataArray.join('\n'))
+    }
+    else {
+      resolve()
     }
   }
 
@@ -20,9 +29,6 @@ module.exports = function (cmdArray, options = {}) {
 
   return new Promise(function (resolve, reject) {
     const job = spawn(cmdArray[0], cmdArray.splice(1));
-
-    let dataArray = []
-
 
     job.stdout.on("data", data => {
       if (verbose) {
