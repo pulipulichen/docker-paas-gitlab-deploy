@@ -52,7 +52,7 @@ RenderHelmChartTemplates
   //   reject()
   // }})
   // let hasError = false
-  let result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true })
+  let result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
   
 
 
@@ -66,9 +66,9 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result.stdout)
 
   if (result.stderr) {
-    console.log('===================')
-    console.log(result.stderr.toString())
-    console.log('===================')
+    // console.log('===================')
+    // console.log(result.stderr.toString())
+    // console.log('===================')
     let errorFilePath = extractErrorFilePath(result.stderr.toString())
     if (errorFilePath) {
       let errorFileContent = getContentFromErrorFile(errorFilePath)
@@ -124,7 +124,7 @@ function extractErrorFilePath(message) {
   let pos2 = message.indexOf('/templates/') + 11
   let pos3 = message.indexOf(':', pos2)
   let errorFilePath = message.slice(pos2, pos3)
-  console.log({errorFilePath})
+  // console.log({errorFilePath})
   return errorFilePath
 }
 
