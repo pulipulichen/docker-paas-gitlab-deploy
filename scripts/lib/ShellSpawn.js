@@ -11,7 +11,7 @@ module.exports = function (cmdArray, options = {}) {
       console.log(`[STDERR] ${stderr}`);
 
       if (getResult) {
-        reject(dataArray.join('\n'))
+        reject(stderr)
       }
       else {
         reject()

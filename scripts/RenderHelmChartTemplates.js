@@ -56,7 +56,9 @@ RenderHelmChartTemplates
     result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true})
   }
   catch (e) {
+    console.log('============================')
     console.error(e)
+    console.log('============================')
   }
   
 
