@@ -6,9 +6,22 @@ RUN apt-get install -y git
 RUN apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb -y
 
 
-RUN mkdir /app
+# ==============
+
+WORKDIR /tmp
+
+RUN apt-get install -y curl
+RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+RUN chmod 700 get_helm.sh
+RUN bash /tmp/get_helm.sh
+
+# ==============
+
+
+RUN mkdir /app -p
 WORKDIR /app
 
+#
 RUN git clone https://github.com/pulipulichen/docker-paas-gitlab-deploy.git
 
 WORKDIR /app/docker-paas-gitlab-deploy
@@ -28,14 +41,7 @@ WORKDIR /app/docker-paas-gitlab-deploy/scripts/
 ENTRYPOINT []
 CMD []
 
-WORKDIR /tmp
-
-RUN apt-get install -y curl
-RUN curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
-RUN chmod 700 get_helm.sh
-RUN bash /tmp/get_helm.sh
-
-WORKDIR /app/docker-paas-gitlab-deploy/scripts/
-
 COPY scripts /app/docker-paas-gitlab-deploy/
 COPY GitlabToDeploy.* RunCypress.* update.sh /app/docker-paas-gitlab-deploy/
+
+WORKDIR /app/docker-paas-gitlab-deploy/scripts/

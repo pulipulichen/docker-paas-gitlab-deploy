@@ -10,7 +10,7 @@ const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, proces
 const tempOutputDir = path.join(BUILD_DIR, '/deploy/render/')
 
 async function RenderHelmChartTemplates () {
-  // return true
+  return true
 
   console.log(`
 ================================================
