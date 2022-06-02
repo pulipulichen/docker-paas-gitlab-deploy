@@ -23,7 +23,7 @@ module.exports = function (cmdArray, options = {}) {
   if (typeof(errorHandler) !== 'function') {
     errorHandler = function (error, reject) {
       console.log(`[ERROR]\n${error.message}`)
-      reject(error)
+      // reject(error)
       return
     }
   }
