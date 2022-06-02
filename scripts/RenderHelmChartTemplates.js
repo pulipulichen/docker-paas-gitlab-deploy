@@ -4,13 +4,14 @@ const path = require('path')
 const ShellExec = require('./lib/ShellExec.js')
 const ShellSpawn = require('./lib/ShellSpawn.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
+const BuildDeployYamlReplace = require('./BuildDeployYamlReplace.js')
 
 const tempDir = '/tmp/render_templates'
 const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
 const tempOutputDir = path.join(BUILD_DIR, '/deploy/render/')
 
 async function RenderHelmChartTemplates () {
-  return true
+  // return true
 
   console.log(`
 ================================================
@@ -35,12 +36,13 @@ RenderHelmChartTemplates
 
   // 2. 建立 values
   await BuildDeployYamlValues()
+  await BuildDeployYamlReplace()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
   console.log(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
   // await ShellExec(`whereis helm`)
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`, {verbose: true})
-  await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`])
+  await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`], {verbose: false})
 
   console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 

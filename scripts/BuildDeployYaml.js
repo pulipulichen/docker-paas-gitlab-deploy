@@ -1,6 +1,8 @@
 const fs = require('fs')
 const ShellExec = require('./lib/ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
+const BuildDeployYamlReplace = require('./BuildDeployYamlReplace.js')
+
 const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const sleep = require('./lib/sleep.js')
 const path = require('path')
@@ -194,22 +196,7 @@ FORCE_DEPLOY.txt need to delete.
 
   // -------------------------------
 
-  let replaceVariables = {
-    PROJECT_NAME: process.env.CI_PROJECT_NAME,
-    PROJECT_NAMESPACE: process.env.CI_PROJECT_NAMESPACE,
-    PROJECT_ID: process.env.CI_PROJECT_ID,
-  }
-
-  let replaceFiles = [
-    './values.yaml',
-    './Chart.yaml'
-  ]
-  
-  for (const [key, value] of Object.entries(replaceVariables)) {
-    replaceFiles.forEach(async function (file) {
-      await ShellExec(`sed -i " s/{{ ${key} }}/${value}/g" ${file}`)
-    })
-  }
+  await BuildDeployYamlReplace()
 
   // -------------------------------
 
