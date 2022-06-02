@@ -47,6 +47,7 @@ RenderHelmChartTemplates
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`, {verbose: true})
   const result = await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug`, {verbose: true})
   // const result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`], {verbose: false})
+  writeSplitedHelmResult(result)
   fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
 
   // console.log(fs.readdirSync(tempDir)) 
@@ -60,6 +61,31 @@ RenderHelmChartTemplates
   // 6. 結束
   return true
 } 
+
+function writeSplitedHelmResult (result) {
+  let parts = result.split(`---
+# Source:`)
+
+  // process.chdir(tempOutputDir)
+
+  let needleTemplate = '/templates/'
+  for (let i = 0; i < parts.length; i++) {
+    if (i === 0) {
+      continue
+    }
+
+    let part = parts[i].trim()
+
+    let newLinePos = path.indexOf('\n')
+    let yamlPath = path.slice(path.indexOf(needleTemplate) + needleTemplate.length, newLinePos).trim()
+    let yamlName = yamlPath.slice(yamlPath.indexOf('/') + 1).trim()
+    let yamlDir = yamlPath.slice(0, yamlPath.indexOf('/')).trim()
+    let yamlContent = path.slice(newLinePos + 1).trim()
+
+    fs.mkdirSync(path.join(tempOutputDir, yamlDir), {recursive: true})
+    fs.writeFileSync(path.join(tempOutputDir, yamlPath), yamlContent, 'utf8')
+  }
+}
 
 async function getErrorYaml (message) {
   console.error('@TODO RenderHelmChartTemplates')
