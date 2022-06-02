@@ -52,14 +52,16 @@ RenderHelmChartTemplates
   //   reject()
   // }})
   let result
+  let hasError = false
   try {
-    result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true})
+    result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true, })
   }
   catch (e) {
-    console.log('**============================')
-    console.error(e)
-    result = e.message
-    console.log('**============================')
+    console.log('============================')
+    console.error(e.stdeer)
+    result = e.stdout
+    hasError = true
+    console.log('============================')
   }
   
 
