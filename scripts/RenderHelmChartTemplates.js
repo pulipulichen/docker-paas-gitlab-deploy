@@ -38,6 +38,7 @@ RenderHelmChartTemplates
   await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
 
   console.log(fs.readdirSync(tempDir)) 
+  console.log(fs.readdirSync(tempOutputDir)) 
 
   throw new Error('Please check helm')
   // 4. 如果有錯誤，則這裡停止
