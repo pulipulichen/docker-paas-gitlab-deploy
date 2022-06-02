@@ -12,10 +12,10 @@ module.exports = function (cmdArray, options = {}) {
     }
 
     if (getResult) {
-      resolve(dataArray.join('\n'))
+      reject(dataArray.join('\n'))
     }
     else {
-      resolve()
+      reject()
     }
   }
 
