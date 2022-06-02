@@ -23,10 +23,10 @@ RenderHelmChartTemplates
   process.chdir(tempDir)
 
   await ShellExec(`tree ${BUILD_DIR}/deploy/*`)
-  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
+  // await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${tempDir}`)
 
   // 2. 建立 values
-  await BuildDeployYamlValues()
+  // await BuildDeployYamlValues()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${tempOutputDir}/output.txt`)
