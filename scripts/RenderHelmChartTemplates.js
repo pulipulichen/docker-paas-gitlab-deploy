@@ -58,6 +58,7 @@ RenderHelmChartTemplates
   catch (e) {
     console.log('============================')
     console.error(e)
+    result = e.message
     console.log('============================')
   }
   
