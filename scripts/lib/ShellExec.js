@@ -13,7 +13,6 @@ module.exports = async function (cmd, options = {}) {
       if (verbose) {
         console.log(`[STDERR] ${stderr}`);
       }
-        
     }
   }
 
