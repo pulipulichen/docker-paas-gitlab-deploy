@@ -59,9 +59,9 @@ RenderHelmChartTemplates
   catch (e) {
     console.log('**============================')
     //console.error(e.stdeer)
-    result = e.stdout
-    console.log(result)
-    hasError = e.stdeer
+    result = e
+    // console.log(result)
+    hasError = true
     console.log('**============================')
   }
   
