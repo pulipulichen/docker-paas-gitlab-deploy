@@ -10,6 +10,8 @@ const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, proces
 const tempOutputDir = path.join(BUILD_DIR, '/deploy/render/')
 
 async function RenderHelmChartTemplates () {
+  return true
+
   console.log(`
 ================================================
 RenderHelmChartTemplates
@@ -41,7 +43,7 @@ RenderHelmChartTemplates
   await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`])
 
   console.log(fs.readdirSync(tempDir)) 
-  console.log(fs.readdirSync(tempOutputDir)) 
+  // console.log(fs.readdirSync(tempOutputDir)) 
 
   throw new Error('Please check helm')
   // 4. 如果有錯誤，則這裡停止
