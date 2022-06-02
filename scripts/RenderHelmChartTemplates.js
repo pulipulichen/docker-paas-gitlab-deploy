@@ -47,16 +47,17 @@ RenderHelmChartTemplates
   // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`, {verbose: true})
   const result = await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug`, {verbose: true})
   // const result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`,`--debug`], {verbose: false})
-  writeSplitedHelmResult(result)
-  fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
+  
 
   // console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 
 
-  throw new Error('Please check helm')
+  // throw new Error('Please check helm')
   // 4. 如果有錯誤，則這裡停止
 
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
+  writeSplitedHelmResult(result)
+  // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
 
   // 6. 結束
   return true
