@@ -21,7 +21,7 @@ RUN bash /tmp/get_helm.sh
 RUN mkdir /app -p
 WORKDIR /app
 
-#
+RUN echo "20220602-1942"
 RUN git clone https://github.com/pulipulichen/docker-paas-gitlab-deploy.git
 
 WORKDIR /app/docker-paas-gitlab-deploy
