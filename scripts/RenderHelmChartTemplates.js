@@ -25,7 +25,7 @@ RenderHelmChartTemplates
   console.log(BUILD_DIR)
   console.log(fs.readdirSync(BUILD_DIR + '/deploy')) 
   // await ShellExec(`tree ${BUILD_DIR}/deploy/*`)
-  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/*${BUILD_DIR}/deploy/render`)
+  await ShellExec(`cp -rf ${BUILD_DIR}/deploy/* ${BUILD_DIR}/deploy/render`)
 
   console.log(fs.readdirSync(tempDir)) 
 
