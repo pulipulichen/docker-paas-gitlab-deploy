@@ -114,7 +114,7 @@ function writeSplitedHelmResult (result) {
 
 function extractErrorFilePath(message) {
   let pos1 = message.indexOf('error on ')
-  if (pos === -1) {
+  if (pos1 === -1) {
     return false
   }
 
