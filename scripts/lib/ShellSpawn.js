@@ -9,14 +9,15 @@ module.exports = function (cmdArray, options = {}) {
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, reject) {
       console.log(`[STDERR] ${stderr}`);
+
+      if (getResult) {
+        reject(dataArray.join('\n'))
+      }
+      else {
+        reject()
+      }
     }
 
-    if (getResult) {
-      reject(dataArray.join('\n'))
-    }
-    else {
-      reject()
-    }
   }
 
   if (typeof(errorHandler) !== 'function') {
