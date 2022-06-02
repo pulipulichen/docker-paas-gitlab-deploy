@@ -122,7 +122,7 @@ function extractErrorFilePath(message) {
   }
 
   let pos2 = message.indexOf('/') + 1
-  let pos3 = message.indexOf(':') + 1
+  let pos3 = message.indexOf(':', pos2) + 1
   let errorFilePath = message.slice(pos2, pos3)
   console.log({errorFilePath})
   return errorFilePath
