@@ -10,12 +10,12 @@ module.exports = function (cmdArray, options = {}) {
     stderrHandler = function (stderr, reject, dataArray) {
       console.log(`[STDERR] ${stderr}`);
 
-      if (getResult) {
-        reject(dataArray.join('\n'))
-      }
-      else {
-        reject()
-      }
+      // if (getResult) {
+      //   reject(dataArray.join('\n'))
+      // }
+      // else {
+      //   reject()
+      // }
     }
 
   }
