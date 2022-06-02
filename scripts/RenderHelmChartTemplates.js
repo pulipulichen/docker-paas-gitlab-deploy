@@ -66,6 +66,15 @@ RenderHelmChartTemplates
   writeSplitedHelmResult(result.stdout)
 
   if (result.stderr) {
+    let errorFilePath = extractErrorFilePath(result.stderr)
+    if (errorFilePath) {
+      let errorFileContent = getContentFromErrorFile(errorFilePath)
+      console.log(`=============================================`)
+      console.log(`Source: ${errorFilePath}`)
+      console.log(errorFileContent)
+      console.log(`=============================================`)
+    }
+
     throw new Error(result.stderr)
   }
   throw new Error('Please check helm')
@@ -101,6 +110,25 @@ function writeSplitedHelmResult (result) {
     fs.mkdirSync(path.join(tempOutputDir, yamlDir), {recursive: true})
     fs.writeFileSync(path.join(tempOutputDir, yamlPath), yamlContent, 'utf8')
   }
+}
+
+function extractErrorFilePath(message) {
+  let pos1 = message.indexOf('error on ')
+  if (pos === -1) {
+    return false
+  }
+
+  let pos2 = message.indexOf('/') + 1
+  let pos3 = message.indexOf(':') + 1
+  let errorFilePath = message.slice(pos2, pos3)
+
+  return errorFilePath
+}
+
+function getContentFromErrorFile(errorFilePath) {
+  let targetFile = path.join(tempOutputDir, errorFilePath)
+
+  return fs.readFileSync(errorFilePath, 'utf8')
 }
 
 async function getErrorYaml (message) {
