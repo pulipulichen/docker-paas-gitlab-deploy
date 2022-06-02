@@ -34,7 +34,8 @@ RenderHelmChartTemplates
   await BuildDeployYamlValues()
 
   // 3. 跑程式碼 helm template test11 ./test --debug
-  // await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${tempOutputDir}/output.txt`)
+  console.log(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
+  await ShellExec(`helm template ${process.env.CI_PROJECT_NAME} ${tempDir} --debug >> ${path.join(tempOutputDir, '/output.txt')}`)
 
   console.log(fs.readdirSync(tempDir)) 
 
