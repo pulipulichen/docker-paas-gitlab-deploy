@@ -101,15 +101,6 @@ UPDATE CUSTOM DOMAIN
 ============================================================
 `)
 
-  let customDomain = config.deploy.custom_domain
-
-  if (!customDomain) {
-    customDomain = ''
-  }
-  else {
-    customDomain = customDomain + '.' + config.environment.project.domain_suffix
-  }
-
   // -----------------------
 
   let tmpGitPath = '/tmp/git-deploy-custom-domain'
@@ -146,9 +137,48 @@ UPDATE CUSTOM DOMAIN
 
   await ShellExec(`ls ${path.join(tmpGitPath, REPO_NAME)}`)
 
-  if (await setCustomDomain({customDomain, REPO, customDomainFilePath}) === false) {
-    console.log('custom domain not changed.', customDomain)
-    return false
+  // ----------------------------------------------------------------
+  let customDomain = config.deploy.custom_domain
+  let domain_suffix = config.environment.project.domain_suffix
+
+  if (typeof(domain_suffix) === 'string') {
+    if (!customDomain) {
+      customDomain = ''
+    }
+    else {
+      customDomain = customDomain + '.' + config.environment.project.domain_suffix
+    }
+
+    if (await setCustomDomain({customDomain, REPO, customDomainFilePath}) === false) {
+      console.log('custom domain not changed.', customDomain)
+      return false
+    }
+  }
+  else if (Array.isArray(domain_suffix)) {
+    let changed = false
+    for (let i = 0; i < domains_suffix.length; i++) {
+      let domain = domains_suffix[i]
+
+      let eachCustomDomain = customDomain
+      if (!eachCustomDomain) {
+        eachCustomDomain = ''
+      }
+      else {
+        eachCustomDomain = eachCustomDomain + '.' + domain
+      }
+  
+      if (await setCustomDomain({eachCustomDomain, REPO, customDomainFilePath}) === false) {
+        console.log('custom domain not changed.', eachCustomDomain)
+        // return false
+      }
+      else {
+        changed = true
+      }
+    }
+
+    if (changed === false) {
+      return false
+    }
   }
 
   // ----------------------------------------------------------------
