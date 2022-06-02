@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 const ShellExec = require('./lib/ShellExec.js')
-const ShellSpawn = require('./lib/ShellSpawn.js')
+const ShellSpawn = require('./lib/ShellSpawnHelm.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYamlReplace = require('./BuildDeployYamlReplace.js')
 
@@ -51,20 +51,10 @@ RenderHelmChartTemplates
   //   }
   //   reject()
   // }})
-  let result
-  let hasError = false
-  try {
-    result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true })
-  }
-  catch (e) {
-    console.log('**============================')
-    //console.error(e.stdeer)
-    result = e
-    // console.log(result)
-    hasError = true
-    console.log('**============================')
-  }
+  // let hasError = false
+  let result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true })
   
+
 
   // console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 
@@ -73,12 +63,12 @@ RenderHelmChartTemplates
   // 4. 如果有錯誤，則這裡停止
 
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
-  writeSplitedHelmResult(result)
+  writeSplitedHelmResult(result.stdout)
 
   throw new Error('Please check helm')
 
-  if (hasError) {
-    throw hasError
+  if (result.stderr) {
+    throw result.stderr
   }
 
   // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
