@@ -11,10 +11,7 @@ module.exports = function (cmdArray, options = {}) {
       console.log(`[STDERR] ${stderr}`);
 
       if (getResult) {
-        reject({
-          stderr,
-          stdout: dataArray.join('\n')
-        })
+        reject(dataArray.join('\n'))
       }
       else {
         reject()
@@ -25,7 +22,7 @@ module.exports = function (cmdArray, options = {}) {
 
   if (typeof(errorHandler) !== 'function') {
     errorHandler = function (error, reject) {
-      //console.log(`[ERROR]\n${error.message}`)
+      console.log(`[ERROR]\n${error.message}`)
       reject(error)
       return
     }
