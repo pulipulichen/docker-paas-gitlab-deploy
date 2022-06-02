@@ -25,6 +25,8 @@ module.exports = async function (cmd, options = {}) {
     }
   }
 
+  let output = ''
+
   let currentRetry = 0
   let run = async () => {
     return new Promise(function (resolve, reject) {
@@ -49,7 +51,7 @@ module.exports = async function (cmd, options = {}) {
         }
         
         // resolve(`[STDOUT]\n${stdout}`)
-        resolve()
+        resolve(stdout)
       });
     })     
   }
