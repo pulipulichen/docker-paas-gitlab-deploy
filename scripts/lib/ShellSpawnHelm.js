@@ -65,7 +65,7 @@ module.exports = function (cmdArray, options = {}) {
         if (code !== 0) {
           // return reject(code)
           // return stderrHandler(code, resolve, dataArray)
-          
+          console.log(code)
           setTimeout(() => {
             stderrHandler(errorMessage, resolve, dataArray)
           }, 1000)
