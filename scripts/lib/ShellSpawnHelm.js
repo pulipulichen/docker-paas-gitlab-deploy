@@ -13,12 +13,17 @@ module.exports = function (cmdArray, options = {}) {
 
       if (getResult) {
         console.log('^^================================')
-        console.log(dataArray.length)
-        console.log(dataArray)
-        console.log(dataArray.join('\n'))
+        try {
+          dataArray = dataArray.join('\n')
+        } catch (e) {
+          console.error(e)
+        }
+        // console.log(dataArray.length)
+        // console.log(dataArray)
+        // console.log(dataArray.join('\n'))
         console.log('^^================================')
         resolve({
-          stdout: dataArray.join('\n'),
+          stdout: dataArray,
           stderr
         })
       }
@@ -72,7 +77,7 @@ module.exports = function (cmdArray, options = {}) {
           // console.log(code)
           setTimeout(() => {
             stderrHandler(errorMessage, resolve, dataArray)
-          }, 5000)
+          }, 1000)
           return false
         }
 
