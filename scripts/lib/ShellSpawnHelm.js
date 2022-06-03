@@ -13,6 +13,7 @@ module.exports = function (cmdArray, options = {}) {
 
       if (getResult) {
         // console.log('^^================================')
+        console.log(dataArray.length)
         console.log(dataArray.join('\n'))
         // console.log('^^================================')
         resolve({
