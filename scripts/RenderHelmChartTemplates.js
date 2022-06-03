@@ -53,17 +53,11 @@ RenderHelmChartTemplates
   // }})
   // let hasError = false
 
-  console.log(2222)
+  // console.log(2222)
 
-  let result 
-  try {
-    result = await ShellSpawnHelm([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
-  }
-  catch (e) {
-    
-  }
+  let result = await ShellSpawnHelm([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
   
-  console.log(111111)
+  // console.log(111111)
 
   // console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 
@@ -73,8 +67,6 @@ RenderHelmChartTemplates
 
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
   writeSplitedHelmResult(result.stdout)
-
-  throw new Error('Please check helm')
 
   if (result.stderr) {
     // console.log('===================')
@@ -108,7 +100,7 @@ function writeSplitedHelmResult (result) {
   let parts = result.split(`---
 # Source:`)
 
-  console.log(`part length`, parts.length)
+  // console.log(`part length`, parts.length)
   // process.chdir(tempOutputDir)
 
   let needleTemplate = '/templates/'
