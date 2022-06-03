@@ -343,7 +343,7 @@ module.exports = {
         if (status.operationState && 
                 status.operationState.phase === 'Running' && 
                 status.operationState.message && 
-                status.operationState.message.startsWith('one or more objects failed to apply, reason:')) {
+                status.operationState.message.startsWith('one or more objects failed to')) {
             console.log('==Retry: ' + retry + '===========================')
             console.log(status)
             console.log('=============================')
