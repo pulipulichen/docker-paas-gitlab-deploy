@@ -9,10 +9,10 @@ module.exports = function (cmdArray, options = {}) {
 
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, resolve, dataArray) {
-      console.log(`[STDERR] ${stderr}`);
+      // console.log(`[STDERR] ${stderr}`);
 
       if (getResult) {
-        console.log('^^================================')
+        // console.log('^^================================')
         try {
           dataArray = dataArray.join('\n')
         } catch (e) {
@@ -21,7 +21,7 @@ module.exports = function (cmdArray, options = {}) {
         // console.log(dataArray.length)
         // console.log(dataArray)
         // console.log(dataArray.join('\n'))
-        console.log('^^================================')
+        // console.log('^^================================')
         resolve({
           stdout: '',
           stderr

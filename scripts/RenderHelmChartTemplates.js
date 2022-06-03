@@ -85,7 +85,7 @@ https://helm-playground.com/#
       
     }
 
-    throw result.stderr
+    throw new Error(result.stderr)
   }
   // throw new Error('Please check helm')
 
