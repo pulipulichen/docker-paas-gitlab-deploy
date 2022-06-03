@@ -14,6 +14,7 @@ module.exports = function (cmdArray, options = {}) {
       if (getResult) {
         console.log('^^================================')
         console.log(dataArray.length)
+        console.log(dataArray)
         console.log(dataArray.join('\n'))
         console.log('^^================================')
         resolve({
@@ -45,7 +46,9 @@ module.exports = function (cmdArray, options = {}) {
       }
 
       if (getResult) {
-        dataArray.push(data)
+        if (data !== '') {
+          dataArray.push(data)  
+        }
       }
     });
     
