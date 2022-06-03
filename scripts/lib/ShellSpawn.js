@@ -54,8 +54,8 @@ module.exports = function (cmdArray, options = {}) {
           console.log(`child process exited with code ${code}`);
         }
         if (code !== 0) {
-          // return reject(code)
-          return stderrHandler(code, reject, dataArray)
+          return reject(code)
+          // return stderrHandler(code, reject, dataArray)
         }
 
         if (getResult) {

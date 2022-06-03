@@ -117,7 +117,7 @@ let clone = async function (retry = 0) {
 
   await ShellExec(`git checkout -b ${REPO} || git checkout ${REPO}`)
 
-  await ShellExec(`ls -l`)
+  // await ShellExec(`ls -l`)
 
   // ----------------------------------------------------------------
   //let result = true
