@@ -74,6 +74,8 @@ RenderHelmChartTemplates
   // 5. 把檔案分割成多個按照資料夾排好的檔案，
   writeSplitedHelmResult(result.stdout)
 
+  throw new Error('Please check helm')
+
   if (result.stderr) {
     // console.log('===================')
     // console.log(result.stderr.toString())
@@ -93,7 +95,7 @@ https://helm-playground.com/#
 
     throw result.stderr
   }
-  throw new Error('Please check helm')
+  // throw new Error('Please check helm')
 
 
   // fs.writeFileSync(path.join(tempOutputDir, '/output.txt'), result, 'utf-8')
