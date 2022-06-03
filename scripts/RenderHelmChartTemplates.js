@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 
 const ShellExec = require('./lib/ShellExec.js')
-const ShellSpawn = require('./lib/ShellSpawnHelm.js')
+const ShellSpawnHelm = require('./lib/ShellSpawnHelm.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYamlReplace = require('./BuildDeployYamlReplace.js')
 
@@ -52,9 +52,12 @@ RenderHelmChartTemplates
   //   reject()
   // }})
   // let hasError = false
-  let result = await ShellSpawn([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
-  
 
+  console.log(2222)
+
+  let result = await ShellSpawnHelm([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
+  
+  console.log(111111)
 
   // console.log(fs.readdirSync(tempDir)) 
   // console.log(fs.readdirSync(tempOutputDir)) 
