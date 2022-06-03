@@ -12,10 +12,10 @@ module.exports = function (cmdArray, options = {}) {
       console.log(`[STDERR] ${stderr}`);
 
       if (getResult) {
-        // console.log('^^================================')
+        console.log('^^================================')
         console.log(dataArray.length)
         console.log(dataArray.join('\n'))
-        // console.log('^^================================')
+        console.log('^^================================')
         resolve({
           stdout: dataArray.join('\n'),
           stderr
