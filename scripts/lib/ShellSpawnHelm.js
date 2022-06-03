@@ -23,7 +23,7 @@ module.exports = function (cmdArray, options = {}) {
         // console.log(dataArray.join('\n'))
         console.log('^^================================')
         resolve({
-          stdout: dataArray,
+          stdout: '',
           stderr
         })
       }
