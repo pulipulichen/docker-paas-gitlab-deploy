@@ -3,7 +3,10 @@ const path = require('path')
 const fg = require('fast-glob')
 
 function keepServersWokeUpStatus (valuesContent) {
-  let content = fs.readFileSync('./../values.yaml', 'utf8')
+  if (fs.existsSync('/tmp/git-deploy/values.yaml') === false) {
+    return valuesContent
+  }
+  let content = fs.readFileSync('/tmp/git-deploy/values.yaml', 'utf8')
   let config = 'wake_up_server: true'
   if (content.indexOf(config) > -1) {
     valuesContent = valuesContent + '\n' + config

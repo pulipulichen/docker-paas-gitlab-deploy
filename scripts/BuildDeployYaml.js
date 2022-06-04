@@ -163,8 +163,9 @@ FORCE_DEPLOY.txt need to delete.
     await ShellExec(`mv FORCE_DEPLOY.txt ../`)
   }
 
-  if (fs.existsSync('./values.yaml')) {
-    await ShellExec(`mv ./values.yaml ../`)
+  if (fs.existsSync(`/tmp/git-deploy/${REPO_NAME}/values.yaml`)) {
+    await ShellExec(`mv /tmp/git-deploy/${REPO_NAME}/values.yaml /tmp/git-deploy/`)
+    await ShellExec(`cat /tmp/git-deploy/values.yaml`)
   }
   
   await ShellExec(`rm -rf /tmp/git-deploy/${REPO_NAME}/*`)
