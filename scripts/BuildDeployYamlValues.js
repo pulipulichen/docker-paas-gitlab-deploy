@@ -32,7 +32,7 @@ module.exports = async function () {
 
   valuesContent = valuesContent.join('\n')
 
-  // valuesContent = keepServersWokeUpStatus(valuesContent)
+  valuesContent = keepServersWokeUpStatus(valuesContent)
 
   fs.writeFileSync('./values.yaml', valuesContent, 'utf8')
 
