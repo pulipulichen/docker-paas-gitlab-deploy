@@ -51,9 +51,9 @@ module.exports = function (cmdArray, options = {}) {
       }
 
       if (getResult) {
-        if (data !== '') {
+        // if (data !== '') {
           dataArray.push(data)  
-        }
+        // }
       }
     });
     
