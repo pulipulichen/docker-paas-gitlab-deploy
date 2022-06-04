@@ -2,6 +2,15 @@ const fs = require('fs')
 const path = require('path')
 const fg = require('fast-glob')
 
+function keepServersWokeUpStatus (valuesContent) {
+  let content = fs.readFileSync('./values.yaml', 'utf8')
+  let config = 'wake_up_server: true'
+  if (content.indexOf(config) > -1) {
+    valuesContent = valuesContent + '\n' + config
+  }
+  return valuesContent
+}
+
 module.exports = async function () {
   const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
   
@@ -22,6 +31,8 @@ module.exports = async function () {
   });
 
   valuesContent = valuesContent.join('\n')
+
+  // valuesContent = keepServersWokeUpStatus(valuesContent)
 
   fs.writeFileSync('./values.yaml', valuesContent, 'utf8')
 
