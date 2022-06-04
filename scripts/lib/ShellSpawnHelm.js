@@ -52,7 +52,7 @@ module.exports = function (cmdArray, options = {}) {
 
       if (getResult) {
         // if (data !== '') {
-          dataArray.push(data)  
+          dataArray.push(data + '')  
         // }
       }
     });
