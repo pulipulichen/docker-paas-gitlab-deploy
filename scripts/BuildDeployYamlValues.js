@@ -3,7 +3,7 @@ const path = require('path')
 const fg = require('fast-glob')
 
 function keepServersWokeUpStatus (valuesContent) {
-  let content = fs.readFileSync('./values.yaml', 'utf8')
+  let content = fs.readFileSync('./../values.yaml', 'utf8')
   let config = 'wake_up_server: true'
   if (content.indexOf(config) > -1) {
     valuesContent = valuesContent + '\n' + config
