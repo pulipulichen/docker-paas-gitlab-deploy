@@ -141,7 +141,12 @@ function getContentFromErrorFile(errorFilePath) {
   let targetFile = path.join(tempOutputDir, errorFilePath)
 
   if (fs.existsSync(targetFile)) {
-    return fs.readFileSync(targetFile, 'utf8')
+    let fileContent = fs.readFileSync(targetFile, 'utf8')
+    
+    return fileContent.split('\n').map((line, i) => {
+      return i + '\t:' + line
+    }).join('\n')
+    
   }
   else {
     return 'File is not found.'
