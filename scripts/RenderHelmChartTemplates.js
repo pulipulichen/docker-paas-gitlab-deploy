@@ -55,7 +55,7 @@ RenderHelmChartTemplates
 
   // console.log(2222)
 
-  let result = await ShellSpawnHelm([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: false, getResult: true })
+  let result = await ShellSpawnHelm([`helm`,`template`,`${process.env.CI_PROJECT_NAME}`,`${tempDir}`, '--dry-run', '--debug'], {verbose: true, getResult: true })
   
   // console.log(111111)
 
@@ -140,7 +140,12 @@ function extractErrorFilePath(message) {
 function getContentFromErrorFile(errorFilePath) {
   let targetFile = path.join(tempOutputDir, errorFilePath)
 
-  return fs.readFileSync(targetFile, 'utf8')
+  if (fs.existsSync(targetFile)) {
+    return fs.readFileSync(targetFile, 'utf8')
+  }
+  else {
+    return 'File is not found.'
+  }
 }
 
 async function getErrorYaml (message) {

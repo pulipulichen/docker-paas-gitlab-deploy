@@ -67,7 +67,7 @@ module.exports = function (cmdArray, options = {}) {
     });
     
     job.on("close", code => {
-        console.log('close')
+        // console.log('close')
         if (verbose) {
           console.log(`child process exited with code ${code}`);
         }
