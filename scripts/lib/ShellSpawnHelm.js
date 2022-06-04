@@ -75,6 +75,7 @@ module.exports = function (cmdArray, options = {}) {
           // return reject(code)
           // return stderrHandler(code, resolve, dataArray)
           // console.log(code)
+          console.log('要送回去之前', dataArray.length)
           setTimeout(() => {
             stderrHandler(errorMessage, resolve, dataArray)
           }, 1000)
