@@ -9,7 +9,8 @@ function keepServersWokeUpStatus (valuesContent) {
   let content = fs.readFileSync('/tmp/git-deploy/values.yaml', 'utf8')
   let config = 'wake_up_server: true'
   if (content.indexOf(config) > -1) {
-    valuesContent = valuesContent + '\n' + config
+    // valuesContent = valuesContent + '\n' + config
+    valuesContent = valuesContent.replaceAll(`wake_up_server: false`, `wake_up_server: true`)
   }
   return valuesContent
 }
