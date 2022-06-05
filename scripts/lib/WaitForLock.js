@@ -50,7 +50,11 @@ wait for ${10*(retry + 1)} seconds ... ` + retry + ` ${new Date() + ''}
   Check ${view}
 
 `)
-    await sleep(10000 * (retry + 1))
+    let ms = 10000 * (retry + 1)
+    if (ms > 180000) {
+      ms = 180000
+    }
+    await sleep(ms)
 
     retry++
     return await waitForLock(keySuffix, retry)

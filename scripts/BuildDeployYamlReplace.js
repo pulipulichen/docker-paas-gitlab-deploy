@@ -13,9 +13,10 @@ async function main () {
   ]
   
   for (const [key, value] of Object.entries(replaceVariables)) {
-    replaceFiles.forEach(async function (file) {
+    for (let i = 0; i < replaceFiles.length; i++) {
+      let file = replaceFiles[i]
       await ShellExec(`sed -i " s/{{ ${key} }}/${value}/g" ${file}`)
-    })
+    }
   }
 }
 
