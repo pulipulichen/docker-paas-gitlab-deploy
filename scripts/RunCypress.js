@@ -85,22 +85,32 @@ ${showLinkMessage(config)}
         let finishedCount = 0
         let lastInterval = 0
         let runJob = async function (j) {
-          let jobStartTime = (new Date()).getTime()
+          // let jobStartTime = (new Date()).getTime()
           let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
           
           // console.log(`Start Test App #${(j+1)}/${test_repeats} (${percent}%) ${new Date()}`)
           await ShellExec(currentArgs, {verbose: false})  
           
-          let jobInterval = (new Date()).getTime() - jobStartTime
+          // let jobInterval = (new Date()).getTime() - jobStartTime
+          // lastInterval = Math.ceil((lastInterval + jobInterval)/2)
+          // console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${lastInterval}) ${new Date()}`)
 
-          lastInterval = Math.ceil((lastInterval + jobInterval)/2)
-          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${lastInterval}) ${new Date()}`)
+          let totalInterval = (new Date()).getTime() - startTime
+          let predictInterval = (totalInterval / (j+1)) * test_repeats
+          let predictEndTime = (new Date(startTime + predictInterval))
+          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) Predict End Time  ${predictEndTime}`)
 
           finishedCount++
         }
 
         for (let j = 0; j < test_repeats; j++) {
-          runJob(j)
+          if (j < test_repeats - 1) {
+            runJob(j)
+          }
+          else {
+            await runJob(j)
+          }
+            
 
           if (j % concurrent === (concurrent - 1)) {
             while (finishedCount < concurrent - 1) {
