@@ -98,7 +98,7 @@ ${showLinkMessage(config)}
           let totalInterval = (new Date()).getTime() - startTime
           let predictInterval = (totalInterval / (j+1)) * test_repeats
           let predictEndTime = (new Date(startTime + predictInterval))
-          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) Predict End Time  ${predictEndTime}`)
+          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) / Predict end time: ${predictEndTime}`)
 
           finishedCount++
         }
