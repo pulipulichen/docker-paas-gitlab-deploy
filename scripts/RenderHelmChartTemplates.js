@@ -101,7 +101,7 @@ function writeSplitedHelmResult (result) {
   let parts = result.split(`---
 # Source:`)
 
-  console.log(`part length`, parts.length)
+  // console.log(`part length`, parts.length)
   // process.chdir(tempOutputDir)
 
   let needleTemplate = '/templates/'
