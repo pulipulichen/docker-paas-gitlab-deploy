@@ -45,15 +45,16 @@ Please check locker: ${view}
 `)
     }
 
-    console.log(`
-wait for ${10*(retry + 1)} seconds ... ` + retry + ` ${new Date() + ''}
-  Check ${view}
-
-`)
     let ms = 180000 - (10000 * (retry + 1))
     if (ms < 15000) {
       ms = 15000
     }
+
+    console.log(`
+wait for ${(ms / 1000)} seconds ... ` + retry + ` ${new Date() + ''}
+  Check ${view}
+`)
+    
     await sleep(ms)
 
     retry++
