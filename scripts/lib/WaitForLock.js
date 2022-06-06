@@ -15,6 +15,7 @@ let queryPassed = ['added', 'reset', 'timeout', 'existed']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
 let concurrent = 1
+let concurrentRunCypress = 2
 
 async function getKey (keySuffix) {
   let config = await LoadYAMLConfig()
@@ -29,7 +30,7 @@ async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
 
   if (keySuffix === 'RunCypress') {
-    concurrent = 3
+    concurrent = concurrentRunCypress
   }
   
   let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=query`)
@@ -64,7 +65,7 @@ wait for ${(ms / 1000)} seconds ... ` + retry + ` ${new Date() + ''}
 
 async function unlock (keySuffix = '') {
   if (keySuffix === 'RunCypress') {
-    concurrent = 3
+    concurrent = concurrentRunCypress
   }
 
   let key = await getKey(keySuffix)
