@@ -74,8 +74,9 @@ RenderHelmChartTemplates
     // console.log(result.stderr.toString())
     // console.log('===================')
     let errorFilePath = extractErrorFilePath(result.stderr.toString())
+    let errorLineNumber = extractErrorLineNumber(result.stderr.toString())
     if (errorFilePath) {
-      let errorFileContent = getContentFromErrorFile(errorFilePath)
+      let errorFileContent = getContentFromErrorFile(errorFilePath, errorLineNumber)
       console.log(`=============================================`)
       console.log(`Source: ${errorFilePath}`)
       console.log(errorFileContent)
@@ -124,8 +125,8 @@ function writeSplitedHelmResult (result) {
 }
 
 function extractErrorFilePath(message) {
-  console.log(message)
-
+  // console.log(message)
+  
   let pos1 = message.indexOf('error on ')
   if (pos1 === -1) {
     return false
@@ -138,13 +139,30 @@ function extractErrorFilePath(message) {
   return errorFilePath
 }
 
-function getContentFromErrorFile(errorFilePath) {
+function extractErrorLineNumber(message) {
+  // console.log(message)
+  
+  let pos1 = message.indexOf(': line ')
+  if (pos1 === -1) {
+    return false
+  }
+
+  let pos2 = message.indexOf(':', pos1)
+  let errorLineNumber = message.slice(pos2, pos3)
+  // console.log({errorFilePath})
+  return errorLineNumber
+}
+
+function getContentFromErrorFile(errorFilePath, errorLineNumber) {
   let targetFile = path.join(tempOutputDir, errorFilePath)
 
   if (fs.existsSync(targetFile)) {
     let fileContent = fs.readFileSync(targetFile, 'utf8')
     
     return fileContent.split('\n').map((line, i) => {
+      if (i === errorLineNumber) {
+        i = i + '<<'
+      } 
       return i + '\t|' + line
     }).join('\n')
     
