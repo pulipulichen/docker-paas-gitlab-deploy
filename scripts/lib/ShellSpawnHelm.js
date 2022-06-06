@@ -6,11 +6,15 @@ module.exports = function (cmdArray, options = {}) {
 
   let dataArray = []
   let errorMessage
+  let terminated = false
 
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, resolve, dataArray) {
       // console.log(`[STDERR] ${stderr}`);
-
+      if (terminated) {
+        return false
+      }
+      
       if (getResult) {
         // console.log('^^================================')
         try {
@@ -36,6 +40,9 @@ module.exports = function (cmdArray, options = {}) {
 
   if (typeof(errorHandler) !== 'function') {
     errorHandler = function (error, reject) {
+      if (terminated) {
+        return false
+      }
       console.log(`[ERROR]\n${error.message}`)
       reject(error)
       return
@@ -46,7 +53,7 @@ module.exports = function (cmdArray, options = {}) {
     const job = spawn(cmdArray[0], cmdArray.splice(1));
 
     job.stdout.on("data", data => {
-      if (verbose) {
+      if (verbose && !terminated) {
         console.log(`${data}`);
       }
 
@@ -78,6 +85,7 @@ module.exports = function (cmdArray, options = {}) {
           // console.log('要送回去之前', dataArray.length)
           setTimeout(() => {
             stderrHandler(errorMessage, resolve, dataArray)
+            terminated = true
           }, 1000)
           return false
         }
@@ -90,6 +98,7 @@ module.exports = function (cmdArray, options = {}) {
         else {
           resolve()
         }
+        terminated = true
         
     });
   })

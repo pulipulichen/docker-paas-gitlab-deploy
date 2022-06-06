@@ -150,7 +150,7 @@ function getContentFromErrorFile(errorFilePath) {
     
   }
   else {
-    return 'File is not found.'
+    return 'File is not found. ' + targetFile
   }
 }
 
