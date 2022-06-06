@@ -148,7 +148,8 @@ function extractErrorLineNumber(message) {
   }
 
   let pos2 = message.indexOf(':', pos1)
-  let errorLineNumber = message.slice(pos1, pos2)
+  let errorLineNumber = message.slice(pos1 + 7, pos2)
+
   // console.log({errorFilePath})
   return Number(errorLineNumber)
 }
