@@ -38,9 +38,9 @@ ${showLinkMessage(config)}
 
     let verbose = true
     let args = [`cypress`, `run`, `--headless`, `--project`, `test`]
-    // let repeatArgs = [`cypress-repeat`, `run`, '-n', '' + config.app.test_repeats, `--headless`, `--project`, `test`]
+    // let repeatArgs = [`cypress-repeat`, `run`, '-n', '' + config.app.test.repeat, `--headless`, `--project`, `test`]
 
-    if (config.app.test_repeats > 10 && config.environment.test.force_record === false) {
+    if (config.app.test.repeat > 10 && config.environment.test.force_record === false) {
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // repeatArgs = repeatArgs.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // verbose = false
@@ -60,15 +60,15 @@ ${showLinkMessage(config)}
       if (i === jobs.length - 1) {
         currentArgs.push('--quiet')
         currentArgs = currentArgs.join(' ')
-        let {test_repeats} = config.app
-        // test_repeats = 3
+        let {repeat} = config.app.test
+        // repeat = 3
         let startTime = (new Date()).getTime()
 
         
         /*
-        for (let j = 0; j < test_repeats; j++) {
+        for (let j = 0; j < repeat; j++) {
           let jobStartTime = (new Date()).getTime()
-          let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
+          let percent = Math.floor( ( (j+1) / repeat ) * 100 )
           
           await ShellExec(currentArgs, {verbose: false})  
           let jobInterval = (new Date()).getTime() - jobStartTime
@@ -78,33 +78,36 @@ ${showLinkMessage(config)}
             diffInterval = lastTime - jobInterval
           }
           lastTime = jobInterval/pudding/dlll-paas-starter/-/jobs/7153/retry
-          console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
+          console.log(`Test App #${(j+1)}/${repeat} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
         */
         let concurrent = 1
+        if (config.app.test.concurrent) {
+          concurrent = config.app.test.concurrent
+        }
         let finishedCount = 0
         let lastInterval = 0
         let runJob = async function (j) {
           // let jobStartTime = (new Date()).getTime()
-          let percent = Math.floor( ( (j+1) / test_repeats ) * 100 )
+          let percent = Math.floor( ( (j+1) / repeat ) * 100 )
           
-          // console.log(`Start Test App #${(j+1)}/${test_repeats} (${percent}%) ${new Date()}`)
+          // console.log(`Start Test App #${(j+1)}/${repeat} (${percent}%) ${new Date()}`)
           await ShellExec(currentArgs, {verbose: false})  
           
           // let jobInterval = (new Date()).getTime() - jobStartTime
           // lastInterval = Math.ceil((lastInterval + jobInterval)/2)
-          // console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${lastInterval}) ${new Date()}`)
+          // console.log(`End Test App #${(j+1)}/${repeat} (${percent}%) ${jobInterval}ms (${lastInterval}) ${new Date()}`)
 
           let totalInterval = (new Date()).getTime() - startTime
-          let predictInterval = (totalInterval / (j+1)) * test_repeats
+          let predictInterval = (totalInterval / (j+1)) * repeat
           let predictEndTime = (new Date(startTime + predictInterval))
-          console.log(`End Test App #${(j+1)}/${test_repeats} (${percent}%) / Predict end time: ${predictEndTime}`)
+          console.log(`End Test App #${(j+1)}/${repeat} (${percent}%) / Predict end time: ${predictEndTime}`)
 
           finishedCount++
         }
 
-        for (let j = 0; j < test_repeats; j++) {
-          if (j < test_repeats - 1) {
+        for (let j = 0; j < repeat; j++) {
+          if (j < repeat - 1) {
             runJob(j)
           }
           else {
