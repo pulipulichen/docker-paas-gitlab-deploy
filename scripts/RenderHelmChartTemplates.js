@@ -145,7 +145,7 @@ function getContentFromErrorFile(errorFilePath) {
     let fileContent = fs.readFileSync(targetFile, 'utf8')
     
     return fileContent.split('\n').map((line, i) => {
-      return i + '\t:' + line
+      return i + '\t|' + line
     }).join('\n')
     
   }
