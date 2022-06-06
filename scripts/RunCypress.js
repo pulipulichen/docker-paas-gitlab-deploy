@@ -81,7 +81,7 @@ ${showLinkMessage(config)}
           console.log(`Test App #${(j+1)}/${test_repeats} (${percent}%) ${jobInterval}ms (${diffInterval}) ${new Date()}`)
         }
         */
-        let concurrent = 3
+        let concurrent = 1
         let finishedCount = 0
         let lastInterval = 0
         let runJob = async function (j) {
