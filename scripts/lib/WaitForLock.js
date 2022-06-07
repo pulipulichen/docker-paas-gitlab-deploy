@@ -15,7 +15,7 @@ let queryPassed = ['added', 'reset', 'timeout', 'existed']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
 let concurrent = 1
-let concurrentRunCypress = 2
+let concurrentRunCypress = 1
 
 async function getKey (keySuffix) {
   let config = await LoadYAMLConfig()
