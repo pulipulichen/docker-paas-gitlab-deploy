@@ -14,7 +14,7 @@ let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9
 let queryPassed = ['added', 'reset', 'timeout', 'existed']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
-let concurrent = 3
+let concurrentArgo = 3
 let concurrentRunCypress = 1
 
 async function getKey (keySuffix) {
@@ -28,9 +28,13 @@ async function getKey (keySuffix) {
 
 async function waitForLock (keySuffix = '', retry = 0) {
   let key = await getKey(keySuffix)
+  let concurrent
 
   if (keySuffix === 'RunCypress') {
     concurrent = concurrentRunCypress
+  }
+  else {
+    concurrent = concurrentArgo
   }
   
   let result = await axios.get(`${api}?key=${key}&name=${name}&timeout=${timeout}&concurrent=${concurrent}&action=query`)
@@ -64,8 +68,13 @@ wait for ${(ms / 1000)} seconds ... ` + retry + ` ${new Date() + ''}
 }
 
 async function unlock (keySuffix = '') {
+
+  let concurrent
   if (keySuffix === 'RunCypress') {
     concurrent = concurrentRunCypress
+  }
+  else {
+    concurrent = concurrentArgo
   }
 
   let key = await getKey(keySuffix)
