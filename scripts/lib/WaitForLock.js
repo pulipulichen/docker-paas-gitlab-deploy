@@ -14,7 +14,7 @@ let view = `https://docs.google.com/spreadsheets/d/11U6a_gZTz0Gq3nmO2e_1qfLkhqd9
 let queryPassed = ['added', 'reset', 'timeout', 'existed']
 let name = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
 let timeout = 1000 * 30 * 60
-let concurrent = 1
+let concurrent = 3
 let concurrentRunCypress = 1
 
 async function getKey (keySuffix) {
