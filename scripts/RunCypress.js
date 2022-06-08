@@ -44,7 +44,7 @@ ${showLinkMessage(config)}
       args = args.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // repeatArgs = repeatArgs.concat(['--config', 'video=false,screenshotOnRunFailure=false'])
       // verbose = false
-    }
+    }   
 
     for (let i = 0; i < jobs.length; i++) {
       let currentArgs = [].concat(args)

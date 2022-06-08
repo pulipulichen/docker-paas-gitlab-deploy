@@ -529,7 +529,8 @@ module.exports = {
                         return true
                     }
 
-                    if (values.database.enabled_drivers.indexOf(o.suffix) === -1) {
+                    if (values.database.enabled_drivers && 
+                        values.database.enabled_drivers.indexOf(o.suffix) === -1) {
                         return false
                     }
                 })
