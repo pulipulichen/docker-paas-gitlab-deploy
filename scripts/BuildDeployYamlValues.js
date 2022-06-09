@@ -27,7 +27,7 @@ module.exports = async function () {
 
 
   let valuesContent = []
-  let files = await fg([path.join(BUILD_DIR, '/config/**/*.yaml')], { dot: true });
+  let files = await fg([path.join(BUILD_DIR, '/config/*.yaml')], { dot: true });
   files.forEach(file => {
     console.log('Read: ' + file)
     let content = fs.readFileSync( file, 'utf8')
