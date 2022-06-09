@@ -47,5 +47,7 @@ module.exports = async function () {
 
   PraseDockerfile.setAPPDockerfile(config)
 
+  
+
   return config
 }
