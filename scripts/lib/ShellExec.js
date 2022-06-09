@@ -10,9 +10,9 @@ module.exports = async function (cmd, options = {}) {
   
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, reject) {
-      if (verbose) {
+      // if (verbose) {
         console.log(`[STDERR] ${stderr}`);
-      }
+      // }
     }
   }
 
@@ -33,7 +33,7 @@ module.exports = async function (cmd, options = {}) {
 
       exec(cmd , async (error, stdout, stderr) => {
         if (error) {
-          if (currentRetry === retry) {
+          if (retry === -1 || currentRetry === retry) {
             return errorHandler(error, reject)
           }
           currentRetry++
