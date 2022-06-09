@@ -105,6 +105,7 @@ let clone = async function (retry = 0) {
     await ShellExec(`git clone -b ${REPO} ${DEPLOY_GIT_URL} || git clone ${DEPLOY_GIT_URL}`, {retry: 3})
   }
   
+
   process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   // -----------------------------
@@ -174,7 +175,7 @@ FORCE_DEPLOY.txt need to delete.
   if (isForceDeployExisted) {
     await ShellExec(`mv ../FORCE_DEPLOY.txt ./`)
   }
-  await BuildDeployYamlValues()
+  await BuildDeployYamlValues(tmpGitPath + '/' + REPO_NAME)
 
   for (let i = 0; i < modules.length; i++) {
     let module = modules[i]
@@ -201,7 +202,7 @@ FORCE_DEPLOY.txt need to delete.
 
   // -------------------------------
 
-  await BuildDeployYamlReplace()
+  await BuildDeployYamlReplace(tmpGitPath + '/' + REPO_NAME)
 
   // -------------------------------
 

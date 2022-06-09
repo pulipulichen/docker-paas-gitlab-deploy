@@ -1,7 +1,7 @@
 const ShellExec = require('./lib/ShellExec.js')
 const LoadYAMLConfig = require('./lib/LoadYAMLConfig.js')
 
-async function main () {
+async function main (tempDir) {
   let config = await LoadYAMLConfig()
   console.log(1)
 
@@ -23,8 +23,8 @@ async function main () {
   console.log(3, replaceVariables)
 
   let replaceFiles = [
-    './values.yaml',
-    './Chart.yaml'
+    path.join(tempDir, '/values.yaml'),
+    path.join(tempDir, './Chart.yaml')
   ]
   
   for (const [key, value] of Object.entries(replaceVariables)) {

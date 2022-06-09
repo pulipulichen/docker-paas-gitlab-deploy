@@ -15,7 +15,7 @@ function keepServersWokeUpStatus (valuesContent) {
   return valuesContent
 }
 
-module.exports = async function () {
+module.exports = async function (tempDir) {
   const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
   
   if (fs.existsSync(path.join(BUILD_DIR, '/deploy/values.yaml')) || 
@@ -38,7 +38,7 @@ module.exports = async function () {
 
   // valuesContent = keepServersWokeUpStatus(valuesContent)
 
-  fs.writeFileSync('./values.yaml', valuesContent, 'utf8')
+  fs.writeFileSync(path.join(tempDir, '/values.yaml'), valuesContent, 'utf8')
 
   // console.log('===[valuesContent]===============')
   // console.log(valuesContent)
