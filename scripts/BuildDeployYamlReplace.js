@@ -3,7 +3,7 @@ const LoadYAMLConfig = require('./lib/LoadYAMLConfig.js')
 
 async function main () {
   let config = await LoadYAMLConfig()
-  let {WORKDIR, USER, CMD, EXPOSE} = config.environment.app.Dockerfile
+  let {WORKDIR, USER, CMD, EXPOSE, ENV} = config.environment.app.Dockerfile
 
   let replaceVariables = {
     PROJECT_NAME: process.env.CI_PROJECT_NAME,
@@ -13,6 +13,7 @@ async function main () {
     DOCKERFILE_WORKDIR: WORKDIR,
     DOCKERFILE_CMD: CMD,
     DOCKERFILE_EXPOSE: EXPOSE,
+    DOCKERFILE_ENV: JSON.stringify(ENV),
   }
 
   let replaceFiles = [

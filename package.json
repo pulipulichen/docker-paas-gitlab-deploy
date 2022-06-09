@@ -10,6 +10,7 @@
     "fast-glob": "3.2.11",
     "node-fetch": "2.0.0",
     "cypress-fail-fast": "3.4.1",
+    "docker-file-parser": "1.0.7",
     "axios-retry": "3.2.5",
     "cypress-repeat": "2.3.2"
   }
