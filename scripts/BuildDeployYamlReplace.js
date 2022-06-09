@@ -30,6 +30,7 @@ async function main () {
   for (const [key, value] of Object.entries(replaceVariables)) {
     for (let i = 0; i < replaceFiles.length; i++) {
       let file = replaceFiles[i]
+      console.log({file, key, value})
       await ShellExec(`sed -i " s/{{ ${key} }}/${value}/g" ${file}`)
     }
   }
