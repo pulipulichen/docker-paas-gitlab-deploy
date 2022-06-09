@@ -40,7 +40,7 @@ module.exports = async function () {
 
   fs.writeFileSync('./values.yaml', valuesContent, 'utf8')
 
-  console.log('===[valuesContent]===============')
-  console.log(valuesContent)
-  console.log('=============================')
+  // console.log('===[valuesContent]===============')
+  // console.log(valuesContent)
+  // console.log('=============================')
 }
