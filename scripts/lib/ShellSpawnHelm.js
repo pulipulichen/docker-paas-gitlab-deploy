@@ -8,6 +8,10 @@ module.exports = function (cmdArray, options = {}) {
   let errorMessage
   let terminated = false
 
+  if (verbose) {
+    console.log('CMD: ', cmdArray.join(' '))
+  }
+
   if (typeof(stderrHandler) !== 'function') {
     stderrHandler = function (stderr, resolve, dataArray) {
       // console.log(`[STDERR] ${stderr}`);
