@@ -1,4 +1,4 @@
-const LoadYAMLConfig = require('./../LoadYAMLConfig.js')
+const LoadYAMLConfig = require('./LoadYAMLConfig.js')
 const sleep = require('./sleep.js');
 
 const axios = require('axios')

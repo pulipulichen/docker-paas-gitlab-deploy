@@ -1,7 +1,7 @@
 // const yaml = require('js-yaml')
 
 //const config = yaml.load(fs.readFileSync(path.join(__dirname, '../deploy/values.yaml'), 'utf8'))
-const LoadYAMLConfig = require('./scripts/LoadYAMLConfig.js')
+const LoadYAMLConfig = require('./scripts/lib/LoadYAMLConfig.js')
 
 // -----------------------------------
 

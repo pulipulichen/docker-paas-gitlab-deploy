@@ -1,4 +1,4 @@
-const LoadYAMLConfig = require('./LoadYAMLConfig.js')
+const LoadYAMLConfig = require('./lib/LoadYAMLConfig.js')
 
 function getTagPrefix(config) {
   let prefix = config.deploy.tag_prefix

@@ -1,7 +1,7 @@
 const ShellExec = require('./lib/ShellExec.js')
 const ShellSpawn = require('./lib/ShellSpawn.js')
 const path = require('path')
-const LoadYAMLConfig = require('./LoadYAMLConfig')
+const LoadYAMLConfig = require('./lib/LoadYAMLConfig')
 const sleep = require('./lib/sleep.js')
 
 async function main() {

@@ -3,7 +3,7 @@ const ShellExec = require('./lib/ShellExec.js')
 const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 const BuildDeployYamlReplace = require('./BuildDeployYamlReplace.js')
 
-const LoadYAMLConfig = require('./LoadYAMLConfig.js')
+const LoadYAMLConfig = require('./lib/LoadYAMLConfig.js')
 const sleep = require('./lib/sleep.js')
 const path = require('path')
 const BuildTag = require('./BuildTag.js')
