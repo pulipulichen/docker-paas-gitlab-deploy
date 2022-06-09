@@ -33,6 +33,8 @@ async function main () {
       await ShellExec(`sed -i " s/{{ ${key} }}/${value}/g" ${file}`)
     }
   }
+
+  console.log('4', '完成')
 }
 
 module.exports = main
