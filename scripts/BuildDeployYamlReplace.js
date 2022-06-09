@@ -7,7 +7,7 @@ async function main (tempDir) {
   let config = await LoadYAMLConfig()
   // console.log(1)
 
-  let {WORKDIR, USER, CMD, EXPOSE, ENV} = config.environment.app.Dockerfile
+  let {WORKDIR, USER, CMD, EXPOSE, ENV} = config.environment.app.app.Dockerfile
 
   // console.log(2, {WORKDIR, USER, CMD, EXPOSE, ENV})
 
