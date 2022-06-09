@@ -37,8 +37,8 @@ async function main (tempDir) {
       fileContent = fileContent.replaceAll(`{{ ${key} }}`, value)
     }
 
-    console.log(`==${file}========================`)
-    console.log(fileContent)
+    // console.log(`==${file}========================`)
+    // console.log(fileContent)
 
     fs.writeFileSync(file, fileContent, 'utf8')
   }
