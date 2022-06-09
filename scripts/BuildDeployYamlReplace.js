@@ -1,5 +1,6 @@
 const ShellExec = require('./lib/ShellExec.js')
 const LoadYAMLConfig = require('./lib/LoadYAMLConfig.js')
+const path = require('path')
 
 async function main (tempDir) {
   let config = await LoadYAMLConfig()
