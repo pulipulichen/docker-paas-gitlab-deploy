@@ -36,6 +36,10 @@ async function main (tempDir) {
     for (const [key, value] of Object.entries(replaceVariables)) {
       fileContent = fileContent.replaceAll(`{{ ${key} }}`, value)
     }
+
+    console.log(`==${file}========================`)
+    console.log(fileContent)
+
     fs.writeFileSync(file, fileContent, 'utf8')
   }
 
