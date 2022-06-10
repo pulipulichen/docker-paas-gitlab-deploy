@@ -85,6 +85,9 @@ ${showLinkMessage(config)}
         if (config.app.test.concurrent) {
           concurrent = config.app.test.concurrent
         }
+        if (repeat < concurrent) {
+          concurrent = repeat
+        }
         let finishedCount = 0
         let lastInterval = 0
         let runJob = async function (j) {
