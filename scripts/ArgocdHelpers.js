@@ -480,22 +480,27 @@ module.exports = {
             if (resourcesHealth) {
                 console.log(resourcesHealth)
             }
-            console.log('=============================')
-            console.log('Open ArgoCD')
-
-            let argoCDURL = config.environment.paas.paas_argocd
-            // {{ PROJECT_NAME }}-{{ PROJECT_NAMESPACE }}
-            argoCDURL = argoCDURL.replace(`{{ PROJECT_NAME }}`, process.env.CI_PROJECT_NAME)
-            argoCDURL = argoCDURL.replace(`{{ PROJECT_NAMESPACE }}`, process.env.CI_PROJECT_NAMESPACE)
-
-            console.log(argoCDURL)
-            console.log('=============================')
+            await this.displayArgoCDLink()
 
             //throw new Error('APP HEALTH: ' + status.health.status)
             throw new Error(error)
         }
 
         return true
+    },
+    async displayArgoCDLink () {
+        let config = await LoadYAMLConfig()
+
+        console.log('=============================')
+        console.log('Check ArgoCD')
+
+        let argoCDURL = config.environment.paas.paas_argocd
+        // {{ PROJECT_NAME }}-{{ PROJECT_NAMESPACE }}
+        argoCDURL = argoCDURL.replace(`{{ PROJECT_NAME }}`, process.env.CI_PROJECT_NAME)
+        argoCDURL = argoCDURL.replace(`{{ PROJECT_NAMESPACE }}`, process.env.CI_PROJECT_NAMESPACE)
+
+        console.log(argoCDURL)
+        console.log('=============================')
     },
     waitForImageSynced: async function (appName, token, tags, retry = 0) {
         await this.getConfig()
