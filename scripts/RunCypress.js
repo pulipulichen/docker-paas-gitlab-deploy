@@ -94,7 +94,7 @@ ${showLinkMessage(config)}
           // let jobStartTime = (new Date()).getTime()
           let percent = Math.floor( ( (j+1) / repeat ) * 100 )
           
-          console.log(`Start Test App #${(j+1)}/${repeat} (${percent}%) ${new Date()}`)
+          // console.log(`Start Test App #${(j+1)}/${repeat} (${percent}%) ${new Date()}`)
           await ShellExec(currentArgs, {verbose: false})  
           
           // let jobInterval = (new Date()).getTime() - jobStartTime
