@@ -14,9 +14,24 @@
 // const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const RunCypress = require('./scripts/RunCypress.js')
 const WaitForLock = require('./scripts/lib/WaitForLock.js')
+const LoadYAMLConfig = require('./scripts/lib/LoadYAMLConfig.js')
 
 async function main () {
   // const config = await LoadYAMLConfig()
+  const config = await LoadYAMLConfig()
+
+  const enableDeploy = config.deploy.enable
+  const project_archive = config.project_archive
+
+  if (enableDeploy === false) {
+    console.log('Deploy is disabled.') 
+    return false
+  }
+
+  if (project_archive === true) {
+    console.log('Project is archived.') 
+    return false
+  }
 
   await WaitForLock.lock('RunCypress')
   try {

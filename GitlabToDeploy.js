@@ -22,9 +22,15 @@ async function main () {
   const config = await LoadYAMLConfig()
 
   const enableDeploy = config.deploy.enable
+  const project_archive = config.project_archive
 
   if (enableDeploy === false) {
     console.log('Deploy is disabled.') 
+    return false
+  }
+
+  if (project_archive === true) {
+    console.log('Project is archived.') 
     return false
   }
 

@@ -1,1 +1,1 @@
-把參數從APP載入。
+還在解決only_update_app的問題：archive。
