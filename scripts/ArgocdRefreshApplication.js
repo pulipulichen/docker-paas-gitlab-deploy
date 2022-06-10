@@ -14,7 +14,7 @@ async function main () {
     const token = await ArgocdHelpers.getCookieToken()
     if (await ArgocdHelpers.isAppExists(appName, token) === true) {
 
-        await this.displayArgoCDLink()
+        await ArgocdHelpers.displayArgoCDLink()
 
         await ArgocdHelpers.sleep(1000)
         await ArgocdHelpers.terminatedSync(appName, token)
