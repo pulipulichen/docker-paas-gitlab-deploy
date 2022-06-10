@@ -16,7 +16,11 @@ RUN chmod 700 get_helm.sh
 RUN bash /tmp/get_helm.sh
 
 # ==============
+# https://stackoverflow.com/a/38486048/6645399
 
+RUN echo "fs.inotify.max_user_instances = 256" >> /etc/sysctl.conf
+
+# ==============
 
 RUN mkdir /app -p
 WORKDIR /app
@@ -45,3 +49,4 @@ COPY scripts /app/docker-paas-gitlab-deploy/
 COPY GitlabToDeploy.* RunCypress.* update.sh /app/docker-paas-gitlab-deploy/
 
 WORKDIR /app/docker-paas-gitlab-deploy/scripts/
+
