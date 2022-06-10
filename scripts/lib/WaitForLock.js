@@ -31,7 +31,7 @@ async function waitForLock (keySuffix = '', retry = 0) {
   let concurrent
 
   if (keySuffix === 'RunCypress') {
-    throw new Error('暫時關閉RunCypress')
+    // throw new Error('暫時關閉RunCypress')
     concurrent = concurrentRunCypress
   }
   else {
