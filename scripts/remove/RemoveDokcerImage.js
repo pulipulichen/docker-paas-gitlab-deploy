@@ -20,7 +20,12 @@ async function RemoveDokcerImage() {
   catch (e) {
     console.error(e)
   }
-  console.log(`Check result: https://${QUAY_PREFIX}/${REPO}/-/job`)
+
+  let url = `https://${QUAY_PREFIX}/${REPO}/-/job`
+  console.log(`Check result: ${url}`)
+  if ((await CheckRemoved(url)) === false) {
+    throw new Error(`Remove QUAY failed`)
+  }
 }
 
 module.exports = RemoveDokcerImage
