@@ -2,6 +2,7 @@ const setupQuay = require('./../lib/setupQuay')
 const ShellSpawn = require('./../lib/ShellSpawn')
 const LoadYAMLConfig = require('./../lib/LoadYAMLConfig')
 const REPO = process.env.CI_PROJECT_NAME + '-' + process.env.CI_PROJECT_NAMESPACE
+const CheckRemoved = require('./CheckRemoved')
 
 async function RemoveDokcerImage() {
   await setupQuay()
