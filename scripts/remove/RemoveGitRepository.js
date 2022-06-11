@@ -10,10 +10,11 @@ async function RemoveDokcerImage() {
   console.log('================================')
   console.log('Remove related Git Repositories')
   console.log('================================')
+
   try {
     // https://www.educative.io/edpresso/how-to-delete-remote-branches-in-git
     // git push origin --delete test
-    await ShellExec(`git push ${DEPLOY_GIT_URL} --delete ${REPO}`, {retry: 3})
+    await ShellExec(`git push ${APP_GIT_URL} --delete ${REPO}`)
   }
   catch (e) {
     console.error(e)
@@ -22,7 +23,7 @@ async function RemoveDokcerImage() {
   try {
     // https://www.educative.io/edpresso/how-to-delete-remote-branches-in-git
     // git push origin --delete test
-    await ShellExec(`git push ${APP_GIT_URL} --delete ${REPO}`, {retry: 3})
+    await ShellExec(`git push ${DEPLOY_GIT_URL} --delete ${REPO}`)
   }
   catch (e) {
     console.error(e)

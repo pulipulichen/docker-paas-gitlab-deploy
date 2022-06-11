@@ -14,7 +14,7 @@ async function RemoveDokcerImage() {
     console.log('================================')
 
     // https://stackoverflow.com/a/33528020/6645399
-    console.log(`curl -X DELETE ${QUAY_PREFIX}/${REPO}`)
+    console.log(`curl -X DELETE https://${QUAY_PREFIX}/${REPO}`)
     await ShellSpawn(`curl -X DELETE ${QUAY_PREFIX}/${REPO}`)
   }
   catch (e) {

@@ -8,6 +8,7 @@ async function RemoveArgoCD() {
   if (await ArgocdHelpers.isAppExists(REPO, token) === false) {
     return false
   }
+  
   try {
     console.log('================================')
     console.log('Remove ArgoCD project')
