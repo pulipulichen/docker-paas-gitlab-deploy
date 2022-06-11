@@ -1,4 +1,4 @@
-TAG=20220611-1615
+TAG=20220611-2334
 
 REPO=docker-paas-gitlab-deploy
 

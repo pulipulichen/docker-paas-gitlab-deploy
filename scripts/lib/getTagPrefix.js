@@ -40,7 +40,7 @@ async function getTagPrefix () {
     message = filterEnglish(message)
   }
 
-  message = message + '-'
+  // message = message + '-'
 
   return message
 }
