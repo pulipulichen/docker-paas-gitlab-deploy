@@ -2,7 +2,9 @@ const axios = require('axios')
 
 async function CheckRemoved (url) {
   try {
-    await axios.get(url)
+    let result = await axios.get(url)
+
+    console.log(result)
 
     return false
   }
