@@ -15,11 +15,12 @@ async function RemoveDokcerImage() {
 
     // https://stackoverflow.com/a/33528020/6645399
     console.log(`curl -X DELETE https://${QUAY_PREFIX}/${REPO}`)
-    await ShellSpawn(`curl -X DELETE ${QUAY_PREFIX}/${REPO}`)
+    await ShellSpawn(`curl -X DELETE https://${QUAY_PREFIX}/${REPO}`)
   }
   catch (e) {
     console.error(e)
   }
+  console.log(`Check result: https://${QUAY_PREFIX}/${REPO}/-/job`)
 }
 
 module.exports = RemoveDokcerImage
