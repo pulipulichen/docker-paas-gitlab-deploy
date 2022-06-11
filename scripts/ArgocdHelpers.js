@@ -205,7 +205,7 @@ module.exports = {
 
         let result
         try {
-            result = await axios.delete(url, data, {
+            result = await axios.delete(url, {
                 headers: {
                     Cookie: 'argocd.token=' + token
                 }
