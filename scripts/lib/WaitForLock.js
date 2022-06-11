@@ -70,10 +70,10 @@ wait for ${(ms / 1000)} seconds ... ` + retry + ` ${new Date() + ''}
 
 async function lock (keySuffix = '', callback) {
   if (!callback || typeof callback !== 'function') {
-    await WaitForLock(keySuffix)
+    return await waitForLock(keySuffix)
   }
 
-  await WaitForLock(keySuffix)
+  await waitForLock(keySuffix)
   try {
     await callback()
   }
