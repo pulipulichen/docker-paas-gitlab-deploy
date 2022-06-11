@@ -21,9 +21,9 @@ async function removeBranch(git_url) {
   let url = u.protocol + '//' + u.host + u.port + pathname
 
   console.log(`Check result: ${url}`)
-  if ((await CheckRemoved(url)) === false) {
-    throw new Error(`Remove Git failed`)
-  }
+  // if ((await CheckRemoved(url)) === false) {
+  //   throw new Error(`Remove Git failed`)
+  // }
 }
 
 async function RemoveDokcerImage() {

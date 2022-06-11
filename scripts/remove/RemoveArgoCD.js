@@ -27,9 +27,9 @@ async function RemoveArgoCD() {
   .replaceAll(`{{ PROJECT_NAMESPACE }}`, process.env.CI_PROJECT_NAMESPACE)
 
   console.log(`Check result: ${url}`)
-  if ((await CheckRemoved(url)) === false) {
-    throw new Error(`Remove ArgoCD failed`)
-  }
+  // if ((await CheckRemoved(url)) === false) {
+  //   throw new Error(`Remove ArgoCD failed`)
+  // }
 }
 
 module.exports = RemoveArgoCD
