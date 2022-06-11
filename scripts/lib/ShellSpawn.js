@@ -1,6 +1,9 @@
 const { spawn } = require("child_process");
 
 module.exports = function (cmdArray, options = {}) {
+  if (typeof cmdArray === "string") {
+    cmdArray = cmdArray.split(' ')
+  }
 
   let {stderrHandler, errorHandler, verbose = true, getResult = false} = options
 

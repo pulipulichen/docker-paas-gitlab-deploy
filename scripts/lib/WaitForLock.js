@@ -68,6 +68,22 @@ wait for ${(ms / 1000)} seconds ... ` + retry + ` ${new Date() + ''}
   }
 }
 
+async function lock (keySuffix = '', callback) {
+  if (!callback || typeof callback !== 'function') {
+    await WaitForLock(keySuffix)
+  }
+
+  await WaitForLock(keySuffix)
+  try {
+    await callback()
+  }
+  catch (e) {
+    await unlock(keySuffix)
+    throw e
+  }
+  await unlock(keySuffix)
+}
+
 async function unlock (keySuffix = '') {
 
   let concurrent
@@ -83,6 +99,7 @@ async function unlock (keySuffix = '') {
 }
 
 module.exports = {
-  lock: waitForLock,
+  lock,
+  waitForLock,
   unlock
 }

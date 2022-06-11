@@ -17,6 +17,7 @@ const UpdateCustomDomain = require('./scripts/UpdateCustomDomain.js')
 const WaitForLock = require('./scripts/lib/WaitForLock.js')
 
 const RenderHelmChartTemplates = require('./scripts/RenderHelmChartTemplates.js')
+const ArchiveProject = require('./scripts/ArchiveProject.js')
 
 async function main () {
   const config = await LoadYAMLConfig()
@@ -31,6 +32,7 @@ async function main () {
 
   if (project_archive === true) {
     console.log('Project is archived.') 
+    await ArchiveProject()
     return false
   }
 

@@ -197,7 +197,26 @@ module.exports = {
         }
         return true
     },
+    deleteApp: async function (appName, token) {
+        await this.getConfig()
+        const url = config.server + '/api/v1/applications/deploybot-' + appName + '?cascade=true&propagationPolicy=foreground'
 
+        const data = {}
+
+        let result
+        try {
+            result = await axios.delete(url, data, {
+                headers: {
+                    Cookie: 'argocd.token=' + token
+                }
+            })
+        }
+        catch (e) {
+            throw new Error(e)
+            //console.error(e)
+        }
+        return true
+    },
     refreshApp: async function (appName, token) {
         await this.getConfig()
         //const url = config.server + '/api/v1/applications/deploybot-' + appName + '?refresh=normal'
