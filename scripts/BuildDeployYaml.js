@@ -44,23 +44,6 @@ async function updateTagInYaml(tagName, tag) {
   
 }
 
-function getTagPrefix(config) {
-  let prefix = config.deploy.docker_image_tag_prefix
-
-  if (!prefix) {
-    return
-  }
-
-  prefix = prefix.toLowerCase()
-  prefix = prefix.replace(/[^a-zA-Z0-9\-]/g, "")
-
-  if (prefix === '') {
-    return
-  }
-
-  return prefix
-}
-
 function getRepoName (config) {
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
   let REPO_NAME = DEPLOY_GIT_URL.slice(DEPLOY_GIT_URL.lastIndexOf('/') + 1)

@@ -12,6 +12,7 @@
     "cypress-fail-fast": "3.4.1",
     "docker-file-parser": "1.0.7",
     "axios-retry": "3.2.5",
-    "cypress-repeat": "2.3.2"
+    "cypress-repeat": "2.3.2",
+    "translate": "1.4.1"
   }
 }
