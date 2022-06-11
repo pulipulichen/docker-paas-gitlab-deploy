@@ -9,8 +9,12 @@ async function RemoveDokcerImage() {
   let config = await LoadYAMLConfig()
   let QUAY_PREFIX = config.environment.build.quay_prefix
   try {
+    console.log('================================')
+    console.log('Remove the docker images repository')
+    console.log('================================')
 
     // https://stackoverflow.com/a/33528020/6645399
+    console.log(`curl -X DELETE ${QUAY_PREFIX}/${REPO}`)
     await ShellSpawn(`curl -X DELETE ${QUAY_PREFIX}/${REPO}`)
   }
   catch (e) {

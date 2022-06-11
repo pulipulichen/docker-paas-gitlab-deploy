@@ -6,10 +6,22 @@ async function RemoveDokcerImage() {
   let config = await LoadYAMLConfig()
   const DEPLOY_GIT_URL = config.environment.build.deploy_git_url
   const APP_GIT_URL = config.environment.build.app_git_url
+
+  console.log('================================')
+  console.log('Remove related Git Repositories')
+  console.log('================================')
   try {
     // https://www.educative.io/edpresso/how-to-delete-remote-branches-in-git
     // git push origin --delete test
     await ShellExec(`git push ${DEPLOY_GIT_URL} --delete ${REPO}`, {retry: 3})
+  }
+  catch (e) {
+    console.error(e)
+  }
+
+  try {
+    // https://www.educative.io/edpresso/how-to-delete-remote-branches-in-git
+    // git push origin --delete test
     await ShellExec(`git push ${APP_GIT_URL} --delete ${REPO}`, {retry: 3})
   }
   catch (e) {

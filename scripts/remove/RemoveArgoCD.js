@@ -8,7 +8,17 @@ async function RemoveArgoCD() {
   if (await ArgocdHelpers.isAppExists(REPO, token) === false) {
     return false
   }
-  await ArgocdHelpers.deleteApp(REPO, token)
+  try {
+    console.log('================================')
+    console.log('Remove ArgoCD project')
+    console.log('================================') 
+
+    await ArgocdHelpers.deleteApp(REPO, token)
+  }
+  catch (e) {
+    console.error(e)
+  }
+  
 }
 
 module.exports = RemoveArgoCD
