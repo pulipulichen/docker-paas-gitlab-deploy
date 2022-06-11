@@ -8,6 +8,11 @@ async function main() {
 
   let config = await LoadYAMLConfig()
   
+  let domain_suffix = config.environment.project.domain_suffix
+  if (Array.isArray(domain_suffix)) {
+    domain_suffix = domain_suffix[0]
+  }
+
   console.log('=========================================')
   console.log('Start cypress test')
   console.log('=========================================')
@@ -173,8 +178,8 @@ http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.
 function showLinkMessage(config) {
   return `
 Checkout your awesome application:
-APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
-ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}`
+APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}
+ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`
 }
 
 module.exports = main
