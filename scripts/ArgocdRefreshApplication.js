@@ -7,6 +7,7 @@ if (!appName || appName === '-') {
 }
 
 const ArgocdHelpers = require("./ArgocdHelpers.js")
+const LoadYAMLConfig = require("./lib/LoadYAMLConfig.js")
 
 const fs = require('fs')
 
@@ -25,6 +26,7 @@ async function main () {
         await ArgocdHelpers.sleep(1000)
         await ArgocdHelpers.syncApp(appName, token)
 
+        let config = await LoadYAMLConfig()
         if (config.deploy.hibernate && 
             config.deploy.hibernate.hibernate_after_deploy) {
           await ArgocdHelpers.restartResource(appName, token, 'admin')
