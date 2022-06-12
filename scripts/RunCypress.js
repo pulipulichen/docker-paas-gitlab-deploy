@@ -175,13 +175,27 @@ function showLinkMessage(config) {
 
   let domain_suffix = config.environment.project.domain_suffix
   if (Array.isArray(domain_suffix)) {
-    domain_suffix = domain_suffix[0]
+    let output = [
+      'Checkout your awesome application:'
+    ]
+
+    domain_suffix.forEach(domain => {
+      output.push(`APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
+    })
+
+    domain_suffix.forEach(domain => {
+      output.push(`ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
+    })
+
+    return output.join('\n')
   }
-  
-  return `
+  else {
+    return `
 Checkout your awesome application:
 APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}
 ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`
+  }
+    
 }
 
 module.exports = main
