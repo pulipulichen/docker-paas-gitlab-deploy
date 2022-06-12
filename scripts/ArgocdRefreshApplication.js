@@ -25,6 +25,11 @@ async function main () {
         await ArgocdHelpers.sleep(1000)
         await ArgocdHelpers.syncApp(appName, token)
 
+        if (config.deploy.hibernate && 
+            config.deploy.hibernate.hibernate_after_deploy) {
+          await ArgocdHelpers.restartResource(appName, token, 'admin')
+        }
+
         let status = await ArgocdHelpers.waitOperation(appName, token)
         if (status.operationState && 
             status.operationState.phase === "Error") {
