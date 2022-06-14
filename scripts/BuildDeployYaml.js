@@ -127,6 +127,8 @@ FORCE_DEPLOY.txt need to delete.
     return false
   }
 
+  process.chdir(tmpGitPath + '/' + REPO_NAME)
+
   let modules = [
     'APP',
     'DATABASE_SQLITE', 
@@ -144,7 +146,7 @@ FORCE_DEPLOY.txt need to delete.
   await ShellExec(`cat TAG_*.txt`)
 
   if (fs.existsSync(`TAG_APP.txt`) === false || 
-  fs.readFileSync(`TAG_APP.txt`, 'utf8').trim() === '') {
+    fs.readFileSync(`TAG_APP.txt`, 'utf8').trim() === '') {
     throw new Error('Docker image APP is not builded yet.')
   }
 
