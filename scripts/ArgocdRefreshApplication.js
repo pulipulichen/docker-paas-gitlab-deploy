@@ -27,8 +27,12 @@ async function main () {
         await ArgocdHelpers.syncApp(appName, token)
 
         let config = await LoadYAMLConfig()
-        if (config.deploy.hibernate && 
-            config.deploy.hibernate.hibernate_after_deploy) {
+        if (config.environment && 
+            config.environment.app && 
+            config.environment.app.admin && 
+            config.environment.app.admin.env && 
+            config.environment.app.admin.env.HIBERNATE_AFTER_RESTART && 
+            config.environment.app.admin.env.HIBERNATE_AFTER_RESTART === 'true') {
           await ArgocdHelpers.restartResource(appName, token, 'admin')
         }
 
