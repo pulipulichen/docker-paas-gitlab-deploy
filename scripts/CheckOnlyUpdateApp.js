@@ -16,7 +16,8 @@ module.exports = async function (prefixList = []) {
     return (config.deploy.only_update_app === true)
   }
 
-  const pwd = await ShellExec(`pwd`)
+  // const pwd = await ShellExec(`pwd`)
+  const pwd = process.cwd()
 
   process.chdir(BUILD_DIR)
   let filelist = await ShellExec(`git diff-tree --no-commit-id --name-only -r ${process.env.CI_COMMIT_SHA}`)
