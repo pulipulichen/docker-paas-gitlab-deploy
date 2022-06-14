@@ -127,7 +127,7 @@ FORCE_DEPLOY.txt need to delete.
     return false
   }
 
-  process.chdir(tmpGitPath + '/' + REPO_NAME)
+  // process.chdir(tmpGitPath + '/' + REPO_NAME)
 
   let modules = [
     'APP',

@@ -4,6 +4,8 @@ const LoadYAMLConfig = require('./lib/LoadYAMLConfig')
 
 const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
 module.exports = async function (prefixList = []) {
+
+
   const config = await LoadYAMLConfig()
 
   if (typeof(prefixList) === 'string') {
@@ -14,6 +16,8 @@ module.exports = async function (prefixList = []) {
     return (config.deploy.only_update_app === true)
   }
 
+  const pwd = await ShellExec(`pwd`)
+
   process.chdir(BUILD_DIR)
   let filelist = await ShellExec(`git diff-tree --no-commit-id --name-only -r ${process.env.CI_COMMIT_SHA}`)
   filelist = filelist.split('\n')
@@ -23,12 +27,12 @@ module.exports = async function (prefixList = []) {
     let prefix = prefixList[i]
     for (let j = 0; j < filelist; j++) {
       if (filelist[j].startsWith(prefix)) {
+        process.chdir(pwd)
         return false
       }
     }
   }
 
-  if (prefixList.length === 0) {
-    return (config.deploy.only_update_app === true)
-  }
+  process.chdir(pwd)
+  return (config.deploy.only_update_app === true)
 }
