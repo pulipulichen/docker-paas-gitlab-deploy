@@ -49,7 +49,9 @@ async function main () {
     console.log('Deploy Helm Charts to gitlab')
     console.log('=========================================')
 
-    await RenderHelmChartTemplates()
+    if ((await RenderHelmChartTemplates()) === false) {
+      return false
+    }
 
     if (await BuildDeployYaml.clone()) {
       await UpdateCustomDomain(config)

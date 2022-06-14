@@ -10,8 +10,15 @@ const tempDir = '/tmp/render_templates'
 const BUILD_DIR = path.join('/builds/', process.env.CI_PROJECT_NAMESPACE, process.env.CI_PROJECT_NAME)
 const tempOutputDir = path.join(BUILD_DIR, '/deploy/render/')
 
+const CheckOnlyUpdateApp = require('./CheckOnlyUpdateApp')
+
 async function RenderHelmChartTemplates () {
   // return true
+  // if (config.deploy.only_update_app === true) {
+  if (await CheckOnlyUpdateApp())
+    console.log('only_update_app')
+    return false
+  }
 
   console.log(`
 ================================================
