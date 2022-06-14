@@ -8,6 +8,8 @@ const sleep = require('./lib/sleep.js')
 const path = require('path')
 const BuildTag = require('./BuildTag.js')
 
+const CheckOnlyUpdateApp = require('./CheckOnlyUpdateApp')
+
 function touchFileIfNotExists(filename) {
   if (fs.existsSync(filename) === false) {
     fs.writeFileSync(filename, '', 'utf8')
