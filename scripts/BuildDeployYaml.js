@@ -116,7 +116,11 @@ FORCE_DEPLOY.txt need to delete.
 `)
   }
   // else if (config.deploy.only_update_app === true) {
-  else if (await CheckOnlyUpdateApp()) {
+  else if (await CheckOnlyUpdateApp([
+    'config/',
+    'data/',
+    'deploy/'
+  ])) {
     console.log('only_update_app')
     return false
   }
