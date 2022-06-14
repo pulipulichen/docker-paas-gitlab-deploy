@@ -15,7 +15,7 @@ const CheckOnlyUpdateApp = require('./CheckOnlyUpdateApp')
 async function RenderHelmChartTemplates () {
   // return true
   // if (config.deploy.only_update_app === true) {
-  if (await CheckOnlyUpdateApp())
+  if (await CheckOnlyUpdateApp()) {
     console.log('only_update_app')
     return false
   }
