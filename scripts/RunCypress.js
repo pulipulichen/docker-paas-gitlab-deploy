@@ -6,7 +6,7 @@ const sleep = require('./lib/sleep.js')
 
 async function main() {
 
-  return console.log('Cypress stop temporarily.')
+  // return console.log('Cypress stop temporarily.')
 
   let config = await LoadYAMLConfig()
   
