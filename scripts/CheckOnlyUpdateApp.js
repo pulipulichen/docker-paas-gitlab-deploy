@@ -20,7 +20,7 @@ module.exports = async function (prefixList = []) {
   const pwd = process.cwd()
 
   process.chdir(BUILD_DIR)
-  let filelist = await ShellExec(`git diff-tree --no-commit-id --name-only -r ${process.env.CI_COMMIT_SHA}`)
+  let filelist = await ShellExec(`git diff-tree --no-commit-id --name-only -r ${process.env.CI_COMMIT_SHA}`, {verbose: false})
   filelist = filelist.split('\n')
   // console.log(filelist)
   // throw new Error('test')
