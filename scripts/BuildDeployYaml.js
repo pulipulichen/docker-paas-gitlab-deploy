@@ -162,7 +162,7 @@ FORCE_DEPLOY.txt need to delete.
   }
   
   await ShellExec(`rm -rf /tmp/git-deploy/${REPO_NAME}/*`)
-  await ShellExec(`cp -r ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
+  await ShellExec(`cp -pr ${BUILD_DIR}/deploy/* /tmp/git-deploy/${REPO_NAME}`)
   await ShellExec(`mv ../TAG_*.txt ./`)
   if (isForceDeployExisted) {
     await ShellExec(`mv ../FORCE_DEPLOY.txt ./`)
