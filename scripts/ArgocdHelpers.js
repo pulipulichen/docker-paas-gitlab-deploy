@@ -364,7 +364,8 @@ module.exports = {
         if (status.operationState && 
                 status.operationState.phase === 'Running' && 
                 status.operationState.message && 
-                status.operationState.message.startsWith('one or more objects failed to')) {
+                (status.operationState.message.startsWith('one or more objects failed to') || 
+                status.operationState.message.startsWith('one or more synchronization tasks are not valid'))) {
             console.log('==Retry: ' + retry + '===========================')
             console.log(status)
             console.log('=============================')
