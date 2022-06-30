@@ -15,13 +15,14 @@ axiosRetry(axios, { retryDelay: (retryCount) => {
 const tmpTokenPath = '/tmp/argocd.token.txt'
 
 let config
+let values
 module.exports = {
     getConfig: async function () {
         if (config) {
             return config
         }
 
-        let values = await LoadYAMLConfig()
+        values = await LoadYAMLConfig()
         const ARGOCD_AUTH_TOKEN = values.environment.build.argocd_auth_token
 
         try {
@@ -167,7 +168,8 @@ module.exports = {
               },
               "source": {
                 "path": ".",
-                "repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
+                //"repoURL": "https://gitlab.nccu.syntixi.dev/deploybot/argocd.git",
+                "repoURL": values.environment.build.deploy_git_url,
                 "targetRevision": appName
               },
               "project": "default",
