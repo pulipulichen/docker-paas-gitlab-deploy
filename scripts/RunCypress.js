@@ -163,8 +163,8 @@ ${showLinkMessage(config)}
 
     console.log(`===================================
 Test is failed. Please check your main domain:
-http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
-http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
+http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
 ===================================`)
     throw e
   }
@@ -182,11 +182,11 @@ function showLinkMessage(config) {
     ]
 
     domain_suffix.forEach(domain => {
-      output.push(`APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
+      output.push(`APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
     })
 
     domain_suffix.forEach(domain => {
-      output.push(`ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
+      output.push(`ADMIN: http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
     })
 
     return output.join('\n')
@@ -194,8 +194,8 @@ function showLinkMessage(config) {
   else {
     return `
 Checkout your awesome application:
-APP:   http://${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}
-ADMIN: http://admin.${process.env.CI_PROJECT_NAME}.${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`
+APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}
+ADMIN: http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`
   }
     
 }
