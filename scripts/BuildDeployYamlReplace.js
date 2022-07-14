@@ -43,6 +43,7 @@ async function main (tempDir) {
     fs.writeFileSync(file, fileContent, 'utf8')
   }
 
+
   // console.log('4', '完成')
 }
 

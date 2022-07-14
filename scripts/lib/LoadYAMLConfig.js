@@ -48,9 +48,9 @@ module.exports = async function () {
 
   PraseDockerfile.setAPPDockerfile(config)
 
-  if (await CheckOnlyStatusChanged()) {
-    config.data.persist_data = false
-  }
+  // if (await CheckOnlyStatusChanged()) {
+    // config.data.persist_data = false
+  // }
 
   return config
 }

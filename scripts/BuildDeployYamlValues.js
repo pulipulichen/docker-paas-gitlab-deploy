@@ -28,11 +28,19 @@ module.exports = async function (tempDir) {
 
   let valuesContent = []
   let files = await fg([path.join(BUILD_DIR, '/config/*.yaml')], { dot: true });
-  files.forEach(file => {
+  for (let i = 0; i < files.length; i++) {
+    let file = files[i]
+
     console.log('Read: ' + file)
+
     let content = fs.readFileSync( file, 'utf8')
+
+    if (file.endsWith('/config/project.yaml') && await CheckOnlyStatusChanged()) {
+      content = content.replaceAll(`persist_data: true`, `persist_data: false`)
+    }
+
     valuesContent.push(content)
-  })
+  }
 
   valuesContent = valuesContent.join('\n')
 
