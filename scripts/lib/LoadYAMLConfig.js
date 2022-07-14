@@ -4,6 +4,7 @@ const path = require('path')
 const yaml = require('js-yaml')
 const fg = require('fast-glob')
 const PraseDockerfile = require('./PraseDockerfile')
+const CheckOnlyStatusChanged = require('./../CheckOnlyStatusChanged')
 
 module.exports = async function () {
 
@@ -47,7 +48,9 @@ module.exports = async function () {
 
   PraseDockerfile.setAPPDockerfile(config)
 
-  
+  if (await CheckOnlyStatusChanged()) {
+    config.data.persist_data = false
+  }
 
   return config
 }
