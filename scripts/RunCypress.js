@@ -181,9 +181,15 @@ function showLinkMessage(config) {
       'Checkout your awesome application:'
     ]
 
-    domain_suffix.forEach(domain => {
-      output.push(`APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
-    })
+    if (config.deploy.custom_domain) {
+      output.push(`APP:   http://${config.deploy.custom_domain}`)
+    }
+    else {
+      domain_suffix.forEach(domain => {
+        output.push(`APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
+      })
+    }
+      
 
     domain_suffix.forEach(domain => {
       output.push(`ADMIN: http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain}`)
@@ -192,10 +198,20 @@ function showLinkMessage(config) {
     return output.join('\n')
   }
   else {
-    return `
-Checkout your awesome application:
-APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}
-ADMIN: http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`
+    let output = [
+      'Checkout your awesome application:'
+    ]
+
+    if (config.deploy.custom_domain) {
+      output.push(`APP:   http://${config.deploy.custom_domain}`)
+    }
+    else {
+      output.push(`APP:   http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`)
+    }
+
+    output.push(`ADMIN: http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${domain_suffix}`)
+
+    return output.join('\n')
   }
     
 }
