@@ -11,7 +11,7 @@ module.exports = async function () {
   }
 
   let prefixList = [
-    '/config/status.yaml'
+    'config/status.yaml'
   ]
 
   // const pwd = await ShellExec(`pwd`)
