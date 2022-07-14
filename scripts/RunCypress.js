@@ -162,6 +162,13 @@ ${showLinkMessage(config)}
   catch (e) {
 
     console.log(`===================================
+███████╗██████╗ ██████╗  ██████╗ ██████╗ 
+██╔════╝██╔══██╗██╔══██╗██╔═══██╗██╔══██╗
+█████╗  ██████╔╝██████╔╝██║   ██║██████╔╝
+██╔══╝  ██╔══██╗██╔══██╗██║   ██║██╔══██╗
+███████╗██║  ██║██║  ██║╚██████╔╝██║  ██║
+╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝
+                                        
 Test is failed. Please check your main domain:
 http://${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
 http://admin-${process.env.CI_PROJECT_NAME}-${process.env.CI_PROJECT_NAMESPACE}.${config.environment.project.domain_suffix}
