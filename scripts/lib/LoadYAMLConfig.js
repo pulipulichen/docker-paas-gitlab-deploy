@@ -4,7 +4,7 @@ const path = require('path')
 const yaml = require('js-yaml')
 const fg = require('fast-glob')
 const PraseDockerfile = require('./PraseDockerfile')
-const CheckOnlyStatusChanged = require('./../CheckOnlyStatusChanged')
+// const CheckOnlyStatusChanged = require('./../CheckOnlyStatusChanged')
 
 module.exports = async function () {
 

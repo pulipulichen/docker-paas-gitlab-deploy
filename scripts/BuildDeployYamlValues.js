@@ -2,6 +2,8 @@ const fs = require('fs')
 const path = require('path')
 const fg = require('fast-glob')
 
+const CheckOnlyStatusChanged = require('./CheckOnlyStatusChanged')
+
 function keepServersWokeUpStatus (valuesContent) {
   if (fs.existsSync('/tmp/git-deploy/values.yaml') === false) {
     return valuesContent
