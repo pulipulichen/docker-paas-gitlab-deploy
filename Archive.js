@@ -13,7 +13,7 @@
 // //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 // const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const RunCypress = require('./scripts/RunCypress.js')
-const WaitForLock = require('./scripts/lib/WaitForLock.js')
+// const WaitForLock = require('./scripts/lib/WaitForLock.js')
 const LoadYAMLConfig = require('./scripts/lib/LoadYAMLConfig.js')
 
 async function main () {

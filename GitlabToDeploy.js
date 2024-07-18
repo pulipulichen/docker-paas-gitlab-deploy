@@ -14,7 +14,7 @@ const refreshApp = require('./scripts/ArgocdRefreshApplication.js')
 const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 // const RunCypress = require('./scripts/RunCypress.js')
 const UpdateCustomDomain = require('./scripts/UpdateCustomDomain.js')
-const WaitForLock = require('./scripts/lib/WaitForLock.js')
+// const WaitForLock = require('./scripts/lib/WaitForLock.js')
 
 const RenderHelmChartTemplates = require('./scripts/RenderHelmChartTemplates.js')
 const ArchiveProject = require('./scripts/ArchiveProject.js')
@@ -41,7 +41,7 @@ async function main () {
   //   return false
   // }
   
-  await WaitForLock.lock('GitlabToDeploy')
+  // await WaitForLock.lock('GitlabToDeploy')
 
   try {
   //if (config.deploy.only_update_app !== true) {
@@ -71,10 +71,10 @@ async function main () {
   // }
   }
   catch (e) {
-    await WaitForLock.unlock('GitlabToDeploy')
+    // await WaitForLock.unlock('GitlabToDeploy')
     throw e
   }
-  await WaitForLock.unlock('GitlabToDeploy')
+  // await WaitForLock.unlock('GitlabToDeploy')
   
 
   // await RunCypress()

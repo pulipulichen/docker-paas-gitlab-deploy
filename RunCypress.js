@@ -13,7 +13,7 @@
 // //const BuildDeployYamlValues = require('./BuildDeployYamlValues.js')
 // const BuildDeployYaml = require('./scripts/BuildDeployYaml.js')
 const RunCypress = require('./scripts/RunCypress.js')
-const WaitForLock = require('./scripts/lib/WaitForLock.js')
+// const WaitForLock = require('./scripts/lib/WaitForLock.js')
 const LoadYAMLConfig = require('./scripts/lib/LoadYAMLConfig.js')
 
 async function main () {
@@ -33,15 +33,15 @@ async function main () {
     return false
   }
 
-  await WaitForLock.lock('RunCypress')
+  // await WaitForLock.lock('RunCypress')
   try {
     await RunCypress()
   }
   catch (e) {
-    await WaitForLock.unlock('RunCypress')
+    // await WaitForLock.unlock('RunCypress')
     throw e  
   }
-  await WaitForLock.unlock('RunCypress')
+  // await WaitForLock.unlock('RunCypress')
 }
 
 main()
